@@ -1,0 +1,137 @@
+\chapter{Introducction.}
+\label{cap:capitulo_1}
+\pagenumbering{arabic}%
+
+\section{Context}
+
+In this PFC \textit{(Proyecto Fin de Carrera)} I will characterize Photo-diode Noise.As any other diode, photo-diodes are semiconductor junctions where a current is set due to photon-matter interaction. The generated carriers by this interaction are collected by the electrical field in the junction. The use of diodes as a light detector started in 1940's.%This \textit{photo-current} depends of a wide number of factors, %however, in silicon photo-diodes the most restrictive is the wavelength penetration.
+There are several photo-diodoe technologies, the most representative are the following:
+
+\begin{itemize}
+
+\item \textbf{PN photo-diode:} This is the very first kind of developed photo-diode. Nowadays is not commonly used because it has been overcome in performance by other types of photo-diodes.   
+
+\item \textbf{PIN photo-diode}: It can be showed as an evolution of the PN photo-diode. It contains a intrinsic silicon region between the PN regions. 
+
+\item \textbf{APD photo-diode:} Avalanche photo-diodes are used in low-light applications where a high responsivity is required. This type of diode is the noisiest.
+
+\item \textbf{Schottky photo-diode:} This photo-diode is based on Schotty effect.
+   
+\end{itemize}
+
+All this devices are affected by temporal noise, this, a random fluctuation of the signal over time. There are three major types of noise in optical devices. These are thermal, flicker and shot noise.
+
+\section{Thermal Noise}
+
+Thermal noise, also know as Jonhson noise, is a type of noise due to fluctuations of carriers in thermal agitation.It was first observed by the American scientists J.B Jonhson and H. Nyquist. This kind of noise is present in all conductors in thermal equilibrium. It provoke a variation over the time of the potential between the conductor's terminals.
+
+Thermal noise has a flat spectra with and expression as show in \ref{eq:thermal_noise}
+
+\begin{equation}
+e_{n}=\sqrt{4kTR\Delta f}
+\label{eq:thermal_noise}
+\end{equation}
+
+Spectral density in V/\sqrt{Hz} can be expressed as:
+
+\begin{equation}
+S_{v}(f)=\sqrt{4kTR}
+\label{eq:espectral_thermal_noise}
+\end{equation}
+
+\section{Flicker Noise}
+
+Flicker noise is know as 1/f noise because of its shape. It dominates low-frequency spectra regions and affects almost every semiconductor device. First observations of this phenomena were reported by J.B Jonhson in 1925 in his report \textit{"The Schotty Effect in Low Noise Circuits".} Was Schotty in 1926 the person who first called this noise "flicker noise" in \textit{"Small Shot Effect and Flicker Effect".}
+
+There is still not a complete explanation of flicker noise, but is commonly accepted that flicker noise has its origin in fluctuations of resistivity inside the material
+
+\section{Shot Noise}
+
+
+\section{Facilities}
+
+This project has been carried out in L4 lab.To achieve the objectives of this project, we have the required equipment that will be detailed in \ref{cap:equipment_software_and_planning}
+
+\smallskip
+\begin{figure}[H]%here
+\noindent \begin{centering}
+\includegraphics[scale=0.2]{capitulo2/dsc_0537}
+\par\end{centering}
+\smallskip
+\caption{\label{fig:ejemplo_mesapuntas} Lab L4 \cite{MINSTPROBES}.}
+\end{figure} 
+
+All measurements will be centralized by an application running in MATLAB with the KPIB tool, due to the numerous parameters that need to be set when running a measurement, this will help to centralized the work done as well.
+
+%\cite{rytter1993vibration}HALLPROBES
+%
+%\cite{PerspectiveCaruso}
+%
+%\cite{GMRReig}
+%
+%\cite{LowFieldSensors}
+%
+%\cite{TransitionMetal}
+%
+%\cite{GMRTraffic}
+%
+%\cite{GMRCurrent}
+%
+%\cite{EstudioSensores}
+%
+%\cite{GMRgeda}
+%
+%\cite{SPfabrication}
+%
+%\cite{SVWB}
+%
+%\cite{4886Operator} 
+%
+%\cite{BOP508SG}
+%
+%\cite{HALLPROBES}
+%
+%\cite{PARAMBOOK}
+%
+%\cite{STATPSM6}
+%
+%\cite{PH150P}
+%
+%\cite{PH100P}
+%
+%\cite{GM08FIELD}
+%
+%\cite{ANALIZPAR} 
+
+\section{Chapters}
+
+Una vez se ha introducido el tema principal de este proyecto, consideramos el diagrama de flujo de las fases de trabajo que llevaremos a cabo, Figura \ref{fig:Flow_Chart_Project}.
+
+\smallskip
+\begin{figure}[H]%here
+\noindent \begin{centering}
+\includegraphics[scale=1]{capitulo1/Flow_Chart_Project}
+\par\end{centering}
+\caption{\label{fig:Flow_Chart_Project} Flujo de fases de trabajo.}
+\end{figure}
+\smallskip
+
+
+
+
+\begin{itemize}
+
+\item \textbf{Chapter 2:} In this chapter we will explain the equipment available, functionality and its disadvantages when measuring noise. We will show the methodology followed and project phases. Finally, it will ends with a Gantt's diagram showing the project's chronology. 
+
+\item \textbf{Chapter 3:} In this chapter we will characterize noise floor of the equipment used. This is a necessary first step before measuring noise.
+
+\item \textbf{Chapter 4:} In this chapter we will measure resistor noise. This will help us to familiarize with the equipments used.
+
+\item \textbf{Chapter 5:} In this chapter we will measure photo-diode noise.
+
+\item \textbf{Chapter 6:} Conclusion and future lines.   
+  
+\end{itemize}
+
+\newpage
+\clearpage{\pagestyle{empty}\cleardoublepage}

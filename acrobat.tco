@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<txcop:outputProfiles version="2" xmlns:txcop="http://schemas.ToolsCenter.org/TeXnicCenter/OutputProfiles.xsd">
+	<outputProfileList>
+		<outputProfile name="LaTeX &#8680; PDF" stopOnLatexError="false">
+			<texCommand execute="true" path="D:\sw\latex\Miktex\miktex\bin\x64\pdflatex.exe" arguments="-interaction=nonstopmode &quot;%wm&quot;"/>
+			<bibTexCommand execute="true" path="D:\sw\latex\Miktex\miktex\bin\x64\bibtex.exe" arguments="&quot;%tm&quot;"/>
+			<makeIndexCommand execute="true" path="D:\sw\latex\Miktex\miktex\bin\x64\makeindex.exe" arguments="&quot;%tm.idx&quot; -t &quot;%tm.ilg&quot; -o &quot;%tm.ind&quot;"/>
+			<preProcessors>
+				<processor name="glossaries" path="D:\GIT\francisco-llave-plataforma-giratoria-estabilidad\LATEX_tfg\makeglossaries_amroldan.bat" arguments="" inputFile="" outputFile=""/>
+			</preProcessors>
+			<postProcessors/>
+			<viewer path="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" closeBeforeCompilation="true">
+				<viewProjectCommand type="dde">
+					<commandLineCommand path="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" arguments=" &quot;%bm.pdf&quot;"/>
+					<ddeCommand path="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" server="acroviewR21" topic="control" command="[DocOpen(&quot;%bm.pdf&quot;)][FileOpen(&quot;%bm.pdf&quot;)]"/>
+				</viewProjectCommand>
+				<viewCurrentFileCommand type="dde">
+					<commandLineCommand path="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" arguments="  &quot;%bm.pdf&quot;"/>
+					<ddeCommand path="C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe" server="acroviewR21" topic="control" command="[DocOpen(&quot;%bm.pdf&quot;)][FileOpen(&quot;%bm.pdf&quot;)]"/>
+				</viewCurrentFileCommand>
+				<viewCloseCommand type="dde">
+					<commandLineCommand path="" arguments=""/>
+					<ddeCommand path="" server="acroviewR21" topic="control" command="[DocClose(&quot;%bm.pdf&quot;)]"/>
+				</viewCloseCommand>
+			</viewer>
+		</outputProfile>
+	</outputProfileList>
+</txcop:outputProfiles>

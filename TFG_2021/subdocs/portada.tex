@@ -1,0 +1,404 @@
+
+\newlength{\originalVOffset}
+\newlength{\originalHOffset}
+\setlength{\originalVOffset}{\voffset}
+\setlength{\originalHOffset}{\hoffset}
+
+\setlength{\voffset}{0cm}
+\setlength{\hoffset}{0cm}
+
+\includepdf[pages=-,link=true,landscape]{./Portada/portada_tfm_pablo.pdf}
+
+\setlength{\voffset}{\originalVOffset}
+\setlength{\hoffset}{\originalHOffset}
+
+\addcontentsline*{toc}{chapter}{\numberline{}{}}
+
+\pagenumbering{roman} \setcounter{page}{1}
+
+%--
+\thispagestyle{empty}
+%\includepdf[pages=-,link=true,landscape,linkname=PortadaPastas]{StarTrackerPortada.pdf}
+
+%\cleardoublepage NO METER
+%\thispagestyle{empty} NO METER
+%\clearpage{\pagestyle{empty}\cleardoublepage} NO METER
+%--
+%\newpage
+
+\thispagestyle{empty}
+\vspace*{3cm}
+%\begin{flushright}
+%
+%%\textbf{\large ``Design of a multidisciplinary 1U CubeSat Simulation Platform''}
+%\vfill
+%\parindent=0pt
+%\begin{small}
+%\begin{flushleft}
+%Credits for the cover: \textbf{NASA}.\\
+%Printed in Granada, September 2019.
+%\\~\\
+%All rights reserved.
+%\end{flushleft}
+%
+%\end{small}
+%
+%\afterpage{\blankpage}
+%
+%\par\end{flushright}{\large \par}
+
+\newpage
+
+
+%\thispagestyle{empty}
+%\vspace*{3cm}
+%\begin{flushright}
+%
+%%\textbf{\large ``Design of a multidisciplinary 1U CubeSat Simulation Platform''}
+%
+%\textbf{\large ``Design of a multidisciplinary}\\
+%\textbf{\large  1U CubeSat Simulation Platform''}
+%
+%\afterpage{\blankpage}
+%
+%\par\end{flushright}{\large \par}
+%\clearpage
+
+%\thispagestyle{empty}
+
+\begin{center}
+\textbf{\huge \includegraphics[scale=1.45]{FigurasTFM/logo_ugr.pdf}}
+\par\end{center}{\huge \par}
+
+\begin{center}
+\vspace*{1cm}
+\par\end{center}
+
+\begin{center}
+\textbf{\large GRADO EN}\\
+\textbf{\large INGENIERÍA INFORMÁTICA}
+\par\end{center}{\large \par}
+
+\begin{center}
+\textbf{\large Trabajo de fin de grado}
+\par\end{center}{\large \par}
+
+\begin{center}
+
+\par\end{center}
+
+\begin{center}
+\textbf{\emph{\LARGE {}``Limitador de sonido}}\\
+\textbf{\emph{\LARGE {} para locales de música''}}
+
+\par\end{center}{\LARGE \par}
+
+\begin{center}
+\vspace*{3cm}
+\par\end{center}
+
+\begin{center}
+{\large CURSO ACADÉMICO: 2020 - 2021}
+\par\end{center}{\large \par}
+
+\begin{center}
+{\large Alejandro Ruiz Becerra}
+\par\end{center}{\large \par}
+
+\newpage
+\thispagestyle{empty}
+
+~
+
+\newpage
+\thispagestyle{empty}
+
+\begin{center}
+\includegraphics[scale=1.45]{FigurasTFM/logo_ugr.pdf}
+\par\end{center}
+
+\begin{center}
+GRADO EN INGENIERÍA INFORMÁTICA\par\end{center}
+
+\begin{center}
+\vspace*{0.1cm}
+\par\end{center}
+
+\begin{center}
+\textbf{\emph{\LARGE {}``Limitador de sonido}}\\
+\textbf{\emph{\LARGE {} para locales de música''}}
+\par\end{center}{\Large \par}
+
+\begin{center}
+\vspace*{0.3cm}
+\par\end{center}
+
+\begin{center}
+REALIZADO POR:
+\par\end{center}
+
+\begin{center}
+\textbf{Alejandro Ruiz Becerra}
+\par\end{center}
+
+\begin{center}
+DIRIGIDO POR:
+\par\end{center}
+
+\begin{center}
+\textbf{Andrés María Roldán Aranda}
+\par\end{center}
+
+\begin{center}
+DEPARTAMENTO:
+\par\end{center}
+
+\begin{center}
+\textbf{Electrónica y Tecnología de Computadores}
+\par\end{center}
+
+\begin{center}
+\vfill
+\par\end{center}
+
+\vspace*{1.5cm}
+
+\newpage
+\thispagestyle{empty}
+\noindent
+\blankpage
+
+%Begin ----  Para que funcione bien el TOC en PDF
+\clearpage
+\thispagestyle{empty}
+\phantomsection
+\addcontentsline{toc}{chapter}{Autorización Lectura}
+
+\noindent D. Andrés María Roldán Aranda, Profesor del departamento
+de Electrónica y Tecnología de los Computadores de la Universidad
+de Granada, como director del Trabajo Fin de Grado de D. Alejandro Ruiz Becerra,
+
+\vspace*{1cm}
+
+Informa:
+
+\begin{doublespace}
+Que el presente trabajo, titulado:
+\end{doublespace}
+
+\begin{doublespace}
+\begin{center}
+\textbf{\emph{\large {}``Limitador de sonido para locales de música''}}
+\par\end{center}{\large \par}
+\end{doublespace}
+
+\noindent ha sido realizado y redactado por el mencionado alumno bajo
+mi dirección, y con esta fecha autorizo a su presentación.
+
+\vspace*{1cm}
+
+\begin{center}
+Granada, a 21 de Julio de 2021
+\par\end{center}
+
+\bigskip
+\bigskip
+\begin{center}
+\includegraphics[scale=0.2]{FigurasTFM/firmaAndres.png}
+\end{center}
+
+\begin{center}
+\begin{doublespace}
+Fdo. Andrés María Roldán Aranda
+\end{doublespace}
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+\noindent
+
+\newpage
+\phantomsection
+\noindent
+\blankpage
+
+\addcontentsline{toc}{chapter}{Autorización Depósito Biblioteca}
+\bigskip
+
+\noindent Los abajo firmantes autorizan a que la presente copia de
+Trabajo Fin de Grado se ubique en la Biblioteca del Centro y/o
+departamento para ser libremente consultada por las personas que lo
+deseen.
+
+\vspace*{1cm}
+
+\begin{center}
+Granada, a 21 de Julio de 2021
+\par\end{center}
+
+\bigskip
+\bigskip
+
+\begin{center}
+\hspace{0cm}\includegraphics[scale=0.9]{FigurasTFM/firmaJC.png}\hspace{3cm} \includegraphics[scale=0.2]{FigurasTFM/firmaAndres.png}
+\end{center}
+
+\begin{doublespace}
+\begin{center}
+\hspace{0cm}Fdo. Alejandro Ruiz Becerra \hspace{3cm} Fdo. Andrés María Roldán Aranda
+\end{center}
+\end{doublespace}
+~
+
+%Begin ----  Para que funcione bien el TOC en PDF
+\clearpage
+\phantomsection
+\noindent
+\thispagestyle{empty}
+
+
+\addcontentsline{toc}{chapter}{Resumen}
+\vspace{-1.48cm}
+\begin{center}
+%\begin{adjustwidth}{-9pt}{0pt}
+    \textbf{\Large Limitador de sonido para locales de música}
+%\end{adjustwidth}
+\par\end{center}{\Large \par}
+
+\begin{center}
+    \textbf{\large Alejandro Ruiz Becerra}
+    \par\end{center}{\large \par}
+
+\vspace{0.75cm}
+
+
+\begin{doublespace}
+    \noindent \textbf{PALABRAS CLAVE:}
+\end{doublespace}
+
+
+\begin{singlespace}
+    \noindent GranaSAT, Acústica y audio, Ingeniería Acústica, Ingeniería Inversa, Control de ruidos, Ecualización, Electrónica.
+
+%    \glsname{cubesat}, \glsname{altium}, Diseño aeroespacial, \glsname{solid}, \glsname{ground}, \acrshort{EDA}, Electrónica, \acrshort{OBC}, \acrshort{ADCS}, \acrshort{EPS}, \acrshort{OBDH}, Diseño de \acrshort{PCB}, \acrshort{matlab}.
+
+\end{singlespace}
+
+\begin{doublespace}
+    \noindent \textbf{RESUMEN:}
+\end{doublespace}
+
+\begin{singlespace}
+
+    \noindent El objetivo del presente proyecto es diseñar e implementar el software necesario para la construcción de un limitador de sonido para locales de ocio, de forma que se cumplan las especificaciones legales y ordenanzas exigidas por las instituciones en éste ámbito, siendo beneficiara del presente trabajo la empresa \textbf{Heimdal Sound Control}.
+
+    \noindent El proyecto puede dividirse en tres grandes bloques: ingeniería inversa, diseño e implementación. Durante la primera fase se estudian y analizan limitadores de sonido de la competencia, ya presentes en el mercado; para luego diseñar el sistema en base a los requisitos extraídos del proceso de ingeniería inversa, y finalmente desarrollar y probar el software del producto.
+
+    \noindent Este Trabajo de Fin de Grado se sitúa en el ámbito de un proyecto mayor, ambicioso y de largo recorrido, y se apoya en el trabajo realizado por otros alumnos pertenecientes a diversas competencias. Por tanto, el presente trabajo no debe verse como un todo, sino como un gran engranaje dentro de una máquina mayor, el cuál permite que el conjunto de componentes interaccionen entre ellos.
+
+    \noindent La complejidad y el ámbito multidisciplinar de este Trabajo de Fin de Grado permite cubrir, no sólo algunas de las diferentes especialidades del Grado en Ingeniería Informática, sino también adquirir conocimientos y habilidades transversales o específicos de otros campos de la Ingeniería, como la \textbf{Electrónica} y la \textbf{Acústica}.
+
+    \noindent El resultado de todo lo expuesto culmina con un equipo real de limitación de sonido completo y funcional, que cumple con los requisitos definidos en las etapas iniciales del proyecto, y con el cual se cierra la etapa universitaria de Grado.
+
+%    \noindent El objetivo principal del presente proyecto es desarrollar una Plataforma de Simulación multidisciplinar de \textbf{CubeSats}. Estará compuesta de tres bloques diferenciados, en torno a los cuales pivotará el proyecto: una plataforma de simulación mecánica, un software de gestión de \glsname{ground} y un prototipo de \glsname{cubesat}, que constituirá la base del futuro \textbf{GranaSAT-I}.
+%
+%    Este Trabajo Fin de Máster se aborda desde una ambiciosa doble perspectiva: por un lado, el desarrollo de una Plataforma de Simulación de amplia utilidad en el ámbito académico, como medio para el acercamiento del alumnado de múltiples titulaciones al mundo aeroespacial y en concreto a los CubeSats, en el contexto de auge actual, fomentado por instituciones como la \textbf{Agencia Espacial Europea }(\acrshort{ESA}); en segundo lugar, en el ámbito de investigación, proveyendo de un medio para la implementación de nuevos algoritmos de comunicación, de control orbital y, en general, para el desarrollo y testeo de tecnologías y técnicas novedosas, de manera previa a su lanzamiento.
+%
+%    El desarrollo e implementación de este proyecto se lleva a cabo siguiendo metodologías de \textbf{Ingeniería de Sistemas} contrastadas y asentadas en la industria espacial, dotándolo de realismo y acercando al alumno a técnicas profesionales de amplio reconocimiento en el mercado de trabajo. Asimismo, la complejidad y ámbito multidisciplinar de este Trabajo~Fin~de~Máster le permite cubrir, no sólo las diferentes especialidades del Máster~de~Ingeniería~de~\textbf{Telecomunicación}, sino también adquirir conocimientos y habilidades transversales o específicos de otros campos de la Ingeniería, como la \textbf{Mecánica} o la \textbf{Aeroespacial}. Así, además de software especialista de cada uno de los campos mencionados, se han analizado y aplicado técnicas avanzadas de \textbf{mecanizado} (fresado de aluminio mediante control numérico), \textbf{fabricación} (soldadura utilizando técnicas de \textit{reflow}) o \textbf{caracterización} de diferentes dispositivos (baterías de litio, células solares de silicio...), entre otros.
+%
+%    El resultado de todo lo expuesto culmina con la obtención de un entorno de simulación completo y funcional, que cumple con los requisitos definidos en etapas iniciales, y con el cual se cierra la etapa universitaria de Máster.
+
+\end{singlespace}
+
+\vspace{1.25cm}
+
+\newpage
+
+~
+
+\vspace{-1.15cm}
+
+
+\begin{otherlanguage}{english}
+
+\begin{center}
+%\begin{adjustwidth}{-9pt}{0pt}
+\textbf{\Large Sound limiter for music venues}
+%\end{adjustwidth}
+\par\end{center}{\Large \par}
+
+\begin{center}
+\textbf{\large Alejandro Ruiz Becerra}
+\par\end{center}{\large \par}
+
+\vspace{0.75cm}
+\begin{doublespace}
+\noindent \textbf{KEYWORDS:}
+\end{doublespace}
+
+\begin{singlespace}
+
+    \noindent GranaSAT, Acoustics and audio, Acoustical engineering, Reverse engineering, Noise control, Equalization, Electronics.
+
+%\noindent \glsname{cubesat}, \glsname{altium}, Aerospace design, \glsname{solid}, \glsname{ground}, \acrshort{EDA}, Electronic, \acrshort{OBC}, \acrshort{ADCS}, \acrshort{EPS}, \acrshort{OBDH}, \acrshort{PCB} Design, \acrshort{matlab}.
+
+\end{singlespace}
+
+\begin{doublespace}
+\noindent \textbf{ABSTRACT:}
+\end{doublespace}
+
+\begin{singlespace}
+
+%    \noindent The complexity and the mutildisciplinary scope of this Bachelor's Thesis allows to cover, not only some of the different specialties of the Bachelor Degree in Informatics Engineering, but also to adquire knowledge and transversal habilities from other fields of the Engineering, such as \textbf{Electronics} and \textbf{Acoustics}.
+%
+    \noindent El objetivo del presente proyecto es diseñar e implementar el software necesario para la construcción de un limitador de sonido para locales de ocio, de forma que se cumplan las especificaciones legales y ordenanzas exigidas por las instituciones en éste ámbito, siendo beneficiara del presente trabajo la empresa \textbf{Heimdal Sound Control}.
+
+    \noindent El proyecto puede dividirse en tres grandes bloques: ingeniería inversa, diseño e implementación. Durante la primera fase se estudian y analizan limitadores de sonido de la competencia, ya presentes en el mercado; para luego diseñar el sistema en base a los requisitos extraídos del proceso de ingeniería inversa, y finalmente desarrollar y probar el software del producto.
+
+    \noindent Este Trabajo de Fin de Grado se sitúa en el ámbito de un proyecto mayor, ambicioso y de largo recorrido, y se apoya en el trabajo realizado por otros alumnos pertenecientes a diversas competencias. Por tanto, el presente trabajo no debe verse como un todo, sino como un gran engranaje dentro de una máquina mayor, el cuál permite que el conjunto de componentes interaccionen entre ellos.
+
+    \noindent La complejidad y el ámbito multidisciplinar de este Trabajo de Fin de Grado permite cubrir, no sólo algunas de las diferentes especialidades del Grado en Ingeniería Informática, sino también adquirir conocimientos y habilidades transversales o específicos de otros campos de la Ingeniería, como la \textbf{Electrónica} y la \textbf{Acústica}.
+
+    \noindent El resultado de todo lo expuesto culmina con un equipo real de limitación de sonido completo y funcional, que cumple con los requisitos definidos en las etapas iniciales del proyecto, y con el cual se cierra la etapa universitaria de Grado.
+
+
+%\noindent The main purpose of this project is developing a multidisciplinary Simulation Platform for \textbf{CubeSats}. It will be composed of three differentiated blocks, around which the project is structured: a mechanical simulation platform, a \glsname{ground} management software and a \glsname{cubesat} prototype that will be the base for the future \textbf{GranaSAT-I}.
+%
+%This Master's Thesis is addressed from a double perspective: on the one hand, the development of a Simulation Platform of great usefulness in an academic environment, as a way to get students from multiple degrees closer to the aerospace world, and particularly to CubeSats, given its current context of peak, being fostered by institutions such as \textbf{European Space Agency} (\acrshort{ESA}); on the other hand, in a research environment, providing with a mean to implement new communication algorithms, orbit controllers, and generally speaking, for the development and test of new technologies and techniques, before launching.
+%
+%The development and implementation of this project is performed following methodologies of System Engineering contrasted in the aerospace industry, giving realism and getting the student closer to professional techniques, widely recognized in the job market. Furthermore, the complexity and multidisciplinary scope of this Master's~Thesis allows covering not only the different specialties of the Master~in~\textbf{Telecommunication}~Engineering but also acquiring knowledge and transversal abilities from other fields of the Engineering, such as \textbf{Mechanical} or \textbf{Aerospace}. Besides specific software of each of the mentioned areas, advanced techniques of \textbf{machining} (aluminum milling), \textbf{manufacturing} (solder reflow) or \textbf{characterization} of different devices (lithium batteries, silicon solar cells...) among others, have been analyzed and applied.
+%
+%The result of the exposed culminates with the obtention of a complete and functional simulation environment, which  complies with the requirements defined in the preliminary stages, and supposes the finalization of the Master.
+\end{singlespace}
+
+\newpage
+\thispagestyle{empty}
+%
+
+\end{otherlanguage}
+
+~
+
+%Begin ----  Para que funcione bien el TOC en PDF
+\clearpage
+\phantomsection
+\thispagestyle{empty}
+\addcontentsline{toc}{chapter}{Dedication}
+
+\vspace*{8cm}
+
+\begin{quotation}
+\noindent \begin{flushright}
+%\textbf{\emph{\Large Dedicado a}}\textbf{\emph{\large }}\\
+\textbf{\emph{\large \lq Tough and competent\rq}}\\
+%\textbf{\emph{  Eugene F. Kranz}}\\
+%\textbf{\emph{\large Answer}}\\
+%\textbf{\emph{\large \lq --Whatever it takes\rq}}\\
+%\textbf{\emph{\large Mis padres, Paco y Encarni, y mi hermano Alberto, porque sin ellos y sin su apoyo, llegar hasta aquí hubiera sido imposible.}}
+%\textbf{\emph{\large .....Esto lo último.....}}
+%Todos aquellos que no tuvieron la oportunidad.
+\par\end{flushright}{\large \par}
+\end{quotation}
+\newpage
+\thispagestyle{empty}

@@ -1,0 +1,45 @@
+\chapter{Conclusions and Future Lines}\label{chap:chapter6}
+
+This document has shown the tough process under space-related projects by developing an innovative and functional \glsname{cubesat} Simulation Platform. This Master's~Thesis has been undertaken following several standards intensively used in space industry, using professional equipment and applying complex design techniques which go beyond the theory typically learnt during this tuition period.
+
+This project provides a complete integrated environment in relation with CubeSats. As stated all along this document, two perspectives have been addressed: \textbf{mission-oriented} and \textbf{academic approach}. Particularly, the main contributions of this Master's Thesis are:
+
+\begin{itemize} [topsep=0pt]
+
+\item The \acrshort{I2DOS} Platform, which allows simulating a vacuum environment by using a low-friction rotating table, as well as exposing the \glsname{cubesat} to external lightning (simulating the Sun) or magnetic fields (simulating Earth's field). 
+
+\item An expandable \glsname{ground} software, based on the Ball Aerospace COSMOS framework, previously used by \acrshort{NASA} or \textbf{Lockheed~Martin}; therefore, with this environment, the \glsname{GranaSAT} laboratory counts now with a professional mission management tool which can be used not only on the basis of a simulation, but also in a real mission.
+
+\item A simulation \glsname{cubesat} prototype, which includes an aluminum mechanical structure, and counts with the main subsystems such as \acrshort{OBC}, \acrshort{ADCS}, local~COMMS as well as a basic \acrshort{OBDH}. It is ready to send telemetry information to COSMOS and allows defining new telemetry packages or telecommands. The \acrshort{ADCS} includes a \acrshort{PID}-based control law, which can be configured to detumble the device or follow a certain target. Additionally, this Master's Thesis includes an intensive characterization of different solar panels and batteries to be used with a \glsname{cubesat}, which will ease design decisions in the future \acrshort{EPS}.
+
+\end{itemize}
+
+Following the System Engineering methodology proposed by Wertz and Everett \cite{smad} has allowed minimizing risks and costs in the project and furthermore, accomplishing the goals defined.
+
+This variety has supposed an increasing complexity which has given realism to this project, but also demanded an incredible effort. As for me, it has supposed an unprecedented challenge not only because of the inherent difficulty associated to this kind of project, but also because of its \textbf{extraordinarily wide scope}. Indeed, this project has made me learn things from a variety of fields of the engineering, which undoubtedly will be priceless in my professional future.
+
+In a project of these characteristics, the end is never reached. Therefore, during the development of this Master's Thesis, some improvements and or future lines of work have naturally arisen, featuring the following ones:
+
+
+\begin{itemize} [topsep=0pt]
+
+\item Diminishing the \textbf{moment of inertia} of the inertial platform by reducing its diameter. This would ease the rotation control and detumbling of the \glsname{cubesat} and prevent the motor of the reaction wheel from saturation.
+
+\item Defining \textbf{new telemetry packages}, including all the information provided by the sensors, and implementing automatic \textit{keep alives} or \glsname{housekeeping}.
+
+\item Developing \textbf{new COSMOS interfaces}, which cover all the aspects of a mission and take full advantage of the capabilities of the GranaSAT-I, defining new telecommands and reports.
+
+\item Keeping with the development of an adequate \acrshort{EPS}, based on the analysis and characterizations addressed in this project, which provides with power lines of 5 V and 3.3 V.
+
+\item Implementing printed \glsname{magnetorquers}, which increases the \textbf{control capabilities} of the \glsname{cubesat}. The designed \acrshort{ADCS} already takes this possibility into account and includes terminals for three \glsname{magnetorquers}.
+
+\item Defining new \acrshort{ADCS}-related functions for the co-processing programmable cores (\acrshort{FPGA}) which frees the \acrshort{OBC} of tasks and enables a \textbf{time-critical} management when needed.
+
+\item Generating documentation regarding the academic orientation of the platform, with examples, case of use and guided procedures.
+
+\end{itemize}
+
+All in all, this Master's Thesis supposes a finalizing touch to my academic period but it does not end here; it is a live project which is now another part of \glsname{GranaSAT}, and I hope it is useful and brings success to its members henceforth.
+
+Once again, the future is exciting.
+

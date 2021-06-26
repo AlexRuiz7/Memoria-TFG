@@ -1,0 +1,178 @@
+\begin{appendices}
+
+
+\chapter{Project Budget} \label{cap:budget}
+
+
+\section{Materials and hardware}
+
+In this section, project cost regarding materials and hardware sections will be detailed. Each one of the different hardware subsections is differentiated. Human resources area also included.
+
+\subsection{Inertial 2D Orbit Simulator}
+
+According to the System Design, \autoref{chap:chapter4}, the materials related with the \acrshort{I2DOS} are mainly plywood for the base and \acrshort{PLA} for the 3D printed inertial platform. The plywood board has a cost of \textbf{11.30 €}, while the amount necessary of \acrshort{PLA} costs \textbf{4.50 €}. That makes \textbf{15.80~€} without manufacturing costs, detailed in \autoref{humcosts}.
+
+
+\subsection{Simulation CubeSat}
+
+\subsubsection{Mechanical structure}
+
+The mechanical structure of the \glsname{cubesat} is made of aluminum EN AW 5754, also sold in boards. Because of the extremely light weight of a \glsname{cubesat}, the attributable cost for the manufacturing of the GranaSAT-I is only \textbf{2.50 €}.
+
+\subsubsection{On-board Computer}
+
+The cost of the \acrshort{OBC} is breakdown into the electronic components and the manufacturing, as follows.
+
+\paragraph{Bill of Materials}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Item}            & \textbf{Units}       & \textbf{Cost/u. (€)} & \textbf{Cost (€)}    \\ \midrule
+LDR                      & 6                    & 0.15                 & 0.9                  \\
+Bosch BMP280             & 1                    & 2.68                 & 2.68                 \\
+MPU-9250                 & 1                    & 5.1                  & 5.1                  \\
+CR2032 Battery           & 1                    & 0.35                 & 0.35                 \\
+Electrolitic cap.        & 4                    & 0.1                  & 0.4                  \\
+Tantalum cap             & 2                    & 0.8                  & 1.6                  \\
+Ceramic cap.             & 36                   & 0.012                & 0.432                \\
+LED SMD                  & 10                   & 0.05                 & 0.5                  \\
+1N4148W                  & 1                    & 0.05                 & 0.05                 \\
+ENC28J60 breakout        & 1                    & 3                    & 3                    \\
+ESP8266                  & 1                    & 2                    & 2                    \\
+Micro USB 2.0 B          & 3                    & 3.5                  & 10.5                 \\
+J00-0045L                & 1                    & 4.5                  & 4.5                  \\
+ESQ-126-39-G-D           & 2                    & 7                    & 14                   \\
+Canned Oscillator 25 MHz & 1                    & 3.5                  & 3.5                  \\
+Transistors 2N7002P      & 5                    & 0.3                  & 1.5                  \\
+Resistors                & 51                   & 0.01                 & 0.51                 \\
+Raspberry Pi 3 CM        & 1                    & 32                   & 32                   \\
+PCF8523                  & 1                    & 1.13                 & 1.13                 \\
+ADS1015                  & 2                    & 2.84                 & 5.68                 \\
+LAN9514                  & 1                    & 5.13                 & 5.13                 \\
+FSUSB42                  & 1                    & 0.5                  & 0.5                  \\
+\multicolumn{1}{l}{}     & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} \\
+\multicolumn{3}{c}{\textbf{Subtotal (before VAT):}}                    & \textbf{79.31}       \\
+\multicolumn{3}{c}{\textbf{Total (VAT included):}}                     & \textbf{95.96}       \\ \bottomrule
+\end{tabular}
+\caption{\acrshort{OBC} \acrshort{PCB} components}
+\label{obcomp}
+\end{table}
+
+
+\paragraph{Manufacturing}
+
+The manufacturing of a 4-layers \acrshort{PCB} like the \acrshort{OBC}, including \glsname{stencil} has a cost of \textbf{43.40 €}.
+
+\subsubsection{Attitude Determination and Control System}
+\paragraph{Bill of Materials}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Item}            & \textbf{Units}       & \textbf{Cost/u. (€)} & \textbf{Cost (€)}    \\ \midrule
+BD6211F                  & 2                    & 1.9                  & 3.8                  \\
+L298N                    & 1                    & 5.2                  & 5.2                  \\
+DC motor                 & 1                    & 7                    & 7                    \\
+ICE40UP5K                & 1                    & 7.1                  & 7.1                  \\
+1N4148W                  & 4                    & 0.05                 & 0.2                  \\
+Ceramic cap.             & 16                   & 0.012                & 0.192                \\
+CNY70                    & 1                    & 1.8                  & 1.8                  \\
+ESQ-126-39-G-D           & 2                    & 7                    & 14                   \\
+Canned Oscillator 25 MHz & 1                    & 3.5                  & 3.5                  \\
+Transistors 2N7002P      & 8                    & 0.3                  & 2.4                  \\
+Resistors                & 25                   & 0.01                 & 0.25                 \\
+TLV7111225               & 1                    & 0.5                  & 0.5                  \\
+\multicolumn{1}{l}{}     & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} \\
+\multicolumn{3}{c}{\textbf{Subtotal (before VAT):}}                    & \textbf{37.97}       \\
+\multicolumn{3}{c}{\textbf{Total (VAT included):}}                     & \textbf{45.94}       \\ \bottomrule
+\end{tabular}
+\caption{\acrshort{ADCS} \acrshort{PCB} components}
+\label{adcscomp}
+\end{table}
+
+\paragraph{Manufacturing}
+
+The manufacturing of a 2-layers \acrshort{PCB} like the \acrshort{ADCS}, including \glsname{stencil} has a cost of \textbf{18.15 €}.
+
+\subsubsection{Electrical Power system}
+\paragraph{Bill of Materials}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{Item}                & \textbf{Units}       & \textbf{Cost/u. (€)} & \textbf{Cost (€)}    \\ \midrule
+Li-ion battery (1100 mAh)    & 1                    & 8.60                 & 8.60                 \\
+Li-ion battery (1800 mAh)    & 1                    & 11.11                & 11.11                \\
+Solar panel 1 (5 V @ 1.3 W)  & 1                    & 3.44                 & 3.44                 \\
+Solar panel 2 (12 V @ 1.5 W) & 1                    & 2.83                 & 2.83                 \\
+Solar panel 3 (5.5 V @ 1 W)  & 1                    & 2.48                 & 2.48                 \\
+\multicolumn{1}{l}{}         & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} \\
+\multicolumn{3}{c}{\textbf{Subtotal (before VAT):}}                        & \textbf{23.52}       \\
+\multicolumn{3}{c}{\textbf{Total (VAT included):}}                         & \textbf{28.46}       \\ \bottomrule
+\end{tabular}
+\caption{\acrshort{EPS} components}
+\label{epscomp}
+\end{table}
+
+
+
+%
+%\section{Software Cost}
+%
+%This Project has required the use of different software. The price of the different suites used is detailed in table \ref{softw}
+%
+%% Please add the following required packages to your document preamble:
+%% \usepackage{booktabs}
+%\begin{table}[H]
+%\centering
+%\begin{tabular}{@{}ccc@{}}
+%\toprule
+%\textbf{Software}   & \textbf{License Owner} & \textbf{Cost (€)} \\ \midrule
+%Altium Designer 19  & UGR                    & Free              \\
+%Solidworks Student Edition 2017     & Author                    & Free              \\
+%MatLab          & UGR                    & Free              \\
+%TeXnicCenter        & Author                 & Free              \\
+%Miktex              & Author                 & Free              \\
+%\textbf{}           & \textbf{TOTAL}         & \textbf{0 €}      \\ \bottomrule
+%\end{tabular}
+%\caption{Software Cost}
+%\label{softw}
+%\end{table}
+
+\section{Human Resources Cost} \label{humcosts}
+
+In the first place, the manufacturing of the base of the \acrshort{I2DOS} required the collaboration of the \textbf{makerspace} at the Architecture School of the University of Granada. The cost for an hour of machinery and technical assistance was \textbf{15 €}.
+
+Additionally, the development of this Master's Thesis has required hiring two people. The first one is a \textbf{junior engineer} (10 €/h), hired as a full-time worker during twelve months. Secondly, as Project Supervisor a \textbf{senior engineer} is hired (50 €/h), computing 5 hours per week. Then, Human Resources amounts to \textbf{31200 €}, as detailed in table \ref{wages}.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage[normalem]{ulem}
+% \useunder{\uline}{\ul}{}
+\begin{table}[H]
+\centering
+
+\begin{tabular}{@{}ccc@{}}
+\toprule
+{\ul \textbf{Post}} & {\ul \textbf{Time (Hours)}} & {\ul \textbf{Cost (€)}} \\ \midrule
+Junior Engineer     & 1920                        & 19200                   \\
+Senior Engineer     & 240                         & 12000                   \\
+                    & \textbf{TOTAL}              & \textbf{31200 €}
+\end{tabular}
+\caption{Human Resources Cost}
+\label{wages}
+\end{table}
+
+\end{appendices}
+%\end{document}
+
+
+

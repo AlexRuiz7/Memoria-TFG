@@ -1,0 +1,6 @@
+https://www.digikey.com/en/articles/techzone/2012/may/understanding-the-advantages-and-disadvantages-of-linear-regulators
+https://www.youtube.com/watch?v=Q0qrU4nprB0 - polarizaciones
+http://www.intelsat.com/wp-content/uploads/2013/02/Polarization.pdf - faraday
+https://www.itu.int/dms_pubrec/itu-r/rec/s/R-REC-S.465-5-199304-S!!PDF-E.pdf
+https://www.itu.int/dms_pubrec/itu-r/rec/s/R-REC-S.580-6-200401-I!!PDF-E.pdf
+https://www.dimensionengineering.com/info/switching-regulators lineaar vs switch

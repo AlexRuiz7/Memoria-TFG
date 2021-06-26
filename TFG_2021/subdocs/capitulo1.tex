@@ -1,0 +1,377 @@
+
+\chapter{Introducción}\label{chap:chapter1}
+\pagenumbering{arabic}%
+
+El presente proyecto se desarrolla en el marco del Trabajo de Fin de Grado con el cual se finaliza el Grado Universitario en Ingeniería Informática, con especialidad en Ingeniería del Software, cursado por el alumno Alejandro Ruiz Becerra en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación de la Universidad de Granada. El objetivo principal del presente trabajo es demostrar los conocimientos y habilidades adquiridos por el alumno durante la realización de dicho grado. Para ello, se ha realizado el software de un limitador de sonido para locales con equipos de música.
+
+Este TFG se realiza en colaboración con el proyecto académico \glsname{GranaSAT}, un proyecto multidisciplinario, dirigido por el Profesor Andrés María Roldán Aranda, que reúne a personas de diferentes campos que quieren adquirir conocimientos relativos a la Ingeniería Aeroespacial y a la Ingeniería Electrónica.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.9]{FigurasTFM/Chapter1/PDF/granasat.pdf}
+    \caption{Logotipo de \glsname{GranaSAT}}
+    %\vspace{-1cm}
+\end{figure}
+
+
+This Master's Thesis is presented as a compilation of the knowledge acquired throughout the years of the bachelor's and master's degree and specially, during this project period. It aims to reflect the engineering process behind the design, development, prototyping and verifying stage of a product. The overall goal of the project is developing an integrated 1U~\glsname{cubesat}~Simulation~Platform, to be used as a testing and training environment.
+
+This ambitious project has been performed seeking a \textbf{double perspective} which will be detailed later, applying professional standards and methodologies used in space sector, in order to successfully overcome the project, minimizing risks and costs. It has supposed not only a hard design process but also a great labour of integration in order to maximize the use of existing equipment and procedures, available at \glsname{GranaSAT} laboratory. The final result is a fully-integrated simulation environment useful in a variety of situations: algorithms implementation, physical measurement or hardware characterization, among many others; its flexibility and expansion possibilities are countless. To make it possible, a conjunction of different fields of knowledge has been necessary; not only related to Telecommunication Engineering but also with completely different fields such as Mechanical or Aerospace Engineering. In addition to an academically and experimentally interesting platform, this conjunction has allowed developing a potentially marketable product, implying additional considerations to be taken into account.
+
+In order to keep an structure, the project has been developed considering the different parts of the platform, i.e., \textbf{Mechanical Platform, Ground Station and Simulation CubeSat}. This document also follows that division, which eases understanding and allows a natural progress to the reader.
+
+
+There is a generalized consensus regarding the best practices and methodologies around the design process in engineering; this project will follow one of the most extended methodologies in space sector, proposed by Wertz and Everett \cite{smad}, simplified when needed. As usual, it is characterized by an iterative refinement of the requirements which leads to the design and finally the verification of the objectives.
+
+
+%The Product Development Process is composed of different stages: Technical~Requirements~Definition, System~Analysis, System~Design, Verification~and~Testing. The diagram of the figure \ref{proc} shows how that process flows since the initial step, which using a Market analogy could be the client proposal, until obtaining the final product. This process follows the planning proposed as a consequence of the Analysis, which can be seen at figure \ref{fig:gantt}. Once Verification and Testing stage has been adequately passed, should the product comply with functional and economics requirements, the product and therefore the Project will be finished.
+%
+%
+		%\begin{figure}[H]
+			%\centering
+			%\includegraphics[scale=0.75]{FigurasTFM/Chapter1/PDF/designprocess.pdf}
+			%\caption{Design Process} \label{proc}
+		%\end{figure}
+
+
+
+This Bachelor's Thesis fits within \href{http://granasat.ugr.es/}{\glsname{GranaSAT} Project}, a multidisciplinary project which gathers people from a variety of fields who are committed to acquiring new knowledge related to Electronics and Aerospace Engineering. Since its origins, one of its main purposes has been getting a \glsname{cubesat} in orbit, one of the reasons of this project; however, today its goals goes far beyond, and a wide range of devices and projects are developed in collaboration with different students and enterprises.
+
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.9]{FigurasTFM/Chapter1/PDF/granasat.pdf}
+			\caption{\glsname{GranaSAT} Logo}
+			%\vspace{-1cm}
+			\end{figure}
+
+
+\section{Motivation}\label{sec:mot}
+
+%\begin{wrapfigure}{R}{0.3\textwidth}
+	%\centering
+	%\includegraphics[width=0.45\textwidth]{figurastfm/Chapter1/Imagenes/workshop.jpg}
+	%\caption{\label{workshop}At \acrshort{ESA} CubeSats Workshop in Redu, Belgium (2018)}
+%\end{wrapfigure}
+
+
+After investing almost three years working on \glsname{GranaSAT} Project, dealing with hundred of problems and a variety of technologies, as well as being aware of its participation in Bexus Project \cite{gsatbexus} in 2014, I had an overall knowledge of the \glsname{cubesat} concept, main subsystems and typical objectives. However, after being selected to attend CubeSats Workshop organized by \textbf{European Space Agency \acrshort{ESA}} in Belgium, I realized that I needed to go in depth in the study of these fascinating satellites. \autoref{workshop} shows a photo of that great experience.
+
+\begin{figure}
+\centering
+\includegraphics[width=75mm]{figurastfm/Chapter1/Imagenes/workshop.jpg}
+\caption{At \acrshort{ESA} CubeSats Workshop in Redu, Belgium (2018)}
+\label{workshop}
+\end{figure}
+
+
+Attending the aforementioned workshop made me realize the usefulness of using a simulated environment to acquire new concepts and increase technical knowledge, which is particularly interesting in an academic atmosphere such as the University. So my first motivation to develop this Master's Thesis was to provide the \glsname{GranaSAT} laboratory with a multidisciplinary Simulation Platform for CubeSats, taking the advantage of their little size, in contrast with bigger satellites, much more complex to test in a non-professional environment; as it is widely known, after Bexus Project (see \cite{gsatbexus}) \glsname{GranaSAT}~Group has kept working on real developments and missions in collaboration with \acrshort{ESA}, particularly around CubeSats, with the first \glsname{cubesat} of the University of Granada, \textbf{GranaSAT-I} intending to participate in the \acrshort{ESA} programme, \textbf{\textit{Fly Your Satellite!}} \cite{flyyour}, introduced in \autoref{fys}.
+
+For all these reasons, I decided to focus my Master's Thesis on a \textbf{double perspective}: on the one hand, a multidisciplinary academic-oriented \textbf{Simulation Platform} for CubeSats, which allows testing its different subsystems as well as implementing innovative solutions in a physical scenario; on the other hand, a complete project-oriented platform to be used by future \glsname{GranaSAT} members	on its way to the \textit{Fly Your Satellite!} programme \cite{flyyour}, including a \glsname{cubesat} \glsname{engmodel} with different subsystems to be tested and fully integrable with the countless technology modules and procedures which \glsname{GranaSAT} Project has been provided with throughout the years, as result of the work of voluntary students and researchers; precisely, some of them are used in this Master's Thesis, so interoperability and cooperation with the rest of the technical staff of the group have also been important incentives to me; this combination of existing technologies and equipment is intrinsic to complex project and aerospace design in particular: a large group of professionals working towards a same goal throughout time, in this case, \textbf{flying a \glsname{cubesat}}. \autoref{perspc} depicts these perspectives.
+
+
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=1]{FigurasTFM/Chapter1/PDF/doublepersp2.pdf}
+			\caption{Double orientation of the project} \label{perspc}
+			%\vspace{-cm}
+			\end{figure}
+
+
+This double orientation of the project will entail innumerable mentions through this document, as some decisions will have to be taken in order to comply with both perspectives. Generally speaking, my intention has been keeping an adequate balance which allows the Simulation Platform to \textbf{satisfy both testing and academic needs.}
+
+After an arduous Bachelor's Thesis \cite{tfg} \textbf{awarded twice} by the \textit{Colegio Oficial De Ingenieros Técnicos De Telecomunicación} \cite{coitt} and \textit{Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación} at the University of Granada \cite{etsiit}, this project has supposed a definitely larger and exciting challenge, substantially increasing my professional experience and knowledge in aerospace field by dealing with space standards, learning different systems architecture and putting into practice numerously experimental techniques.
+
+The Simulation Platform which emerges from this Master's Thesis is the result of a painstaking process of engineering, study and comparison of the cutting-edge technology used in space which I sincerely hope that can be useful for the \glsname{GranaSAT} Project in the future.
+
+
+\section{Prior art. Problem Statement}\label{sec:iot}
+
+\subsection{Background study: CubeSats} \label{cubesatdefin}
+
+\glsname{cubesat} emerged as a result of increasing costs in space field, incredible amounts of money had to be spent in missions with a considerable risk. They allowed to trade some functionalities off in exchange for a significant reduction in costs and therefore a greater number of missions; higher risk of failure is accepted because of the possibility to perform more and more frequent launches, as illustrated in \autoref{increase}.
+
+	\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.75]{FigurasTFM/Chapter1/PDF/increse.pdf}
+			\caption{Number of CubeSats launched over the last years \cite{usage}} \label{increase}
+			\vspace{-1.5\baselineskip}
+			\end{figure}
+
+As for the academic scope, \glsname{cubesat} allowed people with little or no experience in the design of space missions to incorporate new ideas and concepts into missions with fewer restrictions. Within university projects, the challenge is not only accomplishing a successful mission but also get it at the lowest cost. All of which, of course, supposes the risk to be inherently high, but it is not a problem itself.
+
+\glsname{cubesat} concept were first developed at Stanford and California Polytechnic universities in 1998. It was precisely an Spanish engineer, \textbf{Jordi Puig-Suari} along with Robert Twiggs, who created them. The primary intent of the development of the CubeSat was to provide a standard set of dimensions for external physical structure, in order to make it compatible with a standardized orbital deployer. The final concept of the CubeSat structural standard is shown in \autoref{cubesatstd}. It is based on a \textbf{10 x 10 x 10 cm cube and a mass of 1.33~kg} maximum (see Figure\autoref{c1u}) and is referred to as a one unit `1U' and is scalable in 1U increments, as shown in Figure\autoref{stds}. This standardization facilitates a wide variety of designs to be launched and deployed using a common system; the most used is Poly-Picosatellite Orbital Deployer (\acrshort{PPOD}), having launched all CubeSats since 2007. Figure\autoref{ppodexam} shows a typical \acrshort{PPOD} launcher while Figure\autoref{csatlaunching} depicts three 1U CubeSats being launched.
+
+
+
+
+\newpage
+\makeatletter
+\setlength\@fptop{0pt}
+\setlength\@fpsep{8pt plus 1fil}
+\setlength\@fpbot{0pt}
+\makeatother
+\begin{figure}[t]
+			\centering
+			\subfloat[1U standard\label{c1u}]{\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=60mm]{figurastfm/Chapter1/Imagenes/c1u.jpg}}
+			 			 \quad
+			\subfloat[1U, 2U and 3U standards comparison\label{stds}]{\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=75mm]{figurastfm/Chapter1/Imagenes/variosstd.png}}
+
+			\caption{\glsname{cubesat} physical structure \cite{nasa}}
+\end{figure}
+
+\begin{figure}[H]
+			\centering
+			\subfloat[3U capacity example \cite{xinlin}\label{ppodexam}]{\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=70mm]{figurastfm/Chapter1/Imagenes/ppod.png}}
+
+			\subfloat[\glsname{cubesat} launching \cite{nasa}\label{csatlaunching}]{\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=105mm]{figurastfm/Chapter1/PDF/cubesatlaunching.pdf}}
+			\caption{\acrshort{PPOD} Launcher}
+\end{figure}
+
+			%\afterpage{
+\begin{landscape}
+\begin{figure}
+			\centering
+			\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=230mm]{figurastfm/Chapter3/PDF/cubesatstd.pdf}
+			\caption{Standard for CubeSat Mechanical Structure \cite{calpoly}} \label{cubesatstd}
+\end{figure}
+\end{landscape}
+%}
+
+CubeSats are typically composed of different subsystems, which are more or less standard in literature. This project will follow the division used by \acrshort{ESA}, depicted in \autoref{cubesatsub}; besides, the most relevant components and functions of each subsystem are also included. These subsystems are briefly analyzed next.
+
+
+\begin{figure}[H]
+				\centering
+				\includegraphics[width=165mm]{figurastfm/Chapter1/PDF/csatsubs.pdf}
+				\caption{\glsname{cubesat} typical subsystems}
+				\label{cubesatsub}
+\end{figure}
+
+\begin{itemize} [noitemsep]
+
+	\item \textbf{On-board Computer (\acrshort{OBC}):} the main subsystem of a \glsname{cubesat}, it is in charge of the core processing, reading and polling sensors, R/W operations on memory, data management, etc. It is typically based on a central microprocessor or computing core. \\
+
+	\item \textbf{Communications (\acrshort{COMMS}):} in charge of sending and receiving all the information related to a mission. It is sometimes taken as the most critical subsystem, given that \textbf{without contact the mission is over,} even if the rest of the system functions flawlessly. It is composed of the transmission and receiving antennas, amplifiers, \acrshort{RF} electronics, filtering, signal couplers, among many others elements. \\
+
+	\item \textbf{Attitude Determination \& Control System (\acrshort{ADCS}):} its main purpose is assuring the correct orientation of the CubeSat and dealing with external torques. Composed of sensors and actuators such as \glsname{magnetorquers}, it usually implements an independent processing unit. As for its software, it can be based on different \textbf{control laws} and predictive filters such as \textbf{Kalman filter}.\\
+
+	\item \textbf{Electrical Power System (\acrshort{EPS}):} this module deals with the generation, distribution and control of the spacecraft electrical power. It must supply a continuous source of power in adequate condition for each element of the system, and deal with possible faulty situations. It is composed of a long chain of elements, from solar arrays to voltage regulators or batteries.\\
+
+	\item \textbf{Thermal Subsystem (\acrshort{THS}):} in charge of setting and maintaining the temperature range of the \glsname{cubesat} and its components, which are all designed to operate over a defined temperature range. This is accomplished by balancing the flow of heat energy. Generally, in CubeSats it is not required an active thermal control system.\\
+
+		\item \textbf{On-Board Data Handling (\acrshort{OBDH}):} it handles all data sent and received by the CubeSat, including \acrshort{TCC}. Although it is typically implemented on the \acrshort{OBC} and connected to the \acrshort{COMMS} subsystem, because of its increasing importance during the last few years, it is nowadays considered a proper subsystem by itself.
+
+\end{itemize}
+
+Additionally, sometimes the \textbf{payload} is taken as another subsystem of the \glsname{cubesat}. It is actually the most important part of it given that it constitutes the reason of the mission itself: \textbf{the payload provides the expected results and measurements}. There is a huge variety of payloads, with equal amount of purposes; cameras, sensors, radiometers... the list is endless. In sum, anything able to provide the team with some kind of result or just even functioning correctly is liable to be a payload.
+
+This project will focus on \acrshort{OBC}, \acrshort{ADCS} and in the power source area of the \acrshort{EPS}. Also, some basic functions related to \acrshort{OBDH} will be implemented. \autoref{cubesatanaly} deeply analyzes these subsystems.
+
+
+\subsection{ESA \textit{Fly Your Satellite!}} \label{fys}
+
+Because of the increasing interest within university students in CubeSats, \acrshort{ESA} decided to boost this initiative in 2013 by organizing the first \textit{Fly Your Satellite!} program in collaboration with European Universities, with the goal to be a complementary preparation for the future professionals of the space sector.
+
+During the program, the accepted student teams are supported in the development of their \glsname{cubesat} and their previously defined mission. \acrshort{ESA} experts support and mentor the teams through the different phases, focusing on assembly, integration, verification, testing and operations. At a point, the students are allowed to use the Agency test facilities and take part in training sessions. This priceless opportunity allows the students to gain great experience in the lifecycle of an actual space project, using working methods and standards from professional space programmes which significantly help to build their own professional skills \cite{ESA}.
+
+ESA \textit{Fly Your Satellite!} programme is divided into different phases with pre-defined objectives and reviews conducted by \acrshort{ESA} specialists. Gaining access to the next phase requires to successfully complete the previous one. These phases are depicted in the flow diagram of \autoref{flyflow}.
+
+\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{figurastfm/Chapter1/PDF/cubesat_flow.pdf}
+				\caption{\textit{Fly Your Satellite!} phases} 	\label{flyflow}
+				\vspace{-1cm}
+\end{figure}
+
+
+As illustrated in the diagram, application to the program is constrained to those teams which already have a complete detailed design. As previously mentioned, one of the main goals of the \glsname{GranaSAT} Project is successfully participating in this program. This Master's~Thesis lays the foundations for a future \glsname{cubesat} design and application to the \textit{Fly~Your~Satellite!}.
+
+
+\subsection{European Cooperation for Space Standardization}\label{sec:ECSS}
+
+
+The European Cooperation for Space Standardization (\glsname{ECSS}) is an initiative established to develop a coherent, single set of user-friendly standards for use in all European space activities. It started officially in the autumn of 1993, when the European space community realized that differences in space standards resulted in higher costs, lower effectiveness and a less competitive industry.
+
+\begin{figure}[H]
+				\centering
+				\includegraphics[width=60mm]{figurastfm/Chapter2/Imagenes/ECSS_large.jpg}
+				\vspace{0.3cm}
+				\caption{\glsname{ECSS} logo \cite{ecss}}
+				%\label{fig:minitio}
+								\vspace{-1cm}
+
+\end{figure}
+
+Numerous ECSS standards have been released with the aim to be applied altogether for the management, engineering and product assurance. Standards and recommendations for the development of the space technology are split up in four disciplines: \textit{\textcolor{red}{Space project management branch (M)}}, \textcolor{blue}{Space product assurance branch (Q)}, \textcolor{green}{Space engineering branch (E)}, and \textcolor{orange}{Space sustainability branch (U)}. \autoref{ecssdisciplines} shows the different \glsname{ECSS} disciplines \cite{ecssdescrip}.
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=150mm]{figurastfm/Chapter2/PDF/ecssdisciplines.pdf}
+			\caption{ECSS Document Tree \cite{ecsstree}}
+			\label{ecssdisciplines}
+		\end{figure}
+
+
+
+As shown in \autoref{ecsseng}, the documentation is organized into four branches, each one defined to the detail level required to differentiate major functions, disciplines and activities. Besides, four hierarchical levels are considered:
+
+\begin{itemize}
+
+\item{\textbf{Level 0 (ECSS-P-00)} – The document at Level 0 describes the policy and objectives of the ECSS system and its architecture as well as the principle rule for the creation, validation and maintenance of documents.}
+\item{\textbf{Level 1 (ECSS-M-00, ECSS-Q-00, ECSS-E-00, ECSS-U-00)} -The documents at Level 1 describe the strategy in the specific domain. They give a global view of the requirements and outline the interfaces between the elements (and the documents) at Level 2.}
+\item{\textbf{Level 2 (ECSS-M-10, ECSS-Q-10 …)} – The documents at Level 2 describe the required objectives and functions for all aspects in the individual domain (project organization, quality assurance, system engineering, etc.).}
+\item{\textbf{Level 3} – The documents at Level 3 describe methods, procedures and recommended tools to achieve the requirements of Level 2 documents. In addition they define the constraints and requirements for interfaces and performance of the specified product or activity. The Level 3 documents are guidelines and are allowed to be adapted to the projects’ needs.}
+
+\end{itemize}
+
+Also, as a reference, and given that a large number of them will be considered for this project, space engineering branch is broken down and included in \autoref{ecsseng}.
+
+%\afterpage{
+\begin{landscape}
+			\begin{figure}
+				\centering
+				\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=230mm]{figurastfm/Chapter2/PDF/ecssengbranch.pdf}
+				\caption{ECSS Engineering branch breakdown \cite{ecsstree}}
+				\label{ecsseng}
+			\end{figure}
+\end{landscape}%}
+
+
+
+
+\section{Introduction to System Engineering. EDP in Space.}\label{engprocess}
+
+Systems engineering is an interdisciplinary field which involves engineering management and focuses on how to design and manage complex systems over their life cycles \cite{wiki}.
+
+A system is an integrated set of elements to accomplish a defined objective. These elements include  hardware, software, firmware, human resources, information, techniques, facilities services, and other support elements.
+
+ \autoref{fig:sysengfig} shows, according to ECSS-E-ST-10C \cite{ESASYSENG}, the boundaries of system engineering, its relationship with production, operations, product assurance and management disciplines and its internal partition into the following system engineering sub-functions:
+
+\begin{itemize}
+
+	\item{\textbf{Requirement engineering}, which consists on requirement analysis and validation, requirement allocation, and requirement maintenance;}
+	\item{\textbf{Analysis}, which is performed for the purpose of resolving requirements conflicts, decomposing and allocating requirements;}
+	\item{\textbf{Design and configuration}, which results in a physical architecture, and its complete system functional, physical and software characteristics;}
+	\item{\textbf{Verification}, which objective is to demonstrate that the deliverables conform to the specified requirements;}
+	\item{\textbf{System engineering integration and control}, coordinating the various engineering disciplines and participants;}
+
+	\end{itemize}
+
+			\begin{figure}[h]
+			\centering
+			\includegraphics[page=1,trim={0cm 0cm 0cm 0cm},clip=true,width=150mm]{figurastfm/Chapter2/PDF/syseng.pdf}
+			\caption{System engineering, sub-functions and boundaries \cite{ESASYSENG}}
+			\label{fig:sysengfig}
+			\end{figure}
+
+Through this process the system engineering function performs a multidisciplinary functional decomposition to obtain logical lower level products.
+
+Along with the variety of disciplines in engineering, several design processes have been proposed throughout time whether in a general way or a field-specific. Space field is not an exception to that and there are different models applicable in order to accomplish a systematic and effective design process. It is the so-called \textbf{Engineering Design Process} or \acrshort{EDP}.
+
+Within space sector, the highest level is often called \textbf{\textit{mission level}}, which usually consists of one or more segments (space, ground, user...). From this perspective, requirements originate from the next upper level (the customer) and elements are procured from the next lower level (the suppliers).
+
+This project will apply one of the most extended design methodology, proposed by Wertz and Everett, see \cite{smad}. It divides the design process into a series of phases or steps, which coincides with the structure followed not only during the development of this project but also in this document itself.
+
+As previously stated, any design process is in some way focused on \textbf{requirements}. Requirements definition is a complex and iterative process which begins with one or more objectives and continues defining a system which meets them as much as possible, with the \textbf{minimum cost and risk}. While overall objectives normally remain the same through the whole process, they can be accomplished in many different ways according to the technology or solution applied. The Design process followed in Space field breakdowns into different phases:
+
+\begin{itemize} [noitemsep,topsep=0pt]
+
+	\item \textbf{Objectives/goals definition.} Expectable results from the project, not only in technical terms but also economic, social, political, etc. This is the very first stage of the design process and defined goals here are not supposed to vary during the process. They are treated in \autoref{sec:obj}. \\
+
+	\item \textbf{Space Mission Engineering.} Inherently iterative process in charge of refining both the requirements and methods to accomplish them. Each iteration will lead to a more detailed and defined mission concept. Primary and secondary objectives are specified, \glsname{stakeholders} interests are considered, the timeline is defined, etc. It is treated in \autoref{chap:chapter2}. \\
+
+	\item \textbf{Space System Engineering.} The previously preliminary requirements defined are translated into a set of specific requirements on every element of the system. This translation will determine performance, cost and risk. It is extensively treated in \autoref{chap:chapter3}. \\
+
+	\item \textbf{System Design.} The project is designed according to the requirements stated in previous stages, comparing different technologies and implementing the optimal one for each subsystem. It is treated in \autoref{chap:chapter4}. \\
+
+	\item \textbf{Verification \& testing.} The project is concluded by conducting different functionality tests which verifies the results and checks the compliance with the requirements. It is exposed in \autoref{chap:chapter5}. \\
+
+\end{itemize}
+
+\autoref{sysengflow} briefly illustrates this flow. This project will follow a methodology as close as possible to this system engineering perspective, according to \cite{ecss} standards.
+
+	\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.75]{FigurasTFM/Chapter1/PDF/syseng.pdf}
+ 		\caption{Engineering Design Process (\acrshort{EDP}) in space} \label{sysengflow}
+				\vspace{-2cm}
+		\end{figure}
+
+
+\section{Project Goals and Objectives}\label{sec:obj}
+
+
+After introducing the problem statement which motivates this Master's Thesis, this section outlines the main top-level non-technical goals of the project. The reason to limit this section to those is to stick to the \textbf{Engineering Design Process} described in \autoref{engprocess} and followed throughout this Master's Thesis, which considers objectives definition part of a much more complex and iterative process called \textit{Requirements Definition}. Besides, considering again the double perspective (technical testing and academic) explained in previous sections, and the substantial extent of this project, I decided to breakdown the objectives and functional requirements of each subsystem in \autoref{chap:chapter2} \textbf{(Mission Engineering)}, while formal requirements are addressed in \autoref{chap:chapter3} \textbf{(System Engineering)}. Then, \autoref{chap:chapter4} addresses the design of the system in accordance with the exposed in previous chapters.
+
+Therefore, objectives listed in \autoref{topobj} must be understood as the author's expected results in academic and professional terms of the execution of this project.
+
+\begin{table} [H]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Objective}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+Obj.1                                              & To gain experience with different standards typically used in aerospace field such as \acrshort{ECSS} or \acrshort{CCSDS}.                                \tabularnewline \midrule
+Obj.2                                               & To familiarize with professional Requirements Refinement techniques by applying the Engineering Model Process, particularly oriented to space field.                                                                    \tabularnewline \midrule
+Obj.3                                             & To generate enough and clear documentation of the whole process, which may be required during the same project or just useful for future references or designs.                \tabularnewline \midrule
+Obj.4                                                    &  To dynamically acquire multidisciplinary knowledge of different specialties as needed during the execution of the project, featuring Mechanical and Aerospace Engineering concepts and techniques.    \tabularnewline \midrule
+
+Obj.5                                                    &  To demonstrate the knowledge acquired during both, Bachelor's and Master's degree in Telecommunication Engineering, as well as multidisciplinary abilities gathered during the execution of this Master's Thesis.      \tabularnewline \midrule
+
+Obj.6                                                    &   To successfully overcome the subject ‘Master's Thesis’.     \tabularnewline \midrule
+
+\end{tabularx}
+\caption{Top-level objectives of the project}
+%\vspace{-1.3\baselineskip}
+\label{topobj}
+
+\end{table}
+
+
+
+
+\newpage
+\section{Project Structure}\label{sec:chapterDescription}
+
+This project, divided into six chapters and an addendum, progressively analyzes the system under development from different points of view, addresses the design tasks and finalizes with the successful completion of the product.
+
+These chapters are:
+
+\begin{itemize} [noitemsep,topsep=0pt]
+\item \hyperref[chap:chapter1]{\textbf{Chapter one}}. This chapter, which is intended to be an introduction and show the general objectives and the reasons which motivate this project. The prior art, as well as a brief introduction to the system engineering methodology applied in this development, are also included in this chapter.
+
+\item \hyperref[chap:chapter2]{\textbf{Chapter two}}. The second chapter addresses the so-called stage \textit{Space~\textbf{Mission}~Engineering}, in which the technical objectives of the system are remarked from a high abstraction level. These objectives lead to the \textbf{Functional~Requirements~Definition}.
+
+
+\item \hyperref[chap:chapter3]{\textbf{Chapter three}}. According to the system engineering methodology applied, the third stage of the project corresponds to the \textit{Space \textbf{System} Engineering}, so it is treated in this chapter. It is included a short introduction to the testing procedures needed to comply with a real mission constraints, including several \acrshort{ECSS} standards. Besides, in this chapter the project is breakdown into three separated blocks; each of them is analyzed, and the \textbf{Formal Requirements} are defined, as a previous step to the design stage.
+
+\item \hyperref[chap:chapter4]{\textbf{Chapter four}}. The fourth chapter deals with \textbf{system design}. It translates the technological solutions analyzed in the previous chapter to actual systems able to execute the tasks required. The blocks structure of the project introduced in the previous chapter is followed again, and each of them is extensively treated, including details at all levels of the design task.
+\item \hyperref[chap:chapter5]{\textbf{Chapter five}}. Once the design is completed, chapter five addresses a series of validation tests, in order to check that the system meets the \textbf{Formal~Requirements} defined and, consequently, the Functional Requirements. It is worth noting that this validation is performed using one of the tools developed within this project.
+\item \hyperref[chap:chapter6]{\textbf{Chapter six}}. Finally, chapter six includes the main conclusions extracted from this Master's Thesis, as well as some future lines of work which have naturally emerged during the design process.
+
+\item \hyperref[cap:budget]{\textbf{Addendum}}, in which the budget and associated cost of this project are detailed.
+\end{itemize}
+
+			\begin{figure}[H]
+			\centering
+			\includegraphics[page=1,trim={0cm 45cm 49cm 0cm},clip=true,width=170mm]{FigurasTFM/Chapter1/PDF/gantt.pdf}
+			\caption{Gantt Chart of the Project}
+			\label{fig:gantt}
+			\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

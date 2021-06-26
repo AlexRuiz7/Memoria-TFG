@@ -1,0 +1,224 @@
+\chapter{Space Mission Engineering} \label{chap:chapter2}
+
+\textbf{Space Mission Engineering} is a broad process in charge of determining the needs of the \textit{client} or goals of the system. Those initial needs are not likely to change and can be considered the \textbf{objectives of the mission}. In that line, this chapter will address top-level objectives, analyzing them and culminating with the task \textbf{Functional Requirements Definition} for each of the subdivisions of the system. 
+
+Furthermore, a brief introduction to this stage of the project is included, in relation with both, generally speaking missions and this particular project. Regarding this point, it may be needed to remember that the double scope of this Master's Thesis is at the halfway between a real mission design and the development of a simulation platform, which will imply taking balanced decisions when an excessively mission-oriented requirement is needed, i.e., space-qualified materials will not be treated in this project. Those assumptions shall be taken into account for future developments specifically intended to fly in orbit. 
+
+
+\section{Introduction to Mission Engineering} \label{missioneng}%no sé si merece la pena este titulo
+
+Mission Engineering typically begins with one or more general objectives and constraints which build up the base to later define the functional requirements of the system, i.e., which tasks should the system be able to perform, from the \textit{client} (mission) point of view. It is usually an iterative process, consisting in refining the requirements expected, being aware of the \textbf{capabilities} and \textbf{constraints} of the technical team and equipment. 
+Documenting the results of this iterative process must also be part of the philosophy of work, so decisions can be reexamined and justified if needed. 
+
+In a real mission, setting excessively optimistic or ambitious objectives (with the aim of getting the greatest amount of results, for example) may be counterproductive, taking to a delayed delivery of the system (increasing costs) or, in the worst scenario, to a failure of the project. Indeed, not only too optimistic goals are risky, overdoing details of the mission in any sense may lead to unexpected problems once the mission is analyzed as a whole. At this point, the main focus must be to translate the needs and objectives of the end user into functional requirements.
+
+As analyzed in \cite{smad}, this stage typically implies a series of steps through which the team must wonder themselves the questions that will lead to the definition of the needs and requirements. Some of these are:
+
+\begin{itemize}
+
+	\item{What are the qualitative goals seeked and why?}
+	\item{Who are the \glsname{stakeholders}?}
+	\item{Which is the timelime?}
+	\item{Considering needs, available technology, previous know-how and so forth, how well should the broad objectives be achieved?}
+	
+\end{itemize}
+
+Therefore, Mission Engineering is a crucial stage of the \textbf{Engineering Design Process} (\acrshort{EDP}) in space, in order to get the most performance possible for the inversion made. Its importance is directly related to the early point of the project in which they are defined; because they are stated as the goals to achieve, the design will point to those from the beginning, implying therefore seeing a significant cost increase in the project as a result of any eventual change to them. as well as additional, avoidable risk. All in all, the final goal is to successfully fulfill the needs of the mission by meeting the end-clients' objectives in time at minimum risk and cost.
+
+Considering the double perspective of this project, as previously exposed in \autoref{chap:chapter1}, these recommendations apply specially for the prototype-oriented focus, as developing a system intended to be in orbit. While the Simulation Platform branch allows relaxing them in some ways, being an academic project with a certain \textbf{deadline} makes it recommendable to keep risks under control in order to stick to the schedule and conclude it in time. In any case, as stated in \autoref{cubesatdefin}, because of the nature of CubeSats itself, a certain amount of risk is accepted in these kind of projects; trying new ideas or concepts inherently \textbf{includes that risk}, even more so when low cost is intended. Accomplishing the mission under that condition will be the real challenge.
+
+
+\section{System Objectives. Functional Requirements Definition}
+
+After introducing the foundations of the Mission Engineering Process, the technical objectives of the system are defined, in contrast with the ones defined in \autoref{sec:obj}. They fit the top-level needs and will lead to the definition of the \textbf{functional requirements} of this project, after performing the iterative process stated in \autoref{missioneng}; firstly, the breakdown of the parts of this project is shown. The proposed simulation platform will be composed of three different subsystems, illustrated in \autoref{decomp}, in which the main purposes and functions of each are featured.
+
+\begin{figure}
+				\centering
+				\includegraphics[width=160mm]{figurastfm/Chapter2/PDF/decomp.pdf}
+				\caption{Simulation Platform Subsystems}      		
+				\label{decomp}
+\end{figure}
+
+
+As seen in \autoref{decomp}, this project involves three clearly differentiated parts, which will be broken down in later chapters. Following the philosophy of this stage, now they are considered from a top-level mission's view, determining the technical objectives of the project for each one.
+
+
+\subsection{Mechanical Platform}
+
+Although, as illustrated in \autoref{decomp} this project as a whole has the final purpose to develop a complete Simulation Platform framework, one of the main differentiated parts is specifically a physical simulation platform which allows testing a CubeSat prototype, as well as interacting with it in every possible way. Therefore, this  part of the platform will require an extensive work of \textbf{mechanical design}. Also, this subpart of the system answers both orientations of this Master's Thesis: on the one hand, it allows technical testing of functionalities, which can be useful at early stages of the development, before going through official testing (see \autoref{testing}) so the approximate performance of the prototype can be analyzed; additionally, it allows determining the capabilities of the prototype, feasibility of the design, changes needed, etc. On the other hand, it also satisfies the educational aspect of this project, by allowing students to implement different solutions in a space-oriented platform, easing the acquisition of specific concepts and putting it into practice. Taking this into account, the set of objectives related to the mechanical platform is shown in  \autoref{techobjmechplat}. Note that both objectives and functional requirements are identified by a code which eases a quick reference when needed; this notation will be used through all this project when dealing with requirements.
+
+\begin{table} [H]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+ & \multicolumn{1}{c}{\textbf{Technical Objectives}}    
+\tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Primary}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+MP.Obj.1                                              & To allow testing at least 1U \glsname{cubesat}, physically rotating, emulating in orbit
+flight.                                                                                  \tabularnewline \midrule
+MP.Obj.2                                              & To allow integration of external elements to the platform, such as one or more lightning source emulating the Sun, magnetic field presence, etc.                                                                                 \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Secondary}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+MP.Obj.3                                            & To keep it as lightweight as possible, maximizing portability.                   \tabularnewline \midrule
+
+MP.Obj.4                                                   & To build it using a low-cost philosophy, specially in prototyping stage. \tabularnewline \midrule
+MP.Obj.5                                                   & The subsystem shall use inexpensive materials in prototyping stage.    \tabularnewline \midrule
+\end{tabularx}
+
+\caption{Mechanical Platform - Technical Objectives}
+%\vspace{-1.3\baselineskip}
+\label{techobjmechplat}   
+
+\end{table}
+
+
+While \textbf{Primary Objectives} are those to be fulfilled in order to consider a certain level of success, \textbf{Secondary Objectives} are additional goals which would complement the primary list. All in all, they express the needs of the client and/or mission. From these, functional requirements can be extracted, as shown in \autoref{functmechplat}.
+
+\begin{table}[H]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Functional Requirements}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+MP.FR.1                                              & The subsystem shall have enough capacity to host at least 1U \glsname{cubesat}.                                    \tabularnewline \midrule
+MP.FR.2                                              & The subsystem shall have low friction in order to emulate in orbit conditions.                                                                      \tabularnewline \midrule
+MP.FR.3                                            & The subsystem shall weight as less as possible (without \glsname{cubesat} unit).                 \tabularnewline \midrule
+%MP.FR.4                                                   & The subsystem shall use inexpensive materials in prototyping stage.    \tabularnewline \midrule
+
+\end{tabularx}
+\caption{Mechanical Platform - Functional Requirements}
+%\vspace{-1.3\baselineskip}
+\label{functmechplat}
+
+\end{table}
+\subsection{Ground Station} \label{gstation}
+
+When talking about a satellite link, \glsname{ground} is the Earth's-end in charge of dealing with the communications tasks from and to the spacecraft. In the same way, this project will make use of the \glsname{ground} to establish a communication link with the \glsname{cubesat} under test, allowing testing \acrshort{TCC} System, but will also function as central server of a hypothetical network of CubeSats, which would be certainly useful in a classroom environment, in which each student would have their \glsname{cubesat} but only one \glsname{ground} is needed. Once again, this subpart satisfies both orientations of this Master's Thesis. \autoref{techobjgstation} and \autoref{functgstation} shows the technical objectives and functional requirements of this part, respectively.
+
+
+\begin{table} [h]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+ & \multicolumn{1}{c}{\textbf{Technical Objectives}}    
+\tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Primary}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+GS.Obj.1                                              & To allow \glsname{ground} operators to effectively communicate with GranaSAT-I \glsname{cubesat}.                                                                                 \tabularnewline \midrule
+GS.Obj.2                                              & To allow sending control commands to GranaSAT-I.                                                                                                         \tabularnewline \midrule
+GS.Obj.3                                              & To allow receiving telemetry and payload data from GranaSAT-I.        \tabularnewline \midrule
+GS.Obj.4                                              & To allow defining new control commands and telemetry packages. \tabularnewline
+
+
+\specialrule{1.1pt}{1pt}{1pt}
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Secondary}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+GS.Obj.5                                            & 
+To function as central \glsname{ground} for a number of compatible CubeSats, potentially a swarm, in a local environment. It may be useful as approach to the real case stated in \cite{paperamericano} in which I collaborated with Professor Stakem from \textbf{Goddard Space Flight Center} (\acrshort{NASA}). \tabularnewline \midrule
+
+GS.Obj.6                                                   & To count with software analysis in charge of managing transmitted and received data. \tabularnewline \midrule
+GS.Obj.7                                                   & To communicate with GranaSAT-I using industry standard formats. \tabularnewline \midrule
+\end{tabularx}
+\caption{Ground Station - Technical Objectives}
+%\vspace{-1.3\baselineskip}
+\label{techobjgstation}   
+
+\end{table}
+
+
+
+\begin{table}[h]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Functional Requirements}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+GS.FR.1                                              & The subsystem shall have a communication system compatible with \glsname{cubesat} GranaSAT-I,  in terms of frequency, technology and whatever other aspect needed to accomplish an effective communication.                                                       \tabularnewline \midrule
+GS.FR.2                                              & The subsystem shall have a software module in charge of packetization and de-packetization.                                                                      \tabularnewline \midrule
+GS.FR.3                                            & The subsystem shall have a software module in charge of keeping logs, plotting received data, managing alerts and any other capability liable to implemented. It shall allow data analysis in both, real time and post-processing stage.                   \tabularnewline \midrule
+GS.FR.4                                                   & The subsystem shall be able to function in a distributed local network of compatible CubeSats, managing communications, connections, etc. \tabularnewline \midrule
+GS.FR.5                                                   & To communicate with GranaSAT-I using \acrshort{CCSDS} (see \ref{ccsds}). \tabularnewline \midrule
+\end{tabularx}
+\caption{Ground Station - Functional Requirements}
+%\vspace{-1.3\baselineskip}
+\label{functgstation}   
+
+\end{table}
+
+
+\subsection{Simulation CubeSat}
+
+The third top-level subpart of the system is the simulation \glsname{cubesat} itself, the GranaSAT~-~I. It is intended to be used as the basis to keep working in the development of an university \glsname{cubesat} in the University of Granada. As for this project, it must be able to integrate within the physical simulation platform, described in \autoref{gstation}, as well as communicating with it in the terms stated before. It must comply with \glsname{cubesat} standard~\cite{calpoly} and being designed in such a way future designs and subsystems can be integrated. Particularly, this project will deal with \textbf{On-board~Computer}~(\acrshort{OBC}), \textbf{Attitude~Determination~\&~Control~System}~(\acrshort{ADCS}) the photovoltaics module of the \textbf{Electrical Power System}~(\acrshort{EPS}) and basic \textbf{On-Board Data Handling} \acrshort{OBDH} functions, integrated in the \acrshort{OBC}. Additionally, as part of the software subsystem of the CubeSat, at least \acrshort{OBC} and \acrshort{ADCS} shall have a minimum working set of functions, which allow testing basic functions of the platform (mission simulation approach) and can be used as guide for students to implement and try new features (academic approach).
+
+This is the largest and most complex subpart of the whole system. It involves tasks belonging a wide range of the technical spectrum, from \textbf{Mechanical Engineering} (GranaSat-I physical design and characterization and inertial orbit simulator design) to \textbf{Telecommunication Engineering} (electronic design, communication, software development) or \textbf{Aerospace Engineering }(in orbit dynamics, space representations). This fact makes this project an actual representation of what a mission design or space-related project is like: a multidisciplinary challenge which	combines work and knowledge of completely different fields in order to reach a common objective. 
+
+These end user objectives yields to the functional requirements listed next. They contain not only those derived from the iterative analysis of the mission objectives, but also taking into account \acrshort{ECSS} applicable standards, featuring ECSS-E-ST-60-30C \cite{ESAAOCS} or \linebreak ECSS-E-ST-70-41C \cite{ESATLM} among others. Once more, the intention is keeping the design process as close as possible to a real mission design, easing future improvements of this project intended to be in orbit.
+
+ 
+%%para que las tablas que están solas en una pagina no se centren verticalmente
+%\makeatletter
+%\setlength{\@fptop}{0pt}
+%\makeatother
+
+\newpage
+
+\autoref{techobjsimcub} lists Technical Objectives for the Simulation \glsname{cubesat}.
+
+\begin{table} [ht!]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+ & \multicolumn{1}{c}{\textbf{Technical Objectives}}    
+\tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Primary}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+SC.Obj.1                                              & To be an \glsname{engmodel} for GranaSAT-I design, which  allows testing both provided functionalities and new ones added in subsequent projects.                                                                                 \tabularnewline \midrule
+SC.Obj.2                                              & To allow the complete testing possible of \acrshort{OBC} module developed, from management of the GranaSAT-I electronics, to dealing with the different functioning modes, or coping with critical situations.                                                                                                         \tabularnewline\midrule
+SC.Obj.3                                              & To allow the complete testing possible of \acrshort{ADCS} module developed, from management of the GranaSAT-I maneuvering system, including motors or \glsname{magnetorquers}, detumbling mode, send sensors data to the \acrshort{OBC} dynamically, etc. etc.                                                                                                           \tabularnewline\midrule
+SC.Obj.4                                              & To allow space and magnetic attitude determination, and control, if needed.                                                                                                                                  \tabularnewline\midrule
+SC.Obj.5                                            & To allow photovoltaics module testing, when used with a proper \acrshort{EPS}. This module must be able to provide enough energy to the GranaSAT-I in every  necessary point of the mission/simulation.                                                                                                       \tabularnewline\midrule
+SC.Obj.6                                              & To allow wired communications, when used in the simulation platform, in order to change any internal configuration or download data.                                                                                                                 \tabularnewline
+
+
+\specialrule{1.1pt}{1pt}{1pt}
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Secondary}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+SC.Obj.7                                            & 
+To keep it as lightweight as possible, maximizing portability.                                                                          \tabularnewline \midrule
+
+SC.Obj.8                                                   & To measure different ambient conditions, such as pressure, temperature or similar. \tabularnewline \midrule
+SC.Obj.9                                                   & To allow wireless communications, when used in the simulation platform, in order emulate radio-link communication used in a real in orbit mission. \tabularnewline \midrule
+
+SC.Obj.10                                              & To deal with the changing conditions \textit{in orbit} and act consequently.                                           \tabularnewline\midrule
+SC.Obj.11                                              & To determine its angular velocity.                                                                                                               \tabularnewline
+\end{tabularx}
+\caption{Simulation CubeSat - Technical Objectives}
+%\vspace{-1.3\baselineskip}
+\label{techobjsimcub}   
+
+\end{table}
+
+\newpage
+\autoref{funreqsimcub} shows the Functional Requirements determined.
+
+
+\begin{table} [ht!]
+\centering
+
+\begin{tabularx}{\linewidth}{lX}
+
+\multicolumn{1}{c}{\textbf{Ref.}}                      & \multicolumn{1}{c}{\textbf{Functional Requirements}}                    \tabularnewline \specialrule{1.1pt}{1pt}{1pt}
+SC.FR.1                                              & The subsystem shall follow applicable interconnection standards, so \acrshort{OBC} and any other subsequent can be tested. \tabularnewline \midrule
+SC.FR.2                                              & The subsystem shall have movement, magnetic and ambient conditions sensors, as well as a tachometer-like sensor.                                                                    \tabularnewline \midrule
+SC.FR.3                                            & The subsystem shall have integrate \acrshort{ADCS} and lightning sensors capabilities in order to determine power source attitude or irradiation level.              \tabularnewline \midrule
+SC.FR.4                                                   & To ensure that the attitude guidance and pointing specified by the mission requirements, during the mission operational phase, are met. This includes tracking of a fixed point or Sun pointing, as well as any other specific attitudes needed for system purposes, like communications for instance.    \tabularnewline \midrule
+SC.FR.5                                                   & To perform the attitude measurement, estimation, guidance and control needed for the mission, autonomously.    \tabularnewline \midrule
+SC.FR.6                                                   & The subsystem shall count with \acrshort{IEEE}802.11b \cite{ieee80211} connection capability, integrated with the \acrshort{OBC}.    \tabularnewline \midrule
+SC.FR.7                                                   & The subsystem shall count with \acrshort{IEEE}802.3 \cite{ieee8023} (Ethernet) connection capability, integrated with the \acrshort{OBC}.    \tabularnewline \midrule
+SC.FR.8                                                   & The subsystem shall count with \acrshort{USB} \cite{usborg} connection capability, integrated with the \acrshort{OBC}.    \tabularnewline \midrule
+SC.FR.9                                                   & The whole system shall provide \glsname{housekeeping} telemetry to enable the verification of the nominal behaviour of sensors, actuators and on-board functionalities, on ground.    \tabularnewline \midrule
+
+\end{tabularx}
+\caption{Simulation \glsname{cubesat} - Functional Requirements}
+\label{funreqsimcub}
+
+\end{table}
+

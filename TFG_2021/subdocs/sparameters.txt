@@ -1,0 +1,24 @@
+	\underline{\textbf{-S-Parameters and Two-Port Networks}}
+\\
+
+	When working with frequencies above a certain range, such as microwave frequencies, direct measurements of voltages and currents turns complicated. Direct measurements usually involve the magnitude and phase of a wave travelling in a given direction or of a standing wave. Therefore, concepts like equivalent voltages and currents or admittance matrices lack validity in these cases. A representation more in accord with direct measurements, and also with the concepts of incident, reflected, and transmitted waves, is given by the scattering matrix.
+	
+Scattering matrix provides a complete description of the network as seen at its N ports. It relates the voltage waves incident on the ports to those reflected from the ports. Their components are usually abridged as \textbf{S-Parameters}. They can be measured directly with a vector network analyzer. They can be defined as function of incident and reflected waves, $a_{n}(l_{n})$ and $b_{n}(l_{n})$, as follows:
+
+
+\begin{equation}
+\[S_{11}=\frac{b_{1}(l_{1})}{a_{1}(l_{1})}\Bigg\rvert_{a_{2}(l_{2})=0
+\end{equation}
+
+\begin{equation}
+\[S_{12}=\frac{b_{1}(l_{1})}{a_{2}(l_{2})}\Bigg\rvert_{a_{1}(l_{1})=0 
+\end{equation}
+
+\begin{equation}
+\[S_{21}=\frac{b_{2}(l_{1})}{a_{1}(l_{1})}\Bigg\rvert_{a_{2}(l_{2})=0 
+\end{equation}
+
+\begin{equation}
+\[S_{22}=\frac{b_{2}(l_{2})}{a_{2}(l_{2})}\Bigg\rvert_{a_{1}(l_{1})=0 
+\end{equation}
+

@@ -1,0 +1,687 @@
+\chapter{Integration, tests and verification}\label{chap:chapter5}
+
+In this chapter, we will see the integration phase of this project, how each subsystem works with each other. Moreover, a characterization of the whole parameters for the motors will be done and an evaluation of the test taken. 
+
+\section{Motor characterization}\label{sec:motorcharacterization}
+
+In this section, the motors will be evaluated, and some parameters necessary for the study of the reaction wheels will be calculated. 
+
+\subsection{Power Supply - RPM Test}\label{ssec:RPM}
+
+\textbf{Purpose} \\
+
+
+One of the most relevant characteristics for the reaction wheels is the angular speed that the motors can achieve. That parameter will be measured with the reaction wheels and without them, to compare both results.
+
+\textbf{Material and environment needed} \\
+
+
+The materials used in this test are:
+\begin{itemize}
+\item Regulable power supply source
+\item Multimeters (to measure the voltage and current accurately)
+\item Motors
+\item Reaction wheels
+\item Tachometer
+\item \acrshort{PC} and Excel Software.
+\end{itemize}
+
+The tachometer is the model DT-2234B \cite{tacometer}, which is a photo tachometer type and it has the characteristics shown in table \ref{tab:tachometer}.
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Range (RPM) & 5 to 99999 \\ \hline
+Resolution for <1000RPM  (RPM)     & 0.1     \\ \hline
+Resolution for >1000RPM  (RPM)           & 1       \\ \hline
+Accuracy          & ± ( 0.05\% + 1 digit ). \\ \hline
+Sampling Time (s)      &  1                    \\ \hline
+Operating temp (ºC)          & 0 to 50    \\ \hline
+Charge Termination Current  (mA)          & 150    \\ \hline
+Discharge temperature range (ºC)          & -10 to +60     \\ \hline
+\end{tabular}
+\caption{DT-2234B Photo tachometer Specifications \cite{tacometer}}\label{tab:tachometer}
+\end{table}
+
+That tachometer can save the last value, the maximum value and the minimum value measured. The maximum distance for the detection of the speed  is 30 cm. A photography of that tool is shown in figure \ref{fig:tacometer}.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/tacometer.jpg}
+	\caption{Tachometer DT-2234B \cite{tacometer}}	\label{fig:tacometer}
+\end{figure}
+
+
+\textbf{Results} \\
+
+The revolution of the wheels is not exactly constant, so in order to have the most accurate value, three measurements was taken and the average of that values was used for the motor characterization. 
+The table \ref{tab:RF300RPM} contains the measurements taken with the tachometer DT-2234B for the motor Kysan RF-300CH, located in the appendix \ref{chap:testtables}, section \ref{sec:RPMtables}. That measurements were made with a piece of cardboard in the motor axis as shows the figure \ref{fig:motorprepared} with a reflecting sticker that the tachometer's kit includes to detect the angular velocity. Moreover, the figure \ref{fig:RF300RPM} represents that measurements.
+
+
+\begin{figure}[H]
+\centering
+\subfloat[ ]{\label{fig:startracker1} \includegraphics[width=50mm]{capitulo5/motorcarton.jpg}}
+\subfloat[ ]{\label{fig:motors} \includegraphics[width=90mm]{capitulo5/motors.jpg}}
+\caption{Motors prepared for the VCC-RPM test} \label{fig:motorprepared}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/RF300CHRPM.jpg}
+	\caption{VCC-RPM results for Kysan RF-300CH}
+	\label{fig:RF300RPM}
+\end{figure}
+
+That graph shows how the tendency of the characterization is practically lineal. The equation represented in the graph proves that evidence.
+
+Now the same measurements were made for the rest of the motors (figures \ref{fig:NONAMERPM} and \ref{fig:MDNRPM}). 
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/NONAMERPM.jpg}
+	\caption{VCC-RPM results for the motor without model}
+	\label{fig:NONAMERPM}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/MDNRPM.jpg}
+	\caption{VCC-RPM results for Minebea MDN3BT}
+	\label{fig:MDNRPM}
+\end{figure}
+
+Now, it is time to compare the three motors graphs. See figure \ref{fig:comparison} to see the comparation.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/comparison.jpg}
+	\caption{VCC-RPM results comparison}
+	\label{fig:comparison}
+\end{figure}
+
+Moreover, the tables of the data measured of that motors is in the Appendix section \ref{sec:RPMtables}, and the other motors (which have no been chosen for the project) measured in order to choose the best one (see section \ref{sec:actuators}).
+
+The second part of this test was measure the same parameters, but in this case, with the wheels mounted on the motor, and finally, see the comparison between the results with and without the wheel, a really useful result to see the behavior of that wheels. the figures \ref{fig:RF300RPMwheel}, 
+
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/RF300CHRPMwheel.jpg}
+	\caption{VCC-RPM results with wheels for Kysan RF-300CH}
+	\label{fig:RF300RPMwheel}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.7]{capitulo5/MDNRPMwheel.jpg}
+	\caption{VCC-RPM results with wheels for Minebea MDN3BT}
+	\label{fig:MDNRPMwheel}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.7]{capitulo5/NONAMERPMwheel.jpg}
+	\caption{VCC-RPM results with wheels for the motor without model}
+	\label{fig:NONAMERPMwheel}
+\end{figure}
+
+
+That results will be used for the design of the software which controls the actuator drivers, to enhance the efficiency of the algorithm.
+
+
+\subsection{Electrical parameters measurements}\label{ssec:parametersmotor}
+
+In order to simulate the electrical model of the \acrshort{DC} motors, some parameters are needed. That simulation will give us an idea of the future response of these motors.The collection of that values is made experimentally, some of then with different methods, with the intention to have a better result comparing the measured values.
+
+
+First, the \acrshort{DC} motor electrical model is represented in figure \ref{fig:DCmotormodel}.
+
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=1.2]{capitulo5/DCmotormodel.pdf}
+	\caption{Model circuit for \acrshort{DC motor}}
+	\label{fig:DCmotormodel}
+\end{figure}
+
+
+The parameters that appear in that model means:
+\begin{itemize}
+\item Eb: Counter-electromotive force (counter \acrshort{EMF}) of the \acrshort{DC} motor. (V)
+\item Ra: Armature resistance ($\Ohmios$)
+\item La: Armature Inductor (H)
+\item Va: Input voltage (V)
+\item Ia: Armature current (A)
+\end{itemize}
+
+Now, if we apply the Kirchhoff's circuit laws, we have the equation \ref{eq:motor1}.
+
+\begin{equation}
+Va=Eb+(Ia\times Ra)
+\label{eq:motor1}
+\end{equation}
+
+Moreover, the transient equation for a \acrshort{DC} motor is the equation \ref{eq:transient}.
+
+\begin{equation}
+Va=La \frac{dI}{dt} +Ra Ia+K_T \dot{\theta}
+\label{eq:transient}
+\end{equation}
+
+Where $L/R$ will be the electric time constant (te), which will be calculated too.
+
+\textbf{Armature resistance (Ra)} \\
+
+To measure the armature resistance we will use three methods:
+\begin{itemize}
+\item Using a multimeter, measuring in the both terminals of the motor armature. 
+\item With a power supply source, and two multimeters to have a more accurate measures for current and voltage, adjust to the minimum voltage for the supply of the motor, and measure the current consumption. Using the Ohm law, the resistance of that values will be the armature resistance.
+\item With a LCR meter, measuring in both terminals of the motor armature.
+\end{itemize}
+
+The LCR meter is the model 4192A Impedance Analyzer HP, which gave us the La and Ra values choosing the options shown in figure \ref{fig:controlLCR}. Figure \ref{fig:MDN_LCR} shows the LCR meter and the motor been measured. 
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.18]{capitulo5/controlLCR.jpg}
+	\caption{LCR options to measure Ra and La}
+	\label{fig:controlLCR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.18]{capitulo5/MDN_RLC.jpg}
+	\caption{Measuring MDN3BT resistance and inductance}
+	\label{fig:MDN_LCR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.18]{capitulo5/RF_RLC.jpg}
+	\caption{Measuring RF300-CH resistance and inductance}
+	\label{fig:RF_LCR}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.18]{capitulo5/SIN_RLC.jpg}
+	\caption{Measuring the motor without name resistance and inductance}
+	\label{fig:SIN_LCR}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l |l | }
+\hline\hline
+	\textbf{Motor} & \textbf{Multimeter} & \textbf{Power Supply} & \textbf{LCR} &\textbf{ $Ra_{ave}$ }\\ \hline
+	MDN3BT & 12.25 $\Omega$ & 12.9 $\Omega$ & 12.25 $\Omega$& 12.47 $\Omega$\\ \hline
+RF-300CH & 10.92 $\Omega$& 10.9 $\Omega$& 10.679 $\Omega$& 10.83 $\Omega$\\ \hline
+NO-NAME & 11.14  $\Omega$& 12.2 $\Omega$& 11.79 $\Omega$& 11.71 $\Omega$\\ \hline\hline 
+\end{tabular}
+\caption{Armature resistance measurements} \label{tab:Ra}
+\end{table}
+For the power supply measurements, the values taken for the calculation are shown in table \ref{tab:arranque}.
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l |  }
+\hline\hline
+		\textbf{Motor} & Istart(mA) & Vstart(V)\  \\ \hline
+		MDN3BT  & 50.2 & 0.615  \\ \hline
+	RF-300CH & 64.1  & 0.7 \\ \hline
+	NO-NAME & 55.2  & 0.615 \\  \hline\hline
+\end{tabular}
+\caption{Start conditions for each motor} \label{tab:arranque}
+\end{table}
+\\
+
+The start current is the current necessary to start the rotation of the axis for the motor. That value will be maximum just before the friction torque was passed. So the Istart is the minimum current necessary to achieve that situation. The friction torque will be calculated in this section too.
+
+\textbf{Armature inductance (La)} \\
+To measure the inductance of the motor, the LCR used for the resistor will be used (see figures \ref{fig:MDN_LCR},\ref{fig:RF_LCR} and \ref{fig:SIN_LCR}). Ant the table \ref{tab:La} resume that values.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | }
+\hline\hline
+	\textbf{Motor} & \textbf{LCR} \\ \hline
+	MDN3BT & 9.54 mH \\ \hline
+RF-300CH & 8.31 mH \\ \hline
+NO-NAME & 9.00 mH  \\ \hline\hline 
+\end{tabular}
+\caption{Armature inductance measurements} \label{tab:La}
+\end{table}
+\\
+
+\textbf{Electrical time constant (te)} \\
+ With the previous values for Ra and La, the electrical time constant can be calculated with the equation \ref{eq:te} and shown in table \ref{tab:te}.
+
+\begin{equation}
+te=\frac{La}{Ra}
+\label{eq:te}
+\end{equation}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l |}
+\hline\hline
+	\textbf{Motor} & \textbf{te ($\mu s$)} \\ \hline
+	MDN3BT & 765.2 \\ \hline
+RF-300CH & 767.1 \\ \hline
+NO-NAME & 768.5 \\ \hline\hline 
+\end{tabular}
+\caption{Electrical time constant calculation} \label{tab:te}
+\end{table}\\
+
+\textbf{Counter-electromotive force (Eb)} \\
+The circuit shown in figure \ref{fig:DCmotormodel}, is the electrical model for the \acrshort{DC} motor, where the Eb was represented. Now it is time to calculate that parameter, because we have the values for the Ra and Ia. Following the equation \ref{eq:motor1}, the following tables have been calculated.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l |  }
+\hline\hline
+	\textbf{Va(V)} & \textbf{Ia(mA)} & \textbf{Eb(V)}  \\ \hline
+	1.019 & 17.66  & 0.7988\\ \hline
+	2.014 & 20.42  & 1.7594 \\ \hline
+	3.004 & 25.36  & 2.6878 \\ \hline
+	4.02 & 34.12 & 3.5946 \\ \hline
+	5.01 & 40.5 & 4.5050 \\ \hline\hline
+\end{tabular}
+\caption{Counter-electromotive force calculation for MDN3BT} \label{tab:Eb1}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l |  }
+\hline\hline
+	\textbf{Va(V)} & \textbf{Ia(mA)} & \textbf{Eb(V)}  \\ \hline
+	1.054 & 15.24& 0.8889  \\ \hline
+	2.066 & 19.12  & 1.8588 \\ \hline
+	3.012 & 24.69  & 2.7445 \\ \hline
+	4 & 32.00 &3.6533 \\ \hline
+	5.01 & 40.29 & 4.5734 \\ \hline
+	6 & 50.4 & 5.4540 \\ \hline\hline
+\end{tabular}
+\caption{Counter-electromotive force calculation for RF-300CH} \label{tab:Eb2}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l |  }
+\hline\hline
+	\textbf{Va(V)} & \textbf{Ia(mA)} & \textbf{Eb(V)}  \\ \hline
+	1.028 & 12.69& 0.8793  \\ \hline
+	2.025&15.49  & 1.8436\\ \hline
+	3.007 & 18.97  & 2.7848 \\ \hline
+	4.04 & 24.04 &3.7584 \\ \hline
+	5.01 & 29.95 & 4.6592 \\ \hline
+	6 & 38.14 & 5.5533 \\ \hline\hline
+\end{tabular}
+\caption{Counter-electromotive force calculation for motor without name} \label{tab:Eb3}
+\end{table}
+
+For each calculation, the Ra used was the $Ra_{ave}$ that appears in table \ref{tab:Ra}.\\
+
+
+
+\textbf{Counter-electromotive constant  (Ke)} \\
+ When a \acrshort{DC} motor is working, an induced voltage appears proportionally to the product of the flow with the angular speed. Our flow is constant, so the Eb is directly proportional to the angular speed (see equation \ref{eq:Ke}). The Ke parameter  will define the electrical  characteristics of the motor.
+
+\begin{equation}
+Ke=\frac{Eb}{N}(V/RPM)=\frac{V}{\omega} (V/rad/s)
+\label{eq:Ke}
+\end{equation}
+
+The Ke value was obtained for each value of Eb and N (or V and $\omega$), and the average value is represented in the table \ref{tab:Ke}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l |l |}
+\hline\hline
+	\textbf{Motor} & \textbf{Ke $\left(\frac{V}{RPM}\right)$} & \textbf{Ke $\left(\frac{V}{rad/s}\right)$}\\ \hline
+	MDN3BT & 0.0008066 &	0.008713489 			\\ \hline
+RF-300CH & 0.000808414 &	0.008422059  \\ \hline
+NO-NAME & 0.000900611 &		0.009226577	\\ \hline\hline 
+\end{tabular}
+\caption{Counter-electromotive constant calculation} \label{tab:Ke}
+\end{table}
+
+
+
+\textbf{Torque constant(Kt)} \\
+The energy that the motor supplies in its rotation axis is expressed with the equations \ref{eq:igualdad1}, \ref{eq:igualdad2} and \ref{eq:igualdad3}, depending on Ke.
+
+%\begin{equation}
+%Kt=\frac{Ke}{0.00684}
+%\label{eq:torque}
+%\end{equation}
+%
+%Equation \ref{eq:torque} is a derivation of the equation \ref{eq:igualdad}.
+%
+%\begin{equation}
+%Pe=Pm(W)
+%\label{eq:igualdad}
+%\end{equation}
+%
+%Where Pe is the electrical power and Pm the mechanical power.
+%
+%\begin{equation}   
+%\times Eb Ia= \frac{2\pi}{60} N frac{T}{12} \times 1.356
+%\label{eq:igualdad2}
+%\end{equation}
+%
+%Substituting the equation \ref{eq:Ke} on equation \ref{eq:igualdad2}:
+%
+%\begin{equation}   
+%\times Ke= \frac{Eb}{N}=0.011827 frac{T}{Ia} 
+%\label{eq:igualdad3}
+%\end{equation}
+%
+%Therefore:
+%
+%
+\begin{equation}   
+Kt\left(\frac{Nm}{A}\right)= Ke \left(\frac{V}{rad/s}\right)
+\label{eq:igualdad1}
+\end{equation}
+
+\begin{equation}   
+Kt\left(\frac{Nm}{A}\right)= 9.5493 \times 10 Ke \left(\frac{V}{kRPM}\right)
+\label{eq:igualdad2}
+\end{equation}
+
+\begin{equation}   
+Kt\left(\frac{oz-in}{A}\right)= 1.3524 Ke \left(\frac{V}{kRPM}\right)
+\label{eq:igualdad3}
+\end{equation}
+
+
+Using the equation \ref{eq:igualdad1}, the torque constant can be determined thanks to the Ke values calculates before (see table \ref{tab:Ke}), which are represented in table \ref{tab:Kt}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l |l |}
+\hline\hline
+	\textbf{Motor} & \textbf{Ke $\left(\frac{V}{rad/s}\right)$} & \textbf{Kt $\left(\frac{Nm}{A}\right)$}\\ \hline
+	MDN3BT & 0.008871223 &	0.008871223		\\ \hline
+RF-300CH & 0.008605915 &	0.008605915  \\ \hline
+NO-NAME & 0.009434063 &		0.009434063	\\ \hline\hline 
+\end{tabular}
+\caption{Torque constant calculation} \label{tab:Kt}
+\end{table}
+
+\textbf{Mechanical time constant(tm)} \\ 
+That parameter will be used to calculate the Inertia momentum (Jm). When a step function is applied to the motor, it will be generated a transient response. The mechanical time constant is the necessary time to achieve the 63.2\% of the final value (see figure \ref{fig:tm}).
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.8]{capitulo5/tm.jpg}
+	\caption{Mechanical time constant representation \cite{tm}}
+	\label{fig:tm}
+\end{figure}
+
+To measure that parameter the graphs of the section \ref{fuente} have been used, only a section of that graphs, obtaining the results shown in table \ref{tab:tm}. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l |}
+\hline\hline
+	\textbf{Motor} & \textbf{tm (s)} \\ \hline
+	MDN3BT & 0.1777 \\ \hline
+RF-300CH & 0.1723 \\ \hline
+NO-NAME & 0.1166 \\ \hline\hline 
+\end{tabular}
+\caption{Mechanical time constant measurement} \label{tab:tm}
+\end{table}\\
+
+The part of the graphs used are shown in figures \ref{fig:tm1}, \ref{fig:tm2} and \ref{fig:tm3}, using the linearization equation shown inside each one.
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/tmMDN.jpg}
+	\caption{Mechanical time constant graph for MDN3BT }
+	\label{fig:tm1}
+\end{figure}
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/tmRF.jpg}
+	\caption{Mechanical time constant  graph for RF300-CH }
+	\label{fig:tm2}
+\end{figure}
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/tmSIN.jpg}
+	\caption{Mechanical time constant graph for no-name motor}
+	\label{fig:tm3}
+\end{figure}
+
+
+\textbf{Inertia momentum (Jm)} \\ 
+It is used a parametric method, because that calculation depends on others parameters calculated  or measured before with the expressions \ref{eq:Jm} and \ref{eq:Jm2} . The figure \ref{fig:angular} shows an example where the Jm can be seen as\textit{L} in the figure.
+
+\begin{equation}   
+tm(s)= \frac{Jm \times Ra}{Kt \times Ke} 
+\end{equation}
+
+\begin{equation}   
+Jm = \frac{Kt \times Ke \times tm}{Ra} (Kg*m^2)
+\label{eq:Jm2}
+\end{equation}
+
+And finally, table \ref{tab:Jm}, which shows the value of Jm for each motor.
+
+\begin{table}[H]
+
+\centering
+\begin{tabular}{ | l | l |}
+\hline\hline
+	\textbf{Motor} & \textbf{Jm ($Kg*m^2$)} \\ \hline
+	MDN3BT & $1.122*10^{-6}$ \\ \hline
+RF-300CH & $1.1776 *10^{-6}$ \\ \hline
+NO-NAME & $8.6386*10^{-6}$\\ \hline\hline 
+\end{tabular}
+\caption{Inertia momentum calculation} \label{tab:Jm}
+\end{table}\\
+
+\textbf{Friction torque(Tf)} \\
+That parameter is calculated with the measurements taken of the start current, in table \ref{tab:arranque}, and the Kt value, from table \ref{tab:Kt}, following the equation \ref{eq:Tf}.
+
+\begin{equation}   
+Tf= Kt \times Istart
+\end{equation}
+
+\begin{table}[H]
+
+\centering
+\begin{tabular}{ | l | l |}
+\hline\hline
+	\textbf{Motor} & \textbf{Tf ($\mu Nm$)} \\ \hline
+	MDN3BT & 445.33 \\ \hline
+RF-300CH & 551.63 \\ \hline
+NO-NAME & 507.57\\ \hline\hline 
+\end{tabular}
+\caption{Friction torque calculation} \label{tab:Tf}
+\end{table}\\
+
+\textbf{Damping Ratio(B)} \\
+The constant B determines when the system is stabilized, with a constant speed, where the acceleration $\dot{\omega}$ is the derived of that speed, in this case, zero: 
+
+\begin{equation}   
+Tm= Kt \times Ia=Jm \dot{\omega}+B\omega+Tf=B\omega+Tf
+\end{equation}
+
+The table \ref{tab:damping} have the necessary parameter to calculate the damping ratio.
+
+
+\begin{table}[H]
+
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | }
+\hline\hline
+
+	VCC(V) & I(mA) & $\omega$ (RPM) & $\omega$ (rad/s) &Tm=Kt*Ia (Nm) & Tm-Tf=B*w (Nm)  \\ \hline
+	1.019 & 17.66 & 1007.33 & 105.4678 & 0.00015667 & 0.0001162  \\ \hline
+	2.014 & 20.42 & 2200.333 & 230.3749 & 0,00018115 & 0.000140659\\ \hline
+	3.004 & 25.36 & 3336.333 & 349.3141 & 0,000224974 & 0.00018448 \\ \hline
+	4.04 & 34.12 & 4484.33 & 469.5097 & 0,000302686 & 0.000262195\\ \hline
+	5.01 & 40.5 & 5407.33 & 566.1478 & 0,000359285 & 0.000318793 \\ \hline
+	6 & 47.4 & 6495.667 & 680.0963 & 0,000420496 & 0.000380005 \\ \hline\hline
+\end{tabular}
+\caption{Parameters necessary for the B calculation (MDN3BT)} \label{tab:damping}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | }
+\hline\hline
+VCC(V) & I(mA) & $\omega$ (RPM) & $\omega$ (rad/s) & Tm=Kt*Ia (Nm) & Tm-Tf=B*w (Nm) \\ \hline
+	1.028 & 12.69 & 937.466 & 98.1527 & 0.000119718 & 0.0000676422  \\ \hline
+	2.025 & 15.49 & 2032.33 & 212.7853 & 0.000146134 & 0.0000940576\\ \hline
+	3.007 & 18.97 & 3103.33 & 324.919 &0.000178964 & 0.000126888 \\ \hline
+	4.04 & 24.04 & 4251.66 & 445.1495 & 0.000226795 & 0.000174719\\ \hline
+	5.01 & 29.95 & 5259.66 & 550.6871 & 0.00028255 & 0.000230474 \\ \hline
+	6 & 38.14 & 6231 & 652.3857 & 0.000359815 & 0.000307739 \\ \hline\hline
+\end{tabular}
+\caption{Parameters necessary for the B calculation (no name motor)} \label{tab:damping}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | }
+\hline\hline
+VCC(V) & I(mA) & $\omega$ (RPM) & $\omega$ (rad/s)  &  Tm=Kt*Ia (Nm) & Tm-Tf=B*w (Nm) \\ \hline
+	1.019 & 17.66 & 1007.33 & 105.4678 & 0.00015667 & 0.0001162  \\ \hline
+	2.014 & 20.42 & 2200.333 & 230.3749 & 0,00018115 & 0.000140659\\ \hline
+	3.004 & 25.36 & 3336.333 & 349.3141 & 0,000224974 & 0.00018448 \\ \hline
+	4.04 & 34.12 & 4484.33 & 469.5097 & 0,000302686 & 0.000262195\\ \hline
+	5.01 & 40.5 & 5407.33 & 566.1478 & 0,000359285 & 0.000318793 \\ \hline
+	6 & 47.4 & 6495.667 & 680.0963 & 0,000420496 & 0.000380005 \\ \hline\hline
+\end{tabular}
+\caption{Parameters necessary for the B calculation (RF300)} \label{tab:damping}
+\end{table}
+
+
+Now, to calculate the damping ratio, the lineal regression will give us the lineal equation, and the slope of that graph will be the B parameter. 
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/Bdetermination1.jpg}
+	\caption{Graph for the regression determination of damping ratio (MDN3BT)}
+	\label{fig:tm3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/Bdetermination2.jpg}
+	\caption{Graph for the regression determination of damping ratio (no name motor)}
+	\label{fig:tm3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/Bdetermination3.jpg}
+	\caption{Graph for the regression determination of damping ratio (RF300-CH)}
+	\label{fig:tm3}
+\end{figure}
+
+Therefore, as the equation of the graph shows that the regression slope is $ 5 *10^{-7}$:
+
+\begin{equation}   
+B=5*10^{-7} Nms
+\end{equation}
+
+\textbf{Summary of every parameter for the motors} \\ 
+Now, to conclude that experimental characterization of the motors, the table \ref{tab:summary} represents a summary of the obtained values:
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l | l | l | l |}
+\hline\hline
+	Motor & Ra($\Omega$) & La(mH) & te($\mu s$)  & Ke$\left(\frac{V}{rad/s}\right)$ =  Kt$\left(\frac{Nm}{A}\right)$ & tm(s) & Jm($Kg*m^2$) \\ \hline
+MDN3BT & 12.47& 9.54&765.2  & 0.008713489  & 0.1777 &  $100.219*10^{-09}$ \\ \hline
+RF-300CH & 10.83 &8.31& 767.1  & 0.008422059  & 0.1723 &  $82.748 *10^{-09}$ \\ \hline
+NO-NAME & 11.71 & 9.00& 768.5 & 0.009226577  & 0.1166 &  $108.259*10^{-09}$\\ \hline\hline 
+\end{tabular}
+\caption{Summary motors parameters} \label{tab:summary}
+\end{table}\\
+
+\subsection{Motors step responses}\label{ssec:steps}
+In order to know the future responses for the motors and estimate its final current consumption, the motors step response has been measured with the power supply Keysight N6705A (see figure \ref{fig:N6705A}).
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.4]{capitulo5/N6705A.jpg}
+	\caption{Key-sight N6705A Source \cite{N6705A}}
+	\label{fig:N6705A}
+\end{figure}
+
+The motor response is shown in figures \ref{fig:meas1} and measured with the data-logger of the N6705A. Moreover, the step functions have been pre-configured with the Arbitrary functions option that N6705A has. The figure \ref{fig:fuentes} show how that outputs have been configured. 
+
+\begin{figure}[H]
+\centering
+\subfloat[ ]{\label{fig:fuentes1} \includegraphics[width=60mm]{capitulo5/1.png}}
+\subfloat[ ]{\label{fig:fuentes2} \includegraphics[width=60mm]{capitulo5/2.png}} \\
+\subfloat[ ]{\label{fig:fuentes3} \includegraphics[width=60mm]{capitulo5/3.png}} 
+\subfloat[ ]{\label{fig:fuentes4} \includegraphics[width=60mm]{capitulo5/4.png}} \\
+\subfloat[ ]{\label{fig:fuentes5} \includegraphics[width=60mm]{capitulo5/5.png}} 
+\subfloat[ ]{\label{fig:fuentes6} \includegraphics[width=60mm]{capitulo5/6.png}} \\
+\subfloat[ ]{\label{fig:fuentes7} \includegraphics[width=60mm]{capitulo5/7.png}} 
+\subfloat[ ]{\label{fig:fuentes8} \includegraphics[width=60mm]{capitulo5/8.png}} 
+\caption{Output configuration of the N6705A  to supply the motors} \label{fig:fuentes}
+\end{figure}
+
+Once the N6705A is configured, the data-logger started and the motors prepared, the measurements started and some captures of the results were taken (see figures \ref{fig:step}, . Furthermore, that results have been data-logged and represented in Excel graphs, in order to see a more accurate representation (see figures \ref{fig:MDN3BTstepcapture}, \ref{fig:RFstepcapture} and \ref{fig:SINstepcapture}).
+
+\begin{figure}[H]
+\centering
+\subfloat[Motor MDN3BT]{\label{fig:fuentes9} \includegraphics[width=80mm]{capitulo5/mdnstep.png}} \\
+\subfloat[Motor RF300-CH]{\label{fig:fuentes10} \includegraphics[width=80mm]{capitulo5/rfstep.png}} \\
+\subfloat[Motor without name]{\label{fig:fuentes11} \includegraphics[width=80mm]{capitulo5/sinstep.png}} 
+
+\caption{Step response captures from N6705A} \label{fig:step}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\subfloat[ ]{\label{fig:fuentes9} \includegraphics[width=120mm]{capitulo5/mdnstep.jpg}} \\
+\subfloat[ ]{\label{fig:fuentes10} \includegraphics[width=120mm]{capitulo5/rfstep.jpg}} \\
+\subfloat[ ]{\label{fig:fuentes11} \includegraphics[width=120mm]{capitulo5/sinstep.jpg}} 
+
+\caption{Step response graphs from the data-logger of N6705A} \label{fig:step}
+\end{figure}
+
+
+ %
+%\subsection{Motors staircase responses}\label{ssec:staircase}
+%
+%In the same way that the previous section \ref{ssec:steps}, other kind of function was programmed: staircase. In order to compare both results, showing in the figure \ref{fig:stair1} and the Excel graphs in figure \ref{fig:stair2}.
+%
+%
+%
+%\begin{figure}[H]
+%\centering
+%\subfloat[Motor MDN3BT]{\label{fig:fuentes9} \includegraphics[width=80mm]{capitulo5/mdnramp.png}} \\
+%\subfloat[Motor RF300-CH]{\label{fig:fuentes10} \includegraphics[width=80mm]{capitulo5/rframp.png}} \\
+%\subfloat[Motor without name]{\label{fig:fuentes11} \includegraphics[width=80mm]{capitulo5/sinramp.png}} 
+%
+%\caption{Staircase response captures from N6705A} \label{fig:step}
+%\end{figure}
+
+\section{Motors simulation block}\label{sec:simulation}
+
+For the simulation of the motor, Matlab Simulink tool has been used. The figure \ref{fig:simulation1} shows the whole simulation, with the signal generator, the motor simulation block, and the scope tool to print the graphs. Inside the motor simulation block, it is the diagram which simulate the \acrshort{DC} motors that we are using. That diagram is shown in figure \ref{fig:simulation2}.
+
+
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/simulation1.jpg}
+	\caption{Simulink simulation - Main diagram}
+	\label{fig:N6705A}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+		\includegraphics[scale=0.6]{capitulo5/simulation2.jpg}
+	\caption{Simulink simulation - \acrshort{DC} Motor block}
+	\label{fig:N6705A}
+\end{figure}
+
