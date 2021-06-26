@@ -1,0 +1,311 @@
+\documentclass[]{article}
+
+\usepackage[spanish]{babel}
+\setlength{\parskip}{1em}
+
+\usepackage{hyperref}
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ 
+	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+	basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+	breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+	breaklines=true,                 % sets automatic line breaking
+	captionpos=b,                    % sets the caption-position to bottom
+	commentstyle=\color{mygreen},    % comment style
+	deletekeywords={...},            % if you want to delete keywords from the given language
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+	firstnumber=1,                   % start line enumeration with line 1
+	frame=single,	                 % adds a frame around the code
+	keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\color{blue},       % keyword style
+	language=Octave,                 % the language of the code
+	morekeywords={*,...},            % if you want to add more keywords to the set
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+	showstringspaces=false,          % underline spaces within strings only
+	showtabs=false,                  % show tabs within strings adding particular underscores
+	stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+	stringstyle=\color{mymauve},     % string literal style
+	tabsize=2,	                   	 % sets default tabsize to 2 spaces
+	title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+%opening
+\title{Cuestiones sobre el limitador de sonido LM9}
+\author{Alejandro Ruiz Becerra}
+
+\begin{document}
+\hyphenpenalty=0
+
+\maketitle
+
+\begin{abstract}
+	En este documento se transcriben una serie de cuestiones planteadas durante la reunión del equipo que forma parte del proyecto que tuvo lugar el día 3 de Mayo de 2021, y se pretende dar una solución o respuesta a dichas cuestiones.
+\end{abstract}
+
+\section{Generación de ruido rosa}
+La estructura del limitador de sonido se compone de varios procesos relacionados, y en cierto modo dependientes, los cuales se han denominado módulos. De entre ellos, el módulo calibrador se encarga de generar los ficheros de calibración para las líneas derecha e izquierda y el micrófono. Estos ficheros de calibración se almacenan en el directorio dedicado a los ficheros de configuración del limitador de sonido (/var/slr) con el nombre de calibration\#, donde \# representa un número entero, normalmente 0, 1 o 2. Estos números identifican la línea a la que pertenece la calibración, siendo:
+
+\begin{itemize}
+	\item 0: micrófono
+	\item 1: línea izquierda
+	\item 2: línea derecha
+\end{itemize}
+
+El proceso de calibración requiere de la emisión de ruido rosa para producir un resultado satisfactorio. En el modelo anterior, el LM7, la emisión de ruido rosa y la calibración se realizaba en PHP, por lo que el proceso de calibración estaba fuertemente ligado a la interfaz web del limitador de sonido. Sin embargo, en el modelo LM9, se han creado un programa en C++ exclusivamente para este propósito, aunque no es responsable de la emisión de ruido rosa, luego, ¿cómo se emite ruido rosa en este modelo?
+
+Para averiguarlo se ha realizado una búsqueda sobre todo el código del LM9, usando las palabras clave `pink' o `rosa`, con el fin de localizar los trozos de código que puedan tener alguna relación con la generación o emisión de ruido rosa. Los resultados de la búsqueda nos dicen que mientras la palabra clave `rosa` no arroja ningún resultado, la palabra clave `pink` nos lleva al dato miembro `pinkNoiseLevel` de la clase Configuración. Esta variable es accedida en tres lugares distintos dentro del código. Sin embargo, esto solo indica el volumen de ruido rosa (presuntamente), y no implica la generación de ruido rosa.
+
+Los accesos/modificaciones de `pinkNoiseLevel` se dan en los siguientes lugares:
+
+\begin{itemize}
+	\item Configuracion.\{h, cpp\}: definición del dato miembro como tipo float e inicialización de la misma a 0 dentro del constructor.
+	\item Configurador.cpp::configuraDeFlujo(): se lee y aplica una configuración desde fichero. Si una de las líneas contiene la palabra `PinkNoiseLevel`, se escanea esa línea y se actualiza el valor del dato miembro `pinkNoiseLevel` al valor leído. 
+	\par Un ejemplo sería: PinkNoiseLevel 27.5
+	\item getConfig: solo consulta y muestra por pantalla
+\end{itemize}
+
+\subsection{Conclusiones}
+Tal y como se ha comentado esta variable de tipo float indicaría, en todo caso, el volumen del ruido rosa, pero no implicaría directamente la emisión de ruido rosa por parte del limitador de sonido.
+
+Por tanto, y tomando el modelo LM7, la opción más plausible es que la emisión de ruido rosa sigue estando controlada por la interfaz web mediante código PHP, y que los botones de la interfaz activen y desactiven la emisión de ruido rosa de forma directa.
+
+Por otra parte, hay referencias a ficheros PHP que no están presentes en el código y cuyos nombres nos llevan a pensar que tienen una relación directa con la calibración del limitador de sonido.
+
+\begin{itemize}
+	\item calibrationControl.php: lo tenemos, ya que viene del LM7.
+	\item audioControl.inc: nuevo en LM9, faltante.
+	\item audioInstallation.inc: nuevo en LM9, faltante.
+\end{itemize}
+
+\section{Salida del audio procesado}
+Una de las principales cuestiones de la reunión fue cómo se realiza la atenuación efectiva. Para resolver esta cuestión nos vamos al código del limitador y lo analizamos.
+
+\begin{lstlisting}[language=c++ ,caption=Bucle principal del limitador de sonido]
+	void loop() {
+		while (true) {
+			// Ciclo de espera de 1 segundo donde:
+			//	- Se lee la atenuacion de entrada
+			//	- Se atenua frecuencialmente
+			for (int i = 0; i < UnderSecondTicks; i++) {
+				usleep(UnSegundoEnUsecs / UnderSecondTicks);
+				
+				// Global control
+				applyGlobalControl();
+				
+				// Apply correction over input to minimize pump effect
+				// applyPumpEffectCorrection();
+				
+				// Apply frequency control
+				applyFastFrequencyControl();
+			}
+			
+			// Muestra estado cada minuto
+			showGlobalData();
+			showFreqAttenuation();
+		}
+	};
+\end{lstlisting}
+
+Podemos ver que el bucle principal se basa en dos funciones auxiliares, applyGlobalControl() y applyFastFrequencyControl().
+
+\subsection{Control global}
+En el caso del control global, se calcula la atenuación necesaria en cada momento según los valores de referencia de la líneas izquierda y derecha, los valores reales en ese momento de tales líneas, y el valor máximo de emisión para ese momento del día según la normativa aplicada. 
+
+Este valor de atenuación, denominado desiredAt, se envía al puerto serie junto a la cadena: \textbf{max \underline{-desiredAt} 10 10 0 5}
+
+\begin{lstlisting}[language=c++ ,caption=Control global]
+	sprintf(command, "echo max %.1f 10 10 %.1f 5 > /var/slr/hardware/port", -desiredAt, 0.0f);
+	system(command);
+\end{lstlisting}
+
+\subsection{Control frecuencial}
+En el caso del control frecuencial se leen los stream de audio (fast) calibrados que genera el programa \emph{analyzer}, se calcula cuánto se sobrepasa cada banda del ecualizador del máximo permitido por la normativa, y se calcula la atenuación necesaria a aplicar en cada una de las bandas.
+
+Este tipo de control solo se aplica si en la configuración del limitador se ha activado el control frecuencial.
+
+\begin{lstlisting}[language=c++ ,caption=Control frecuencial]
+	void frequencyControl() {
+		. . .
+		
+		// Obtenemos el maximo frecuencial y la curva NC
+		float maximoGlobal = config.maximoEnEmision(time(NULL));
+		float recpetionMaximum = config.maximoEnRecepcion(time(NULL));
+		int ncCurveIndex = SelectNCCurveByGlobal(recpetionMaximum);
+		
+		. . .
+		
+		// Obtenemos lo que se sobrepasa
+		for (int i = 0; i < Spectrum_BandCount; i++)
+			overTake[i] = control[i] - maximo[i];
+
+		
+		// Overtake en bandas de equalizador 
+		// (El mayor sobrepaso por cada banda de octava)
+		for (int i = 0; i < EcualyzerBandCount; i++) {
+			int idx = i*3;
+			eqOvertake[i] = max(overTake[idx], 
+											overTake[idx+1], 
+											overTake[idx+2]);
+		};
+	
+		// Control real!
+		for (int i = 0; i < EcualyzerBandCount; i++) {
+			// Attenuation process
+			if (eqOvertake[i] > 0)
+				atenuacion[i] += eqOvertake[i] / FrecuentialAttackRate;
+			// Banda no ha superado el maximo
+			else
+				atenuacion[i] += eqOvertake[i] / FrecuentialReleaseRate;
+			
+			if (atenuacion[i] > config.atenuacionMaximaPorBanda)
+				atenuacion[i] = config.atenuacionMaximaPorBanda;
+			if (atenuacion[i] < 0)
+				atenuacion[i] = 0;
+		};
+			
+	}
+\end{lstlisting}
+
+Aquí, el atenuacion es un puntero a un vector de floats, por lo tanto, lo que se recibe es una posición de memoria y todos los accesos a atenuacion modifican el  vector original. El vector que se pasa como argumento a esta función es float[10] equalization::HardwareStatus, es decir, se está modificando la ecualización del limitador de sonido de forma directa.
+
+Es importante anotar que existe una zona de memoria compartida, en la que el vector equalization de HardwareStatus reside. El resto de procesos adjuntan el espacio de memoria compartida a sus espacios de memoria locales, de forma que pueden leer y escribir en ella, por tanto, cuando en la función frecuencyControl() se modifica este vector, se está modificando en el espacio de memoria compartida.
+
+Por último, falta propagar estos valores para que tengan efecto. Aquí es donde entra en juego la clase UpdateHardwareStatus y su método UpdateHardwa-reToFitStatus(). La clase UpdateHardwareStatus contiene un conjunto de métodos que realiza operaciones sobre objetos de tipo HardwareStatus, y que en la mayoría de los casos suponen la escritura de un comando en el puerto serie, de forma que lo recoja el \textbf{Arduino} y éste actúe en consecuencia.
+
+El programa HardwareServer, en su bucle infinito, llama al método Update-HardwareToFitStatus() y le pasa dos objetos de tipo HardwareStatus, el estado actual del limitador, y el estado futuro o deseado, de forma que compruebe qué valores son necesarios modificar para movernos del estado actual al siguiente. En este método se recorren las bandas del ecualizador y se comprueban si son valores difieren, en cuyo caso es necesario aplicar una modificación en esa banda, llamando al método UpdateEq() de esta misma clase, el cual se encarga de escribir en el puerto serie un comando para modificar la ecualización de dicha banda.
+
+\begin{lstlisting}[language=c++, caption=Escritura en puerto serie en UpdateEq()]
+	snprintf(command, 119, "% s % d % .1f", EqCommand, band, nextAttenuation);
+	serialPort.WriteLn(command);
+\end{lstlisting}
+
+Un ejemplo de este comando sería: `Eq banda at`, donde banda es un número entero en el rango [0-10] y at un valor de tipo flotante indicando el valor de dicha banda de ecualización.
+
+\subsection{Conclusiones}
+Para el control global, se envía la atenuación en forma de comando al fichero `/var/slr/hardware/port`. Otros programas, como HardwareServer, usan este fichero como puerto al abrir el puerto serie, y parece ser la vía de comunicación \textbf{Arduino-Limitador}.
+
+De esto se deduce que el limitador hace uso de un PGA controlado directamente por un \textbf{Arduino}, que recibe la atenuación necesaria a aplicar desde el limitador, quién calcula este valor.
+
+En la parte del control frecuencial, la secuencia de ejecución termina con la escritura de un comando en el puerto serie, por lo tanto también se deduce que el control de la ecualización para el control frecuencial queda controlado directamente por el \textbf{Arduino}, mientras que el Limitador es el responsable de mantener el control lógico, calculando los valores a aplicar en cada banda de ecualización y enviando órdenes al \textbf{Arduino} para que aplique los nuevos valores.
+
+\section{Estado del micrófono}
+En el limitador no solo de controla las lecturas del micrófono, desde la tarjeta de sonido (dispositivo PCM) sino que también si detecta si micrófono se encuentra físicamente conectado al equipo o no. En el código eso se traduce literalmente en un valor booleano llamado micCableIsConnected, el cual es un dato miembro del la clase HardwareStatus. Esta variable solo cambia verdadero en la función UpdateInputData() del fichero HardwareServer.cpp.
+
+La secuencia de ejecución para actualizar el estado del micrófono sería la siguiente:
+
+\begin{enumerate}
+	\item El programa HardwareServer abre el puerto serie indicando como puerto de comunicación el fichero '/var/slr/hardware/port'. Luego, crea una hebra que ejecuta la función ReadFromHardware() en un bucle infinito.
+	\item ReadFromHardware() lee de puerto serie y llama a la función UpdateInput-Data() en el caso de que la cadena leída contenga la palabra 'Status'.
+	\item UpdateInputData() recibe la cadena y un objeto de tipo HardwareStatus (recordemos que micCableIsConnected pertenece a esta clase), la parsea y actualiza el objeto HardwareStatus a los valores leídos de la cadena.
+\end{enumerate}
+
+La cadena se parsea con sscanf(), y sigue el siguiente formato:
+
+\begin{lstlisting}[caption=Formato de la cadena leída desde el puerto serie]
+	{
+		"Status": {
+			"version": % 5s,
+			"ChannelPressure": [% f,%f,%f,%f],
+			"MicConnection":% 1s,
+			"InputPressure": [% f,%f],
+			"attenuation": [% f,%f,%f]
+		}
+	}
+\end{lstlisting}
+
+Se puede identificar claramente que la cadena se ajusta al formato JSON.
+
+\subsection{Conclusiones}
+Como todo parece indicar que el limitador hace uso de un \textbf{Arduino} que realiza las operaciones a bajo nivel como controlar los LEDs o el display LCD, se deduce que también controla si el micrófono está o no conectado físicamente, y transmite esta información mediante el puerto serie, transmitiendo la información en una cadena de texto que sigue el formato visto anteriormente.
+
+\section{Scripts de arranque}
+
+El directorio scripts/ que encontramos en el código del limitador LM9 contiene un conjunto de scripts en varios lenguajes de programación, principalmente bash y PHP. Todos estos scripts están destinados a residir en el directorio /bin del sistema, de forma que puedan ser invocados de manera directa, es decir, sin especificar su path.
+
+Entre estos scripts, algunos resultan de especial interés.
+
+\subsection{startUp}
+Es el script de arranque principal, en el que se realizan todas las tareas de inicialización del sistema, como configurar las interfaces de red, cargar los módulos del Kernel, generar las estructuras de carpetas necesarias, gestionar los permisos y compilar y mover los ejecutables a su destino final (/bin).
+
+% INSERTAR DIAGRAMA DE SECUENCIA %
+
+De entre todas las sentencias nos llama especialmente la atención la carga de un módulo de Kernel llamado SoundCapturer, el cual se carga o descarga con las órdenes modprobe y rmmod junto a otros módulos como snd-usb-audio y snd-mixer-oss.
+
+Llama también la atención el uso de los ficheros especiales /dev/mmcblk0p7 y /dev/mmcblk0p4, los cuales corresponden a particiones dentro de la tarjeta SD en dispositivos Raspberry Pi (Fuente: \href{https://www.raspberrypi.org/forums/viewtopic.php?t=140856}{What is /dev/mmcblk0p2 ?})
+
+\subsubsection{Conclusiones}
+Por convención, todos los módulos Kernel de Linux se nombran usando exclusivamente minúsculas, y en el caso de que el nombre se componga de varias palabras, la separación entre ellas se realiza usando barras bajas (snake\_case) o guiones (kebab-case).
+
+Por tanto, la inconsistencia en el nombre del módulo SoundCapturer nos hace pensar que no se trata de un módulo Kernel oficial. Esto, junto con una búsqueda de dicho módulo en Internet sin resultados, nos lleva a pensar que este módulo Kernel ha sido implementado por los desarolladores del limitador de sonido LM9.
+
+\subsection{runVersionCommands}
+La última sentencia del script startUp invoca a este script, el cual se encarga de lanzar todos los procesos que componen el limitador de sonido en la secuencia correcta. La salida de estos procesos normalmente se descarta redireccionando la salida estándar (stdout) y el salida de error estándar (stderr) a /dev/null.
+
+Para lanzar los procesos se delega en scripts auxiliares que sí que lanzan los procesos finalmente.
+
+\subsection{runLinesAnalyzer}
+El proceso analyzer puede recibir dos argumentos en su llamada, el primero es el nombre del dispositivo de sonido del cual leer el audio, y el segundo, el número de canales del stream de audio.
+
+\begin{lstlisting}[language=bash, caption=Script runLinesAnalyzer]
+	#!/bin/bash
+	
+	read HW </var/slr/channels/lines.hw
+	echo "Lines Analyzer"
+	
+	# amixer -D $HW sset "PCM Capture Source" 'Line'
+	
+	while true; do
+		analyzer $HW 2
+	done
+\end{lstlisting}
+
+El script lee el nombre del dispositivo de sonido a usar para la entrada estéreo de audio desde el fichero, y luego invoca al proceso analyzer pasando el nombre del dispositivo PCM y el número de canales como argumentos.
+
+\subsection{runMicAnalyzer}
+Para analizar los valores del micrófono se levanta un nuevo proceso analyzer de forma casi idéntica a como se hace en el script runLinesAnalyzer. El- micrófono es mono y no estéreo, es decir, solo tiene un canal, por lo que en este caso no se indica el número de canales del stream de audio al levantar el proceso, y solo se indica el dispositivo PCM del cual leer.
+
+Adicionalmente, antes de levantar el proceso analyzer, se ajusta el nivel de captura del micrófono al 50\% con el comando amixer.
+
+\begin{lstlisting}[language=bash, caption=Script runMicAnalyzer]
+	#!/bin/bash
+	
+	read HW </var/slr/channels/mic.hw
+	echo "Mic Analyzer"
+	
+	amixer -D $HW sset "Mic" capture 50%
+	
+	while true; do
+		analyzer $HW
+	done
+\end{lstlisting}
+
+\subsection{refreshAnalyzer}
+El proceso analyer se compone en esencia de un bucle infinito dentro de su main() en el cual se lee el audio desde el dispositivo PCM indicado, se aplican las calibraciones almacenadas en los ficheros de calibración, y se almacena el audio en ficheros para ser utilizados por otros procesos del limitador. Por tanto, si el proceso analyzer es un bucle infinito, ¿por qué en los scripts también hay bucles infinitos que levantan instancias del programa analyzer?
+
+La respuesta está en el script refreshAnalyzer, también un bucle infinito el cual 'mata' los analizadores de sonido si se cumple alguna de las siguientes condiciones:
+
+\begin{itemize}
+	\item El valor del micrófono es menor a 10dBA.
+	\item Han pasado 30 segundos.
+	\item Se leen 5 valores iguales consecutivos desde el micrófono
+	\item Se leen 5 valores iguales consecutivos desde la línea derecha o izquierda.
+\end{itemize}
+
+Por tanto al 'matar' al proceso analyzer su bucle infinito se rompe y se vuelve al bucle infinito de los scripts runLinezAnalyzer y runMicnAnalyzer, los cuales vuelven a levantar los procesos de análisis.
+
+\subsection{llControl}
+Este script se encarga principalmente de controlar los leds RGB y el display LCD, por lo que deduzco que el nombre del script proviene de LcdLedControl, y fue simplificado a llControl.
+
+En este script llama la atención el código comentado, ya que hay instrucciones que hacen uso del dispositivo /dev/ttyACM0, lo cual aporta pruebas sólidas de la existencia de un Arduino como parte del hardware del limitador de sonido LM9 (Fuente: \href{https://arduino.stackexchange.com/questions/19648/difference-between-dev-ttyacm0-and-dev-ttys0-arduino-ide-ports-under-linux}{What is Dev ttyACM0?}).
+
+\end{document}

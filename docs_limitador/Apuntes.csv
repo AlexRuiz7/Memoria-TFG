@@ -1,0 +1,33 @@
+Directorio	Archivo	Tipo	Descripción	Códigos de interés
+instalador/	sbdinstall			
+instalador/	sdcinstall			
+.	preparatoria	script sh		"""
+ - mount -n -o remount, rw /
+ - init 6
+ - sync
+”"
+.	setAsNew	script bash	Resetea el sistema al estado de fábrica	
+.	construye	script bash	Lanza los make de cada directorio	
+.	connectNetwork	script bash	Inicializa wvdial	wvdial
+.	configuracion	data : binario		
+				
+www/	tests	Directorio	Contiene tests sobre los logs	
+www/tests	logs.php	php	Realiza tests sobre los logs	include(calibrationControl.lib)
+www/	calibrationControl.lib	php	Biblioteca de funciones. Generalmente de calibración, tests y estado	
+www/css	Módulos CSS	CSS	La mayoría son de terceros (jQuery)	
+www/fonts	Fuente de texto			
+www/functions	Directorio			
+				
+scripts	connectNetwork	script bash	Inicializa wvdial	wvdial
+scripts	continuousPink	script bash	Bucle infinito de “ruido rosa”	alsaplayer
+scripts	controlDeCalibracion			
+scripts	keepComm	script bash	Bucle infinito. Parece que comprueba cada cierto período de tiempo si hay conexión a internet haciendo un ping a Google, en tal caso ejecuta slrComm, en otro caso regenera la conexión con connectNetwork	killComm
+scripts	keepLeds	script bash	Bucle infinito. 	ledControl
+scripts	keepLm	script bash	Bucle infinito. Reinicia constantemente el limitador y registra el timestamp en var/slr/restarts	bin/limitador
+scripts	keepScreen	script bash	Bucle infinito. [Función desconocida]	screen
+scripts	keepTime	script bash	Bucle infinito. Si hay conexión actualiza cada 1000 minutos, si no, lo reintenta cada minuto	
+scripts	killComm	script bash	Bucle infinito. Espera 4 HORAS antes de matar el proceso slrComm	
+scripts	ledControl	script PHP		
+scripts	playPink	script PHP	Igual que continuousPink pero en PHP	
+scripts	refreshProcesses	Script sh	Bucle infinito. Mata al proceso slrComm cada 15min	
+scripts	remoteShellService	script bash	Bucle infinito. [Función desconocida]	nc boanergesnetwork.com -e bin\localservice
