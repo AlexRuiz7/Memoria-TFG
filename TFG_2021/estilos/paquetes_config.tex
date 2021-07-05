@@ -1,0 +1,208 @@
+
+
+%\geometry{bindingoffset=3mm}
+\def\videoautorefname{Video}%
+
+\newcommand{\heading}[1]{\multicolumn{1}{c}{#1}}
+
+
+\definecolor{LightBlue}{rgb}{0.83, 0.92, 0.95}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%% ALEX %%
+%\def\chapterautorefname{Chapter}%
+%\def\figureautorefname{Figure}%
+%\def\sectionautorefname{Section}%
+%\def\subsectionautorefname{Subsection}%
+%\def\tableautorefname{Table}%
+%\def\equationautorefname{Equation}%
+
+%para que no se corten parrafos a mitad
+%\widowpenalties 1 10000
+%\raggedbottom
+
+%Video floats
+\newfloat{videoFloat}{thp}{lop}[chapter]
+\floatname{videoFloat}{Video}
+
+
+\definecolor{atomString}{RGB}{221,17,68}
+\definecolor{atomComment}{RGB}{153,153,136}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+
+% CSS
+\lstdefinelanguage{CSS}{
+    keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]",
+    alsoletter={:},
+    alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+    morekeywords={typeof, delete,new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+    morecomment=[s]{/*}{*/},
+    morecomment=[l]//,
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+    language=html,
+    sensitive=true,
+    alsoletter={<>=-},
+    morecomment=[s]{<!-}{-->},
+    tag=[s],
+    otherkeywords={
+        % General
+        >,
+        % Standard tags
+        <!DOCTYPE,
+        </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+        % body
+        </body, <body,
+        % Divs
+        </div, <div, </div>,
+        % Paragraphs
+        </p, <p, </p>,
+        % scripts
+        </script, <script,
+        % More tags...
+        <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+    },
+    ndkeywords={
+        % General
+        =,
+        % HTML attributes
+        charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+        % SVG attributes
+        fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+        % properties
+        margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+        % CSS3 properties
+        transform:, -moz-transform:, -webkit-transform:,
+        animation:, -webkit-animation:,
+        transition:,  transition-duration:, transition-property:, transition-timing-function:,
+    }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+    % General design
+    backgroundcolor=\color{white},
+    basicstyle={\footnotesize\ttfamily},
+    frame=b,
+    % line-numbers
+    xleftmargin={0.75cm},
+    numbers=left,
+    stepnumber=1,
+    firstnumber=1,
+    numberfirstline=true,
+    % Code design
+    identifierstyle=\color{black},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywordstyle=\color{black}\bfseries,
+    stringstyle=\color{red}\ttfamily,
+    commentstyle=\color{atomComment}\ttfamily,
+    % Code
+    language=HTML5,
+    alsolanguage=JavaScript,
+    alsodigit={.:;},
+    tabsize=1,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,
+    captionpos=b,                    % sets the caption-position to bottom
+    literate=%
+    *{0}{{{\color{red}0}}}1
+    {1}{{{\color{red}1}}}1
+    {2}{{{\color{red}2}}}1
+    {3}{{{\color{red}3}}}1
+    {4}{{{\color{red}4}}}1
+    {5}{{{\color{red}5}}}1
+    {6}{{{\color{red}6}}}1
+    {7}{{{\color{red}7}}}1
+    {8}{{{\color{red}8}}}1
+    {9}{{{\color{red}9}}}1,
+    % German umlauts
+    literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+}
+%
+\lstdefinestyle{py} {%
+    language=python,
+    backgroundcolor=\color{white},
+    literate=%
+    *{0}{{{\color{red}0}}}1
+    {1}{{{\color{red}1}}}1
+    {2}{{{\color{red}2}}}1
+    {3}{{{\color{red}3}}}1
+    {4}{{{\color{red}4}}}1
+    {5}{{{\color{red}5}}}1
+    {6}{{{\color{red}6}}}1
+    {7}{{{\color{red}7}}}1
+    {8}{{{\color{red}8}}}1
+    {9}{{{\color{red}9}}}1,
+    basicstyle=\footnotesize\ttfamily, % Standardschrift
+    numbers=left,               % Ort der Zeilennummern
+    %numberstyle=\tiny,          % Stil der Zeilennummern
+    %stepnumber=2,               % Abstand zwischen den Zeilennummern
+    numbersep=5pt,              % Abstand der Nummern zum Text
+    tabsize=4,                  % Groesse von Tabs
+    extendedchars=true,         %
+    breaklines=true,            % Zeilen werden Umgebrochen
+    keywordstyle=\color{blue}\bfseries,
+    frame=b,
+    commentstyle=\color{atomComment}\itshape,
+    stringstyle=\color{red}\ttfamily, % Farbe der String
+    showspaces=false,           % Leerzeichen anzeigen ?
+    showtabs=false,             % Tabs anzeigen ?
+    xleftmargin=17pt,
+    framexleftmargin=17pt,
+    framexrightmargin=5pt,
+    framexbottommargin=4pt,
+    %backgroundcolor=\color{lightgray},
+    showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+}
+
+
+\hypersetup{
+    pdfauthor = {\myName (email (en) ugr (punto) es)},
+    pdftitle = {\myTitle},
+    pdfsubject = {},
+    pdfkeywords = {palabra_clave1, palabra_clave2, palabra_clave3, ...},
+    pdfcreator = {LaTeX con el paquete ....},
+    pdfproducer = {pdflatex}
+    %bookmarks=true,% show bookmarks bar?
+    %unicode=true, %allows to use characters of non-Latin based languages in Acrobat’s bookmarks
+    bookmarksnumbered=true,
+    pdfstartview={FitH},
+    %– FitH : Fit whole width of page
+    %– FitV : Fit whole height of page
+    %– FitB : Fit whole ”Bounding Box” page
+    %– FitBH: Fit whole width of ”Bounding Box” of page
+    %– FitBV: Fit whole height of ”Bounding Box” of page
+    pdfpagemode=UseOutlines,
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=blue,         % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=blue          % color of external links.
+}

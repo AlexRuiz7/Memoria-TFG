@@ -1,0 +1,206 @@
+\chapter{Ingeniería Inversa} \label{cap:capitulo3}
+
+En este capítulo se procede a documentar el proceso de ingeniería inversa al que se ha sometido a limitador que puede verse en la imagen {imagen}.
+
+Tal y como se comentó en la sección \ref{sec:contexto}, el punto de partida del proyecto es el estudio y análisis de un limitador funcional y operativo que se encuentra en el laboratorio de \gls{granasat}. Es importante recordar que se dispone del código fuente de este limitador, así como su manual de usuario, el cual nos será de gran ayuda para poder instalarlo correctamente y conocer las capacidades y características generales del producto. De aquí en adelante, se hará referencia al este limitador como \acrshort{LM7}, ya que ese es el nombre técnico del producto.
+
+IMAGEN DE LIMITADOR
+
+\section{Instalación del limitador}
+
+El primer paso a realizar para comenzar el proceso de ingeniería inversa es instalar el equipo. Para ello, se recurre al manual de usuario del equipo, y se siguen las instrucciones de instalación. En la figura \ref{fig:lm7_montaje} se puede observar el esquema de montaje del limitador en un entorno objetivo, es decir, en un establecimiento. En nuestro caso, nuestra entrada no se corresponde a una mesa de mezclas, sino a un ordenador, mediante el cual podremos enviar audio al limitador y comprobar su respuesta.
+
+% Lo manda a otra página
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.25]{figuras/manual7_montaje_trim.pdf}
+%    \caption{Esquema conceptual del montaje del \acrshort{LM7}.}
+%    \label{fig:lm7_montaje}
+%\end{figure}
+
+% Lo encaja en el punto actual del documento
+\begin{center}
+    \includegraphics[scale=0.6]{figuras/manual7_montaje_trim.pdf}
+    \captionof{figure}{Esquema conceptual del montaje del \acrshort{LM7}}
+    \label{fig:lm7_montaje}
+\end{center}
+
+En la figura superior, podemos observar de izquierda a derecha y de arriba a bajo los siguientes elementos: mesa de mezclas (entrada), micrófono del limitador, limitador de sonido \acrshort{LM7}, altavoces, amplificador (salida).
+
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.6]{figuras/manual7_trasera_trim2.pdf}
+%    \caption{Parte trasera. Conexiones del \acrshort{LM7}.}
+%    \label{fig:lm7_trasera}
+%\end{figure}
+\begin{center}
+    \includegraphics[scale=0.55]{figuras/manual7_trasera_trim.pdf}
+    \captionof{figure}{Parte trasera. Conexiones del \acrshort{LM7}}
+    \label{fig:lm7_trasera}
+\end{center}
+
+El sensor S7 (micrófono) es un componente esencial del limitador y forma parte del mismo. Gracias a él, el limitador puede medir la presión acústica en cada momento y actuar en consecuencia. Asimismo, y como se verá más adelante en este documento, será un elemento esencial en la calibración del limitador. El resto del elementos que se muestran en la figura \ref{fig:lm7_montaje} son elementos externos al limitador, y no alteran el funcionamiento del sistema en ninguna forma.
+
+En la figura \ref{fig:lm7_trasera} se pueden observar las principales conexiones del \acrshort{LM7}, las cuales constan de:
+
+\begin{itemize}
+    \item Toma de alimentación eléctrica.
+    \item Sensor S7 (micrófono) con conector \acrshort{xlr}.
+    \item Entradas balanceadas para audio con conectores \acrshort{xlr}.
+    \item Salidas balanceadas para audio con conectores \acrshort{xlr}.
+    \item Entradas y salidas no balanceadas con conectores \gls{RCA}.
+    \item Conector RJ-45 para conexión directa en área local (parte frontal del limitador, no visible en las figuras).
+\end{itemize}
+
+Conectamos el micrófono al limitador, así como la entrada y la salida de audio. La salido de audio se conecta a un amplificador de sonido disponible en el laboratorio, y como salida a este sistema de amplificación se conecta un dodecaedro. De forma que podamos tener interacción con el equipo, abrimos el limitador retirando la carcasa metálica exterior, para así poder conectar un teclado y una pantalla a la placa base del equipo. De esta forma descubrimos pro primera vez las entrañas del limitador, y nos encontramos con una tecnología bastante desfasada y un ensamble prácticamente casero. Tal y como podemos ver en la imagen \ref{img:lm7}, el \gls{HW} del limitador se compone de una placa base de tipo industrial, cuyas características de detallan en la tabla ------, un circuito integrado para las entradas y salidas de audio del limitador vistas en la figura \ref{fig:lm7_trasera} y una pequeña caja negra, la cual contiene un relé, y cuya funcionalidad se verá más adelante. Además de esto podemos observar la existencia de una tarjeta de sonido USB conectada a un puerto USB de la placa base y cuyas salidas van hacia la caja negra que podemos ver en la imagen. Como dispositivo de almacenamiento interno tenemos un CompactFlash, con 1GB de capacidad. En fases posteriores del actual proceso de ingeniería inversa extraeremos esta tarjeta de almacenamiento para acceder a sus archivos, ya que será necesario descubrir o modificar las credenciales de acceso tanto al equipo como al sistema de limitación, pues todas ellas son, por ahora, desconocidas.
+
+IMAGEN DEL LIMITADOR ABIERTO
+
+Tras revisar todas las conexiones, conectamos el equipo a la corriente eléctrica, y podemos por primera vez ver el equipo en funcionamiento. Mientras arranca el sistema, vemos en la pantalla que el sistema operativo instalado es Debian, una distribución de \gls{GNU/Linux} que se caracteriza por ser minimal. Esta versión en concreto no contiene interfaz gráfica.
+
+Una vez completado el arranque, la pantalla se llena de caracteres que desaparecen rápidamente dando lugar a otros nuevos. De entre lo que es posible leer, se deduce que estos caracteres son datos relativos al limitador (su estado en cada momento, conteniendo lecturas de micrófono y líneas, atenuación aplicada, etc) y que los procesos del limitador vuelcan sus salidas por pantalla a la salida estándar, saturando la terminal principal y dejándola inutilizable. Por tanto, se accede a otra terminal (TTY) mediante la cual podamos trabajar. Esta nueva terminal nos pide usuario y contraseña, las cuales desconocemos.
+
+Continuando con el manual de usuario se descubre que el equipo tiene un servidor web en el cual hay desplegada una interfaz web del limitador, mediante la cual podemos ver su estado, modificar sus configuraciones y obtener informes. Por ello, el próximo y último paso para completar la instalación del limitador es conectarlo a una red interna vía Ethernet, así como conectar y configurar un ordenador adicional mediante el cual podamos acceder, no solo a dicha interfaz web, sino al equipo en sí mediante \acrshort{SSH}.
+
+%\begin{center}
+%    \hspace{0cm}
+%    \includegraphics[scale=0.7]{imagenes/lms_ip.jpg}
+%%    \captionof{figure}{Configuracion \acrshort{IP} del PC adicional}
+%%    \captionof{figure}{C}
+%    \hspace{2cm}
+%    \includegraphics[scale=0.55]{imagenes/lms_ui.jpg}
+%%    \captionof{figure}{Interfaz Web de \acrshort{LM7}}
+%%    \caption{figure}{C}
+%\end{center}
+
+\begin{figure}[ht]
+    \begin{minipage}[b]{.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{imagenes/lms_ip.jpg}
+        \caption{Configuración \acrshort{IP} requerida  en el \acrshort{PC} adicional para conectarse al limitador}
+        \label{img:lms_ip}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{imagenes/lms_ui.jpg}
+        \caption{Interfaz web del \acrshort{LM7} \newline\newline}
+        \label{img:lms_ui}
+    \end{minipage}
+\end{figure}
+
+Una vez aplicada la configuración \acrshort{IP} que se muestra en la imagen \ref{img:lms_ip} en el equipo auxiliar, probamos a acceder a la interfaz web de limitador que se encuentra desplegada en la dirección \acrshort{IP}
+\href{http://192.168.1.223}{http://192.168.1.223} y vemos por primera vez la aplicación web vista en la imagen \ref{img:lms_ui}. Al entrar en la interfaz web del limitador puede verse la ventana de estado, que informa sobre el estado actual del limitador. Esta interfaz arroja información básica, como:
+
+\begin{itemize}
+    \item La presión actual en \glsname{dba} tanto de las líneas como del sensor.
+    \item Atenuación aplicada por el limitador en ese instante.
+    \item El número de serie del limitador.
+    \item El local de instalación
+    \item Si el sensor (micrófono) se encuentra conectado o no.
+    \item Un gráfico de los últimos 5 minutos de actuación del limitador.
+\end{itemize}
+
+En la zona superior derecha, se puede acceder al panel de control y a la sección de obtención de informes. Mediante este panel de control podremos también acceder y modificar la configuración del limitador, aunque para ellos será necesario proveer una clave de acceso válida. En el manual de usuario, se indica que existe un usuario \textit{consultor}, cuya contraseña es a su vez \textit{consultor}. Se trata de un usuario sin privilegios mediante el cual podremos consultar la configuración actual del limitador. Podemos a su vez cerrar sesión mediante el botón \commillas{Cerrar sesión}. Para poder acceder más allá necesitamos averiguar las claves de acceso al limitador.
+
+Para acabar con el proceso de instalación, se comprueba si es posible conectarse mediante \acrshort{SSH} al limitador. Tal y como se esperaba hay conectividad entre los equipos pero necesitamos proporcionar un usuario y una contraseña para acceder al sistema operativo.
+
+Llegados a este punto, el limitador se encuentra instalado y funcionando, pero nuestro control sobre el mismo es completamente nulo ya que no disponemos de las credenciales necesarias para acceder al sistema ni al limitador. Por tanto, procederemos a extraer su dispositivo de almacenamiento, una \glsname{CF}, para investigar desde otro ordenador su contenido y poder encontrar dichas credenciales, dando lugar así al proceso que da nombre a este capítulo, comenzaremos con el proceso de Ingeniería Inversa.
+
+\subsection{Resumen}
+
+Como resumen a esta sección, se han realizado las siguientes acciones:
+
+\begin{enumerate}
+    \item Se ha conectado el limitador \acrshort{LM7} a corriente y se han conectado a él un monitor (interfaz VGA) y un teclado (interfaz PS/2).
+    \item Se ha instalado un \acrshort{PC} auxiliar con el sistema operativo \gls{WINDOWS} 10.
+    \item Se han conectado los dos equipos mediante Ethernet, usando un Switch de la marca OvisLink, con la configuración de red vista en la imagen \ref{img:lms_ip}.
+\end{enumerate}
+
+Como consecuencia de dichas acciones, tenemos los dos equipos conectados en red, por lo que se puede acceder al limitador desde el equipo auxiliar mediante \acrshort{SSH}, aunque desconoce el usuario y contraseña del sistema.
+
+\section{Extracción de credenciales}
+
+Para conseguir el acceso al sistema limitador, extraemos el dispositivo de almacenamiento y lo exploramos en otro ordenador mediante un adaptador. Explorando el sistema de archivos se descubre la existencia de un directorio peculiar dentro del directorio \textit{/var} en el nivel principal de la estructura de directorios de Linux.
+
+\begin{center}
+    \includegraphics[scale=0.5]{figuras/unix_filesystem_hierarchy.pdf}
+    \captionof{figure}
+    {
+        Estructura de directorios de un sistema \gls{GNU/Linux} \\
+        Fuente : \cite{wikipedia}
+%        Fuente: \href{https://upload.wikimedia.org/wikipedia/commons/f/f3/Standard-unix-filesystem-hierarchy.svg}{Wikipedia}
+    }
+    \label{fig:dirs_linux}
+\end{center}
+
+\subsection{Credenciales del limitador}
+
+Dentro de esta carpeta denominada \textit{slr/} encontramos rápidamente un fichero llamado \textbf{\textit{users.auth}}, con usuarios, claves y permisos. Estas credenciales no son las del sistema operativo que corre sobre la máquina, sino las de los usuarios que tienen acceso a la configuración del limitador, es decir, son los usuarios y contraseñas necesarios para acceder a la aplicación web del limitador (imagen \ref{img:lms_ui}), así como los permisos de estos usuarios sobre la configuración del limitador.
+
+\begin{shaded}
+%    \textbf{\textit{slr/}}
+    \noindent
+    El directorio \textbf{slr/} será de gran importancia en el ámbito del proyecto, ya que en este directorio se almacenarán la gran mayoría de ficheros relacionados con el limitador: datos de configuración, información de usuarios, ficheros de sonido, e incluso ficheros que funcionarán a modo de variables globales del limitador. Conforme se vaya avanzado en el documento se irá describiendo y explicando cada uno de estos ficheros.
+    \par
+    \noindent
+    El nombre del directorio se deduce que es un acrónimo de \textit{\textbf{S}ound\textbf{L}imiter\textbf{R}ecords}.
+\end{shaded}
+
+Para nuestra sorpresa, se descubre que los datos no sólo están almacenados en un fichero de texto plano, sino que tampoco se encuentran cifrados. Cada una de las líneas del fichero define un usuario con los siguientes campos:
+
+\begin{itemize}
+    \item \acrshort{dni}.
+    \item Nombre.
+    \item Contraseña.
+    \item Gestor de usuarios (si puede crear, modificar o eliminar usuarios).
+    \item Gestor de configuración (si puede modificar la configuración del limitador).
+    \item Fecha del alta del usuario en el sistema.
+\end{itemize}
+
+En el listado \ref{lst:usersAuth} pueden verse claros ejemplos del patrón definido justo sobre estas líneas. Adicionalmente, existen en el fichero otras líneas que no siguen este patrón y definen otros patrones nuevos. Ejemplos de estas líneas son las que encontramos en la línea 4 y 14 del listado \ref{lst:usersAuth}. Estas líneas definen el modo de acceso al limitador y la eliminación de un usuario en el sistema, respectivamente, así como la marca de tiempo de la acción que dio origen a la inserción de esas líneas en el fichero.
+
+Para confirmar el descubrimiento de las credenciales del limitador se comprueban algunos de los usuarios y claves encontradas en la interfaz web del limitador, con resultado satisfactorio. Se consigue por tanto el acceso a la configuración del limitador y tenemos ahora el control sobre él, aunque seguimos sin disponer de control sobre el sistema operativo sobre el que corre.\newline
+
+\begin{lstlisting} [language=HTML, label={lst:usersAuth}, caption={Contenido del fichero \textit{users.auth}}]
+    dni=*lm7-passwordUser&name=Password user&password=\t****&userManager=1&configManager=1&time=2012/05/11-11:48:36
+    dni=*lm7-remoteUser&name=Remote system user&password=\t****&userManager=0&configManager=0&time=2012/05/11-11:48:36
+    dni=consultor&name=Consultor&password=consultor&userManager=0&configManager=0&time=2012/05/11-11:48:36
+    key=authMethod&value=onlyPassword&time=2012/08/30-05:35:16
+    dni=E19578186&name=NOISEOFF&password=COCHA012015&userManager=1&configManager=1&time=2015/06/25-23:07:38
+    dni=E19578186&name=NOISEOFF&password=COCHA012015&userManager=1&configManager=1&time=2015/06/25-23:08:13
+    dni=E19578186&name=NOISEOFF&password=01COCHA2015&userManager=1&configManager=1&time=2015/06/26-14:55:51
+    key=authMethod&value=onlyPassword&time=2015/06/26-14:57:58
+    dni=E19578186&name=NOISEOFF&password=COCHA0130115&userManager=1&configManager=1&time=2016/09/20-19:14:48
+    dni=E19578186&name=NOISEOFF&password=COCHA0130115&userManager=1&configManager=1&time=2016/09/20-19:16:21
+    key=authMethod&value=onlyPassword&time=2016/09/20-19:16:50
+    dni=E19578186&name=NOISEOFF&password=cocha0130115&userManager=1&configManager=1&time=2017/01/02-12:08:33
+    dni=44289989Q&name=NOISEOFF&password=cocha0130115&userManager=1&configManager=1&time=2017/01/02-12:10:05
+    dni=E19578186&deleted=1
+    key=authMethod&value=onlyPassword&time=2017/01/02-12:12:01
+    dni=44289989Q&name=NOISEOFF&password=cocha0130115&userManager=1&configManager=1&time=2017/01/05-09:50:40
+    key=authMethod&value=onlyPassword&time=2017/01/05-09:52:03
+\end{lstlisting}
+
+\subsection{Credenciales del sistema operativo}
+
+Para obtener el control sobre el sistema operativo es necesario disponer de un usuario y contraseña válidos de forma que podamos acceder a él mientras el equipo está en funcionamiento.
+
+Del sistema operativo sabemos que es \gls{debian}, una distribución \gls{GNU/Linux}, por tanto, se investiga dónde almacena este sistema sus usuarios. Son datos estáticos así que deben encontrase almacenados en alguna parte dentro del sistema de archivos contenidos en el disco, el cual, recordamos, tenemos conectado a otro ordenador mediante un adaptador \acrshort{USB}.
+
+A través de la consulta de foros
+ \href{https://www.cyberciti.biz/faq/where-are-the-passwords-of-the-users-located-in-linux/}{(cyberciti.biz)} y manuales \href{https://www.debian.org/doc/manuals/system-administrator/ch-sysadmin-users.html}{(Debian.org)} en línea, descubrimos que los ficheros que necesitamos son \textbf{/etc/passwd} y \textbf{/etc/shadow}. Aunque ambos contienen información crítica sobre los usuarios y sus permisos, existen pequeñas diferencias, las cuales no se van explicar ya que queda fuera del ámbito de este documento. En resumen, mientras que \textbf{/etc/passwd} almacena información mayormente relativa al usuario, \textbf{/etc/shadow} contiene las claves de usuario (encriptadas) e información relacionada a ellas, no al usuario.
+
+
+ Las claves están compuestas por una serie de campos, separados por dos puntos (:). El fichero contiene una entrada por línea para cada uno de los usuarios listados en el fichero \textbf{/etc/passwd}.
+
+Las
+
+\section{Versión LM7}   \label{sec:lms7}
+
+\section{Versión LM9}   \label{sec:lms9}
+
+\section{Comparativa de versiones}  \label{sec:lms7-9}
+
+\section{Conclusiones y mejoras}    \label{sec:ii-conclusiones}
+

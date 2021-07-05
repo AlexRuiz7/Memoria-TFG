@@ -1,0 +1,34 @@
+%\clearpage
+%{
+%    \pagestyle{fancy}
+%    \cleardoublepage
+%}
+%
+%\fancypagestyle{biblio}
+%{
+%    \fancyhf{}
+%    \fancyfoot[C]{Limitador de sonido para locales de música}
+%    \fancyfoot[LE,RO]{\thepage}
+%    \fancyhead[LE,RO]{\small{Bibliografía}}
+%    \renewcommand{\headrulewidth}{0.5pt}
+%    \renewcommand{\footrulewidth}{0.5pt}
+%}
+
+% ------------------------------------------------
+
+% Incluir en el ToC
+%\addcontentsline{toc}{chapter}{Bibliografía}
+% Definir estilo de la página
+%\pagestyle{biblio}
+
+% Tipos de Bibliografía: https://www.overleaf.com/learn/latex/Bibtex_bibliography_styles
+\bibliographystyle{ieeetr}
+% Fichoer con las referencias
+\bibliography{./bibliografia/bibliografia}
+
+% ------------------------------------------------
+
+% Para que funcione bien el TOC en PDF
+%\cleardoublepage
+%\phantomsection
+%\label{bib}

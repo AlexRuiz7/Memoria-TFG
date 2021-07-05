@@ -1,0 +1,153 @@
+\chapter{Introducción}\label{cap:capitulo1}
+
+El presente proyecto se desarrolla en el marco del Trabajo de Fin de Grado con el cual se finaliza el Grado Universitario en Ingeniería Informática, con especialidad en Ingeniería del Software, cursado por el alumno Alejandro Ruiz Becerra en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación de la Universidad de Granada. El objetivo principal del presente trabajo es demostrar los conocimientos y habilidades adquiridos por el alumno durante la realización de dicho Grado. Para ello, se ha realizado el presente proyecto, el cual propone el diseño e implementación de un software que permita controlar los niveles acústicos en locales con equipos de música.
+
+Este Trabajo de Fin de Grado se realiza en colaboración con el proyecto académico \gls{granasat}, un proyecto multidisciplinario, dirigido por el Profesor Andrés María Roldán Aranda, que reúne a personas de diferentes campos que quieren adquirir conocimientos relativos a la Ingeniería Aeroespacial y a la Ingeniería Electrónica.
+
+% EJEMPLO DE IMAGEN CENTRADA
+\begin{figure}[H]
+    \centering
+    \includegraphics{figuras/granasat.pdf}
+    \caption{Logotipo de \gls{granasat}}
+    %\vspace{-1cm}
+\end{figure}
+
+El laboratorio de \gls{granasat} así como el equipamiento y materiales necesarios para la realización de este proyecto se encuentran en la Avenida de Madrid, frente al Escuela Internacional de Posgrado de la Universidad de Granada y el Antiguo Hospital Clínico de Granada (España). Este proyecto ha sido desarrollado tanto presencialmente en el laboratorio como de forma remota, debido a la situación actual de pandemia causada por el virus COVID-19.
+
+%Es importante destacar que el proyecto que se expone en este documento se basa y apoya en el trabajo realizado por otros alumnos/as antes que yo, así como en el trabajo conjunto que se ha realizado en el presente curso académico con Dani ----, estudiante del Grado en Ingeniería Informática y Luis ----, estudiante del Máster en Ingeniería en Telecomunicaciones, ambos pertenecientes a la Universidad de Granada.
+
+\section{Motivación}\label{sec:motivacion}
+
+% No mostrar las sub-secciones de esta sección
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+Todos los establecimientos comerciales que dispongan de equipos de reproducción musical o audiovisual pueden, especialmente de noche, afectar no solo al descanso de los vecinos, sino también a la salud auditiva de los clientes y a los trabajadores del mismo. Es por ello que surge la necesidad de controlar la emisión de ruidos desde estos establecimientos tanto hacia a las viviendas o oficinas adyacentes, como a la calle, así como mantener unos niveles acústicos adecuados en el interior del local. Esta necesidad se hace requisito para este tipo de establecimientos debido a la Ley del Ruido del año 2003.
+
+La Ley del Ruido (Ley 37/2003) del 17 de noviembre de 2003 dio lugar al comienzo de la lucha legislada contra la contaminación acústica, mediante la cual se dota de un esquema básico a nivel estatal para que, en los niveles autonómico y local puedan elaborarse promulgaciones de esta ley. Por tanto, queda en manos de las comunidades autónomas, y en última instancia, de los ayuntamientos, el definir las medidas, normas e infracciones a aplicar en esta materia.
+
+El Ayuntamiento de Granada aplica su propia normativa en este ámbito mediante la \textit{Ordenanza Municipal de Protección del Medio Ambiente Acústico en Granada} del año 2007. Es de especial interés, dado el proyecto que nos ocupa, los artículos 36 y 37.
+
+\subsection{Artículo 36. Condiciones acústicas particulares en actividades y edificaciones donde se generan niveles elevados de ruido}
+
+En este artículo se definen una serie de condiciones para los establecimientos de espectáculos públicos, actividades recreativas y comerciales que generen elevados niveles de ruido.
+
+A modo de resumen, este artículo:
+
+\begin{itemize}
+    \item Clasifica las edificaciones donde se generan un nivel de ruido superior a 70 \gls{dba} en 3 tipos.
+
+    \item Exige la aplicación de un aislamiento acústico al local.
+
+    \item Prohíbe niveles de de presión sonora superiores a 90 \gls{dba} en zonas destinadas al público, salvo que se dé advierta correctamente en los accesos a dichas zonas.
+\end{itemize}
+
+%Las edificaciones de Tipo 3 se definen como:
+%
+%\begin{quote}
+% Los establecimientos de espectáculos públicos y actividades recreativas, con actuaciones y conciertos con música en directo, y/o música pregrabada bailable, (salas de fiestas, discotecas y cualquier otro establecimiento de esparcimiento)
+%\end{quote}
+
+Si bien, estos tipos de establecimientos tienen la obligación de aislar acústicamente el local mediante la aplicación de diferentes soluciones arquitectónicas, esto no es suficiente para garantizar que no se sobrepasan los límites de emisión e inmisión de ruido definidos en la normativa, la cual se puede consultar en el Anexo B. Esto mismo queda reflejado en el articulo 37 de la normativa que puede verse a continuación.
+
+\subsection{Artículo 37. Instalación de equipos limitadores controladores acústicos}
+
+\begin{quote}
+    En aquellos locales descritos en el artículo 36 de la presente Ordenanza, donde se disponga de equipo de reproducción musical o audiovisual en los que los niveles de emisión sonora pudieran de alguna forma ser manipulados directa o indirectamente, se instalará un equipo limitador-controlador que permita asegurar, de forma permanente, que bajo ninguna circunstancia las emisiones del equipo musical superen los límites admisibles de nivel sonoro tanto en el interior del propio local (articulo 20 bis) como en las edificaciones adyacentes, así como que cumplen los niveles de emisión al exterior exigidos en esta Ordenanza.
+\end{quote}
+
+Por tanto, resulta evidente observar que existe una necesidad por parte de los establecimientos con equipos de reproducción de música de controlar sus niveles de contaminación acústica de forma que se cumpla la normativa, para evitar molestias a vecinos, y denuncias y sanciones a los propietarios del local.
+
+% Reestablecer profundidad del ToC
+\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}
+
+\section{Objetivos del proyecto}\label{sec:objetivos}
+
+El objetivo primario de este proyecto es el siguiente:
+
+\begin{itemize}
+    \item Presentar un software capaz de registrar los niveles acústicos de emisión y recepción, y que actúe sobre dichos niveles en base a la normativa aplicada.
+\end{itemize}
+
+Este objetivo general define de forma concreta qué es lo que se pretende hacer en el proyecto. Asimismo, existen otros objetivos más específicos:
+
+\begin{enumerate}
+
+    \item Conocer y analizar las necesidades reales del sistema de monitorizacion de ruido ambiental requerido.
+
+    \item Extraer los requisitos funcionales y no funcionales del sistema, a partir de conversaciones con el cliente y del proceso de ingeniería inversa.
+
+    \item Realizar una análisis de las tecnologías utilizadas en el software presente en el limitador del laboratorio, y estudiar si pueden solucionar las necesidades de cada uno de los requisitos.
+
+    \item Diseñar e implementar un prototipo del producto software requerido.
+
+    \item Realizar los tests de validación y pruebas necesarios para verificar el correcto funcionamiento del prototipo.
+
+    \item Acercar al alumno a un entorno real de Ingeniería.
+
+    \item Poner de manifiesto los conocimientos y habilidades adquiridas en el Grado de Ingeniería Informática.
+
+    \item Superar la signatura de Fin de Grado, y por ende, el Grado en Ingeniería Informática.
+\end{enumerate}
+
+\section{Contexto} \label{sec:contexto}
+
+Hasta ahora, se han establecido cuales son las necesidades y las motivaciones del proyecto, así como la idea general y los objetivos del mismo, pero nada se sabe aún de su punto de partida ni de su contexto, ¿se va a partir de cero? ¿existe una arquitectura hardware específica para este propósito o es parte del proyecto definirla y construirla? ¿hay más personas involucradas en el proyecto? En las siguientes páginas resolveremos estás cuestiones y más, y se proporcionará un enfoque más detallado y completo del la envergadura del trabajo que en este documento se presenta.
+
+%Una vez establecidas las ideas generales del proyecto, es necesario enmarcarlo en su contexto. Las siguientes páginas tendrán como propósito presentar el punto de partida y el contexto del proyecto, de forma que se pueden entender mejor cuál es el ámbito
+
+Para comenzar, en el laboratorio de \glsname{granasat} se dispone de un limitador de sonido operativo, pero bastante antiguo, el cual es necesario estudiar para poder entender se funcionamiento y, por ende, conocer cuales son las tareas concretas que debe realizar un limitador de sonido para efectuar sus funciones. Este limitador será objeto que un minucioso proceso de ingeniería inversa, del cual extraeremos una gran cantidad de conocimiento, en forma de requisitos, diagramas y estrategias de acción para resolver las problemáticas a las que nos enfrentamos en el proyecto. Se dispone así mismo del todo el código fuente de este limitador, lo cual facilitará bastante nuestro trabajo.
+
+Se dedicará un capítulo completo a este limitador, dónde se detallará el proceso de ingeniería inversa al que se le ha sometido, se explicará cómo funciona este limitador y se expondrán todos los conocimientos que se han podido extraer del él. Este limitador, por tanto, supondrá el punto de partida y la principal guía del presente proyecto, siendo así su piedra angular, ya que se volverá é constantemente para comparar y validar el trabajo realizado.
+
+
+¡¡ INSERTAR IMAGEN DEL LIMITADOR !!
+
+
+También en laboratorio de \glsname{granasat} se dispone de un limitador en fase de prototipo, sobre el cual correrá el sistema de limitación y control de sonido que se va a desarrollar. Esta arquitectura supone la inclusión de ciertas restricciones y consideraciones a la hora de diseñar e implementar el sistema, ya que se dispone de un hardware especializado y cuyo centro de cómputo es una Raspberry Pi.
+
+
+¡¡INSERTAR IMAGEN DEL LIMITADOR NUEVO !!
+
+
+\myMateLuis, es un estudiante del Máster en Ingeniería de Telecomunicaciones y el responsable de esta arquitectura. El trabajo realizado en este prototipo supone su Trabajo de Fin de Máster.
+
+¡¡INSERTAR IMAGEN DE LUIS !!
+
+Por otro lado, es necesario poder configurar el sistema cuando se realice la instalación del mismo en el establecimiento. Los datos configurables en el equipo supondrán unos requisitos de datos y especificarán en el capítulo \ref{cap:capitulo2}, pero a modo de resumen, es necesario configurar una serie de variables que modificarán el funcionamiento del sistema, como el aislamiento aplicado al local y la normativa del ayuntamiento o comunidad autónoma en el que se encuentra el local.
+
+¡¡INSERTAR IMAGEN DEL APP CONF !!
+
+\myMateDani, estudiante del \myDegree, como proyecto para su Trabajo de Fin de Grado va a diseñar e implementar una aplicación para configurar nuestro sistema.
+
+¡¡INSERTAR IMAGEN DE DANI !!
+
+Nuestro sistema, por tanto, deberá comunicarse tanto con el hardware especializado como con la aplicación de configuración. Para ello deberán identificarse y definirse unas interfaces de comunicación para que los sistemas cooperen, lo cual se traduce en nuevo requisitos en nuestro proyecto. Se profundizará en estas interfaces en el capítulo de diseño, \ref{cap:capitulo5}.
+
+
+¡¡ EN GENERAL, EXTENDER !!
+
+\section{Estructura del proyecto}\label{sec:estructura}
+
+El proyecto se divide en 8 capítulos y varios anexos que describen cada una de las partes del proceso de desarrollo del producto propuesto.
+
+Los capítulos que componen el presente documento son:
+
+\begin{itemize}
+    \item El presente capítulo, numerado como \ref{cap:capitulo1}, pretende ser una introducción al proyecto, tanto en su faceta de Trabajo de Fin de Grado como en su faceta de colaboración con GranaSAT. En este capítulo también puede encontrarse la planificación temporal del proyecto en forma de diagrama de Gantt.
+
+    \item El capítulo \ref{cap:capitulo2} es un breve resumen de la idea global del producto, extraída de conversaciones con el cliente. A partir de esta información se generan una definición de necesidades principales y secundarias para el producto, en forma de requisitos del cliente.
+
+    \item El capítulo \ref{cap:capitulo3} se procede a documentar el proceso de ingeniería inversa al que se ha sometido a dos versiones de un mismo limitador disponible en el laboratorio de GranaSAT. La idea principal de este proceso de ingeniería inversa es realizar un reconocimiento de las tareas técnica necesarias para completar los objetivos del proyecto.
+
+    \item A continuación, en el capítulo \ref{cap:capitulo4}, se utilizará el conocimiento obtenido mediante proceso del ingeniería inversa realizado en el capítulo anterior para presentar un primer análisis en profundidad del trabajo necesario a realizar para cumplir los objetivos del proyecto, así como un desglose de dicho trabajo en forma de requisitos del sistema. En este capítulo también se detallarán los requerimientos técnicos del producto. Una vez concretados estos requerimientos se analizarán los pros y los contras de diferentes tecnologías o enfoques que solucionan la problemática de cada uno de los subsistemas que componen el proyecto. De este análisis en profundidad se extrae una estrategia de trabajo, compuesta por un conjunto de soluciones técnicas viables para el producto y una planificación temporal para el desarrollo del proyecto que se puede observar en el diagrama de la figura figura X.Y.
+
+    \item Tras realizar el análisis y siguiendo la metodología propuesta en la figura X.Y, se presenta en el capítulo \ref{cap:capitulo5} el diseño del producto, es decir, qué se va a hacer exactamente y cómo. Para ello se han tenido en cuenta las cuestiones relativas al análisis del capítulo anterior y se han seleccionado las soluciones y tecnologías optimas para diseñar el sistema.
+
+    \item En el capítulo \ref{cap:capitulo6} se presentan los detalles sobre la implementacion del sistema y la metodología seguida durante este proceso. Los procesos de ingeniería inversa, análisis y diseño tendrán un gran valor en este punto, y serian cruciales durante el proceso de implementación.
+
+    \item En el capítulo \ref{cap:capitulo7} se describen una serie de pruebas de validación y test de forma que se verifique que el producto generado a partir del diseño propuesto en el capítulo \ref{cap:capitulo5} cumple con las especificación de requisitos descrita en el \ref{cap:capitulo2}, y que a demás, lo realiza de forma correcta.
+
+    \item Por último, el capítulo \ref{cap:capitulo8} contiene un conjunto de conclusiones a modo de resumen, donde se repasan los objetivos del proyecto y cómo se han abordado cada uno de ellos. También se incluye una lista de mejoras del sistema como trabajo futuro y continuación del proyecto.
+
+    \item En el anexo \ref{cap:presupuesto} se detalla el presupuesto y los costes asociados a este proyecto.
+\end{itemize}

@@ -1,0 +1,45 @@
+\chapter{Especificación de requisitos} \label{cap:capitulo2}
+
+Una vez introducido el tema de estudio y los objetivos del presente proyecto, se va a dar paso en este segundo capítulo a definir cuáles son los requisitos del sistema, clasificándolos en requisitos funcionales y no funcionales.
+
+Estos requisitos tienen su origen en las conversaciones que se han establecido con el cliente en primera instancia y como resultado del conocimiento extraído del proceso de ingeniería inversa.
+
+\section{Requisitos funcionales} \label{sec:rf}
+
+%Tal y como se comentó en la sección \ref{sec:contexto}
+Un controlador-limitador de sonido tiene como objetivo medir los valores de presión acústica que se emiten en el local, y evitar que se sobrepasen los límites establecidos en la normativa del núcleo de población en el que se encuentra el establecimiento.
+
+\begin{itemize}
+    \item El sistema debe ser capaz de calibrar sus sensores.
+
+    \item El sistema debe poder emitir ruido rosa.
+
+    \item El sistema debe comprobar que no ha sido manipulado. Para ello se verificará en el inicio y/o fin de cada sesión que las calibraciones de sus sensores y señales de audio corresponden a los valores actuales de emisión y recepción.
+
+    \item El sistema debe poder conservar un registro de sus lecturas por un período al menos 2 meses, con una periocidad de un minuto.
+
+    \item El sistema debe proporcionar un mecanismo de comunicación hacia el exterior, de forma que se pueda configurar y obtener métricas.
+
+    \item El sistema debe poder leer los valores de emisión en el local.
+
+    \item El sistema debe actuar en caso de que los valores de emisión en el local sobrepasen los valores límite definidos en la normativa vigente, limitando el nivel de presión acústica.
+\end{itemize}
+
+\section{Requisitos no funcionales} \label{sec:rnf}
+
+Como requisitos no funcionales tenemos:
+
+\begin{itemize}
+    \item El sistema debe poder ejecutarse en el hardware provisto (módulo de computación Raspberry Pi con sistema operativo DietPi y arquitectura \acrshort{ARM}).
+
+    \item El sistema debe ser robusto y tolerante a fallos.
+
+    \item El producto debe ser lo más ligero posible en términos de consumo de recursos de computación y espacio en disco, ya que estos recursos son especialmente limitados en la arquitectura objetivo.
+
+    \item El sistema debe usar \acrshort{JSON} como formato estándar de intercambio de datos.
+
+    \item Los valores de presión acústica deben darse en decibelios ponderados (dbA).
+\end{itemize}
+
+
+
