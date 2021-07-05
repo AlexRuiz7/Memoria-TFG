@@ -1,9 +1,11 @@
 set path=%path%;"Z:\Programs\MiKTeX\miktex\bin\x64"
 
-makeindex memoria_TFM.idx
+REM makeindex memoria_TFG.idx
 
-makeindex -s "memoria_TFM.ist" -t "memoria_TFM.alg" -o "memoria_TFM.acr" "memoria_TFM.acn"
+makeindex -s "memoria_TFG.ist" -t "memoria_TFG.alg" -o "memoria_TFG.acr" "memoria_TFG.acn"
 
-makeindex -s "memoria_TFM.ist" -t "memoria_TFM.glg" -o "memoria_TFM.sym" "memoria_TFM.sbl"
+REM makeindex -s "memoria_TFG.ist" -t "memoria_TFG.glg" -o "memoria_TFG.sym" "memoria_TFG.sbl"
 
-makeindex -s "memoria_TFM.ist" -t "memoria_TFM.glg" -o "memoria_TFM.gls" "memoria_TFM.glo"
+makeindex -s "memoria_TFG.ist" -t "memoria_TFG.glg" -o "memoria_TFG.gls" "memoria_TFG.glo"
+
+pause

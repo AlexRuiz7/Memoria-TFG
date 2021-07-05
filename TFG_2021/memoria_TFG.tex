@@ -1,284 +1,36 @@
-\documentclass[titlepage,12pt,a4paper,twoside,openright,svgnames]{report}%
+\documentclass[titlepage,12pt,a4paper,twoside,openright,svgname]{report}%
 %\addtolength\oddsidemargin {10cm}\addtolength\evensidemargin {-10cm}
 
-%PAQUETES PABLO
-\usepackage{dirtree}
-\usepackage{movie15}
-\usepackage{indentfirst}
-\usepackage{enumitem}
-\usepackage{afterpage}
-\usepackage{soul}
-\usepackage{siunitx}
-\usepackage{xcolor}
-\usepackage{xspace}
-\usepackage{mhchem}
-\usepackage{amsmath}
-\usepackage{wrapfig}
-\usepackage{dirtree}
-\usepackage{changepage}
-\usepackage{geometry}
+
+% ********************************************************************
+% Re-usable information
+% ********************************************************************
+\newcommand{\myTitle}{Limitador de sonido para locales de música\xspace}
+\newcommand{\myDegree}{Grado en Ingeniería Informática\xspace}
+\newcommand{\myName}{Alejandro Ruiz Becerra\xspace}
+\newcommand{\myProf}{Andrés María Roldán Aranda\xspace}
+ \newcommand{\myMateLuis}{Luis Peinado Córdoba\xspace}
+ \newcommand{\myMateDani}{Dani Ruiz Medina\xspace}
+\newcommand{\myFaculty}{Escuela Técnica Superior de Ingenierías Informática y de
+    Telecomunicación\xspace}
+\newcommand{\myFacultyShort}{E.T.S. de Ingenierías Informática y de
+    Telecomunicación\xspace}
+\newcommand{\myDepartment}{Departamento de Electrónica y Tecnología de Computadores\xspace}
+\newcommand{\myUni}{\protect{Universidad de Granada}\xspace}
+\newcommand{\myLocation}{Granada\xspace}
+\newcommand{\myTime}{\today\xspace}
+\newcommand{\myVersion}{Version 0.1\xspace}
 
 
+\include{estilos/paquetes}
+\include{estilos/paquetes_config}
 
-%\geometry{bindingoffset=3mm}
-\def\videoautorefname{Video}%
-
-
-\usepackage{tabulary}
-\usepackage{tabularx}
-\usepackage{booktabs}
-\newcommand{\heading}[1]{\multicolumn{1}{c}{#1}}
-\usepackage{caption}
-
-%%%%%%%%%code listings
-
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-%%Code listing style named "mystyle"
-%\lstdefinestyle{mystyle}{
-  %%backgroundcolor=\color{backcolour},
-  %commentstyle=\color{codegreen},
-  %keywordstyle=\color{magenta},
-  %numberstyle=\tiny\color{codegray},
-  %stringstyle=\color{codepurple},
-  %basicstyle=\ttfamily\footnotesize,
-  %breakatwhitespace=false,
-  %breaklines=true,
-  %captionpos=b,
-  %keepspaces=true,
-  %numbers=left,
-  %numbersep=5pt,
-  %showspaces=false,
-  %showstringspaces=false,
-  %showtabs=false,
-  %tabsize=2
-  %stepnumber=5
-  %numberfirstline=false
-%}
-
-
-%"mystyle" code listing set
-%\lstset{style=mystyle}
-
-
-%%%%%%%%%%%%%%
-
-%\usepackage{estilos/classicthesis} % Custom classicthesis
-
-
-\def\chapterautorefname{Chapter}%
-\def\figureautorefname{Figure}%
-\def\sectionautorefname{Section}%
-\def\subsectionautorefname{Subsection}%
-\def\tableautorefname{Table}%
-\def\equationautorefname{Equation}%
-
-%para que no se corten parrafos a mitad
-%\widowpenalties 1 10000
-%\raggedbottom
-
-%Video floats
-\usepackage{float}
-\newfloat{videoFloat}{thp}{lop}[chapter]
-\floatname{videoFloat}{Video}
-
-%Pablo custom code colors
-\usepackage{color}
-\definecolor{atomString}{RGB}{221,17,68}
-\definecolor{atomComment}{RGB}{153,153,136}
-\definecolor{black}{RGB}{0,0,0}
-\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
-\definecolor{mylilas}{RGB}{170,55,241}
-\usepackage{upquote}
-\usepackage{listings}
-% CSS
-\lstdefinelanguage{CSS}{
-  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},
-  sensitive=true,
-  morecomment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  morestring=[b]',
-  morestring=[b]",
-  alsoletter={:},
-  alsodigit={-}
-}
-
-% JavaScript
-\lstdefinelanguage{JavaScript}{
-  morekeywords={typeof, delete,new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  morecomment=[s]{/*}{*/},
-  morecomment=[l]//,
-  morestring=[b]",
-  morestring=[b]'
-}
-
-\lstdefinelanguage{HTML5}{
-  language=html,
-  sensitive=true,
-  alsoletter={<>=-},
-  morecomment=[s]{<!-}{-->},
-  tag=[s],
-  otherkeywords={
-  % General
-  >,
-  % Standard tags
-	<!DOCTYPE,
-  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
-	% body
-	</body, <body,
-	% Divs
-	</div, <div, </div>,
-	% Paragraphs
-	</p, <p, </p>,
-	% scripts
-	</script, <script,
-  % More tags...
-  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
-  },
-  ndkeywords={
-  % General
-  =,
-  % HTML attributes
-  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
-  % SVG attributes
-  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
-  % properties
-  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
-	% CSS3 properties
-  transform:, -moz-transform:, -webkit-transform:,
-  animation:, -webkit-animation:,
-  transition:,  transition-duration:, transition-property:, transition-timing-function:,
-  }
-}
-
-\lstdefinestyle{htmlcssjs} {%
-  % General design
-	backgroundcolor=\color{white},
-  basicstyle={\footnotesize\ttfamily},
-  frame=b,
-  % line-numbers
-  xleftmargin={0.75cm},
-  numbers=left,
-  stepnumber=1,
-  firstnumber=1,
-  numberfirstline=true,
-  % Code design
-  identifierstyle=\color{black},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywordstyle=\color{black}\bfseries,
-  stringstyle=\color{red}\ttfamily,
-  commentstyle=\color{atomComment}\ttfamily,
-  % Code
-  language=HTML5,
-  alsolanguage=JavaScript,
-  alsodigit={.:;},
-  tabsize=1,
-  showtabs=false,
-  showspaces=false,
-  showstringspaces=false,
-  extendedchars=true,
-  breaklines=true,
-	 captionpos=b,                    % sets the caption-position to bottom
-literate=%
-*{0}{{{\color{red}0}}}1
-{1}{{{\color{red}1}}}1
-{2}{{{\color{red}2}}}1
-{3}{{{\color{red}3}}}1
-{4}{{{\color{red}4}}}1
-{5}{{{\color{red}5}}}1
-{6}{{{\color{red}6}}}1
-{7}{{{\color{red}7}}}1
-{8}{{{\color{red}8}}}1
-{9}{{{\color{red}9}}}1,
- % German umlauts
-  literate=%
-  {Ö}{{\"O}}1
-  {Ä}{{\"A}}1
-  {Ü}{{\"U}}1
-  {ß}{{\ss}}1
-  {ü}{{\"u}}1
-  {ä}{{\"a}}1
-  {ö}{{\"o}}1
-}
-%
-\lstdefinestyle{py} {%
-language=python,
-backgroundcolor=\color{white},
-literate=%
-*{0}{{{\color{red}0}}}1
-{1}{{{\color{red}1}}}1
-{2}{{{\color{red}2}}}1
-{3}{{{\color{red}3}}}1
-{4}{{{\color{red}4}}}1
-{5}{{{\color{red}5}}}1
-{6}{{{\color{red}6}}}1
-{7}{{{\color{red}7}}}1
-{8}{{{\color{red}8}}}1
-{9}{{{\color{red}9}}}1,
-basicstyle=\footnotesize\ttfamily, % Standardschrift
-numbers=left,               % Ort der Zeilennummern
-%numberstyle=\tiny,          % Stil der Zeilennummern
-%stepnumber=2,               % Abstand zwischen den Zeilennummern
-numbersep=5pt,              % Abstand der Nummern zum Text
-tabsize=4,                  % Groesse von Tabs
-extendedchars=true,         %
-breaklines=true,            % Zeilen werden Umgebrochen
-keywordstyle=\color{blue}\bfseries,
-frame=b,
-commentstyle=\color{atomComment}\itshape,
-stringstyle=\color{red}\ttfamily, % Farbe der String
-showspaces=false,           % Leerzeichen anzeigen ?
-showtabs=false,             % Tabs anzeigen ?
-xleftmargin=17pt,
-framexleftmargin=17pt,
-framexrightmargin=5pt,
-framexbottommargin=4pt,
-%backgroundcolor=\color{lightgray},
-showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
-}
-
-
-\usepackage{estilos/pfc}
-\usepackage{estilos/funciones}
-\PassOptionsToPackage{spanish, english}{babel}
-\usepackage[spanish, english]{babel}
-\usepackage{lscape}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage{rotating}
-\usepackage{hyperref}
-\usepackage[noabbrev]{cleveref}      % reference object types automatically
-
-\usepackage{fixltx2e}
-\usepackage{longtable}
-
-\usepackage{listings}
-\usepackage{color}
-\usepackage{eurosym}
-\usepackage{pdfpages}
-
-\usepackage{algorithm}      % http://ctan.org/pkg/algorithms
-\usepackage{algpseudocode}  % http://ctan.org/pkg/algorithmicx
-\usepackage{multirow}
-\usepackage{appendix}
-\usepackage{subfig}         % subfiguras
-
-%\usepackage[3D]{movie15}
-%\usepackage{media9}
-\usepackage{hyperref}
-
-\usepackage{url}
-\usepackage{enumerate}
-\usepackage{inputenc}
-%\usepackage{multimedia}
-
-
-%\decimalpoint
 \makeindex %Para hacer el índice alfabético
+
+% Glosario
+\usepackage[nonumberlist,sanitize={symbol=false},acronym,toc]{glossaries}
+\usepackage{glosario_acronimos}
+\makeglossaries
 
 %============ ELADIO GUTIERREZ CARRASCO  =====================
 % -*- Demosle unas leccioncillas a LaTeX sobre como colocar figuras -*-
@@ -291,25 +43,11 @@ showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
 \renewcommand{\floatpagefraction}{0.5} % Max. espacio de pagina solo con figs.
 \textfloatsep=0.5mm
 
-
-
-%SQUEEZE:
-% http://www.eng.cam.ac.uk/help/tpl/textprocessing/squeeze.html
-
-%Page Layout
-        %\columnsep: gap between columns
-        %\topmargin: gap above header
-        %\topskip: between header and text
-        %\textheight: height of main text
-        %\textwidth: width of text
-        %\oddsidemargin: odd page left margin
-        %\evensidemargin : even page left margin
-
 %Paragraphs
 %\parindent=1cm %: indentation of paragraphs
 \parskip=3mm %: gap between paragraphs
 
-%OJOOOOOOOOOOOO MARGENES PARA GUILLOTINAR AL IMPRIMIR, QUITAR PARA VERSIÓN DIGITAL. SOLO HAY QUE PONER EL EVEN EN PRINCICIO
+%OJOOOOOOOOOOOO MARGENES PARA GUILLOTINAR AL IMPRIMIR, QUITAR PARA VERSIÓN DIGITAL. SOLO HAY QUE PONER EL EVEN EN PRINCIPIO
 %\addtolength\evensidemargin{3mm}
 \addtolength\oddsidemargin{-1.8mm}
 %%%%%%%%%%%%%%% ESTO TB PARA IMPRESIÓN,  FIJA EL TAMAÑO EN A4 +3 MM EN CADA LADO
@@ -345,22 +83,6 @@ showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
 %\itemsep 	Extra inter-item spacing added to \parsep.
 \partopsep=0mm % 	This is added to the top and/or bottom of the list if and only if there's a blank line above or below the first or last item. Leave this alone unless blank lines become a problem.
 
-%
-%By default, LaTeX doesn't like to fill more than 0.7 of a text page with tables and graphics, nor does it like too many figures per page. This behaviour can be changed by placing lines like the following before \begin{document}
-%
-%\renewcommand\floatpagefraction{.9}
-%\renewcommand\topfraction{.9}
-%\renewcommand\bottomfraction{.9}
-%\renewcommand\textfraction{.1}
-%\setcounter{totalnumber}{50}
-%\setcounter{topnumber}{50}
-%\setcounter{bottomnumber}{50}
-
-
-%PARA Ahorrar espacio
-%http://ftp.eq.uc.pt/software/TeX/macros/latex/contrib/savetrees/savetrees.pdf
-%\usepackage{savetrees}
-
 %%% NO HYPENATION %%%
 \tolerance=1
 \emergencystretch=\maxdimen
@@ -369,200 +91,100 @@ showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
 %%% NO HYPENATION %%%
 
 \captionsetup{belowskip=10pt,aboveskip=2pt} %%Caption space between figure and below text
+%\hypersetup{linkcolor=black, citecolor=black}        % color of links to bibliograp}
 
-\includeonly{subdocs/portada}
-%\includeonly{subdocs/capitulo1}
+% Asignar nombres de secciones no definidos en Babel Spanish
+\setlocalecaption{spanish}{contents}{Tabla de contenidos}
+\setlocalecaption{spanish}{listfigure}{Lista de figuras}
+\setlocalecaption{spanish}{listtable}{Lista de tablas}
+\setlocalecaption{spanish}{chapter}{Capítulo}
+\setlocalecaption{spanish}{figure}{Figura}
+\setlocalecaption{spanish}{appendix}{Apéndice}
+\setlocalecaption{spanish}{bib}{Bibliografía}
+\setlocalecaption{spanish}{table}{Tabla}
 
-%%Aboveskip space between content and caption
-%%Belowskip space between content and surrounding text
-\usepackage{glossaries}
-\usepackage[acronym]{glossaries}
-\makeglossaries
+\AtBeginEnvironment{quote}{\par\singlespacing\small}
+
+\newcommand{\commillas}[1]{``#1''}
+
+\usepackage{framed}
+\definecolor{shadecolor}{named}{LightBlue}
 
 \begin{document}
-%  may have noticed the absence of underline. This functionality has to be
-% added with the ulem package. Stick \usepackage{ulem} in your preamble.
-% By default, this overrides the \emph command with the underline rather than
-% the italic style. It is unlikely that you wish this to be the desired effect,
-% so it is better to stop ulem taking over \emph and simply call the underline
-% command as and when it is needed.
-%
-% To disable ulem, add \normalem straight after the document environment begins.
-% To underline, use \uline{...}.
-% To add a wavy underline, use \uwave{...}.
-% And for a strike-out \sout{...}.
-\normalem
-% Para ver si en Paragraph empieza en linea nueva
-% \setlength{\parindent}{20pt}
-% \parskip = \baselineskip
-\selectlanguage{english}
-
-\hypersetup{linkcolor=black, citecolor=black}        % color of links to bibliograp}
-\renewcommand{\contentsname}{Index}
-\renewcommand{\partname}{Part}
-\renewcommand{\chaptername}{Chapter}
-\renewcommand{\appendixname}{Appendix}
-\renewcommand{\bibname}{References}
-\renewcommand{\figurename}{Figure}
-\renewcommand{\tablename}{Table}
-\renewcommand{\listfigurename}{List of Figures}
-\renewcommand{\acronymname}{Acronyms}
-\renewcommand{\glossaryname}{Glossary}
-
-
-% Esto funciona normalmente pero en el caso de tener cargado el parquete CAPTION
-% hay que hacerlo de otra manera
-\renewcommand{\tablename}{Table}
-\renewcommand{\listtablename}{List of Tables}
-
-
-\renewcommand*\lstlistingname{Code}
-\renewcommand*\lstlistlistingname{Code Index}
 
 \newcommand\blankpage{%
     \null
     \thispagestyle{empty}%
     \addtocounter{page}{-1}%
-    \newpage}
+    \newpage
+}
 
+\selectlanguage{spanish}
 
-%\glossarystyle{long4col}
+% Contador de PDF incluidos a pagina completa
+\newcounter{includepdfpage}
+
+% Indice alphanumérico
 \pagenumbering{alph}
 
-%\part (book y report) -1
-%\part (article) 0
-%\chapter 0
-%\section 1
-%\subsection 2
-%\subsubsection 3
-%\paragraph 4
-%\subparagraph 5
-
-
-% Para definir el espacio antes y después de cada fórmula que aparentemente es excesivo
-% \abovedisplayskip=12pt plus 3pt minus 9pt
-% \belowdisplayskip=12pt plus 3pt minus 9pt
-% \abovedisplayskip=3pt
-% \belowdisplayskip=3pt
-% \abovedisplayshortskip=0pt plus 3pt
-% \belowdisplayshortskip=7pt plus 3pt minus 4pt
-
-
-%def\TikZ{Ti\emph{k}Z}
-%lstset{frameround=fttt}
-%lstloadlanguages{TeX}
-
-
 % Portada
-\include{subdocs/portada}
+\include{portada/portada}
 
 % Agradecimientos
-\include{subdocs/agradecimientos}
+\include{prefacios/Agradecimientos}
 
 % Lista de FIGURAS
-\include{subdocs/ListaFiguras}
+\include{prefacios/ListaFiguras}
 
 % Lista de Videos
-\include{subdocs/ListaVideos}
+\include{prefacios/ListaVideos}
 
 % Lista de TABLAS
-\include{subdocs/ListaTablas}
+\include{prefacios/ListaTablas}
 
 % Glosario
 \printglossaries
 
-%%%Símbolos: se incluyen en el listado de símbolos
-      %\gls{pi}, \gls{ohm}, \gls{angstrom},
-      %\gls{QIPrima},    \gls{QBPrima},    \gls{QGPrima}
-      %\gls{QI},    \gls{QB},    \gls{QG}
-      %\gls{qI},    \gls{qB},    \gls{qG}
-      %\gls{Idb},    \gls{gm},    \gls{gmb},    \gls{gsd}
-      %\gls{gbg},    \gls{gbs},    \gls{gbd}
-%
-%Acrónimos
-%Enlace al glosario
-%\glsname{HISIM} (\glstext{HISIM})
-%%
-%%%%%%% ERROR  %%%%%%%
-%\acrshort{EKV} %(\acrlong{CRA})
-%\glsname{EKV} (\glstext{EKV})
-
-%%Citas: hace un enlace a la Bibliografía
-%\cite{rytter1993vibration}
-%\cite{frietzen2002CFRP}
-%\cite{chang1999SHM}
-%
-%\refFigure{fig:matchgroup}
-%%
-%%
-%%%Símbolos: se incluyen en el listado de símbolos
-      %\gls{pi}, \gls{ohm}, \gls{angstrom},
-      %\gls{QIPrima},    \gls{QBPrima},    \gls{QGPrima}
-      %\gls{QI},    \gls{QB},    \gls{QG}
-     % \gls{qI},    \gls{qB},    \gls{qG}
-      %\gls{Idb},    \gls{gm},    \gls{gmb},    \gls{gsd}
-     % \gls{gbg},    \gls{gbs},    \gls{gbd}
-%
-%Acrónimos
-%\acrshort{SMD} (\acrlong{SMD})
-%%Enlace al glosario
-%\glsname{GranaSAT} (\glstext{GranaSAT})
-%
-%%%%%% ERROR  %%%%%%%
-%\acrshort{CRA} %(\acrlong{CRA})
-%\glsname{CRA} (\glstext{CRA})
-
-%%Citas: hace un enlace a la Bibliografía
-%\cite{definitionsACDS}
-%\cite{AdafruitUSBtiny}
-%\cite{ballaerospace}
-
-%%Contador de PDF incluidos a pagina completa
-\newcounter{includepdfpage}
-\hypersetup{
-    %bookmarks=true,% show bookmarks bar?
-    %unicode=true, %allows to use characters of non-Latin based languages in Acrobat’s bookmarks
-    bookmarksnumbered=true,
-		pdfstartview={FitH},
-		      %– FitH : Fit whole width of page
-		      %– FitV : Fit whole height of page
-		      %– FitB : Fit whole ”Bounding Box” page
-		      %– FitBH: Fit whole width of ”Bounding Box” of page
-		      %– FitBV: Fit whole height of ”Bounding Box” of page
-		pdfpagemode=UseOutlines,
-    pdftitle={Design of a multidisciplinary 1U CubeSat Simulation Platform},    % title
-    pdfauthor={Jose Carlos Martinez Durillo},     % author
-    pdfsubject={Master's Thesis},   % subject of the document
-    %pdfkeywords={ambiental,station,noise,iot}, % list of keywords
-    colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=blue,       % color of internal links
-    citecolor=green,        % color of links to bibliography
-    filecolor=black,       % color of file links
-    urlcolor=black         % color of external links.
-		}
-
+% Indice árabe
+\pagenumbering{arabic}
 
 % Capítulo 1: Introducción
-\include{subdocs/capitulo1}
-% Capítulo 2: Estado del arte
-\include{subdocs/capitulo2}
-% Capítulo 3: Ingeniería Inversa
-\include{subdocs/capitulo3p}
-% Capítulo 4: Prototipo LM11
-\include{subdocs/capitulo4p}
-% Capítulo 5: Conclusiones y trabajo futuro
-\include{subdocs/capitulo5p}
-% Capitulo 6: ------
-\include{subdocs/capitulo6p}
+\include{capitulos/01_Introduccion}
+% Capítulo 2: Análisis de Requisitos
+\include{capitulos/02_EspecificacionRequisitos}
+% Capítulo 3: Ingenieria Inversa
+\include{capitulos/03_IngenieriaInversa}
+% Capítulo 4: Análisis del sistema
+\include{capitulos/04_Analisis}
+% Capítulo 5: Diseño del sistema
+\include{capitulos/05_Diseno}
+% Capítulo 6: Imple
+\include{capitulos/06_Implementacion}
+% Capitulo 6: Validación y test
+\include{capitulos/07_Pruebas}
+% Capítulo 7: Conclusiones y trabajo futuro
+\include{capitulos/08_Conclusiones}
 
-\include{subdocs/Apendices}
+% Apéndices
+%\include{prefacios/Apendices}
 % Bibliografia.
-\include{subdocs/Bibliografia}
-% Apendice
-\include{subdocs/presupuestoPablo}
-%
-\include{subdocs/glosario}
-%
-\include{subdocs/IndiceAlfabetico}
+\include{prefacios/Bibliografia}
+
+% Apéndices
+\begin{appendices}
+% Presupuesto
+\include{prefacios/Presupuesto}
+
+% Anexo Normativa
+\include{prefacios/Normativa}
+
+% Indice alfabético
+\include{prefacios/IndiceAlfabetico}
+\end{appendices}
+
+
+% Glosario
+%\include{prefacios/Glosario}
+
 
 \end{document}

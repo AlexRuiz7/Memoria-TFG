@@ -1,6 +1,5 @@
 %cargar antes los paquetes de matemáticas para evitar los errores de renumenración de ecuaciones
 %http://www.tex.ac.uk/cgi-bin/texfaq2html?label=hyperdupdest
-
 \usepackage{amssymb,amsfonts,amsmath}
 \numberwithin{equation}{section}
 %Muchos ejemplos Matemáticas
@@ -29,43 +28,27 @@
     %bookmarks=true,% show bookmarks bar?
     %unicode=true, %allows to use characters of non-Latin based languages in Acrobat’s bookmarks
     bookmarksnumbered=true,
-		pdfstartview={FitH},
-		      %– FitH : Fit whole width of page
-		      %– FitV : Fit whole height of page
-		      %– FitB : Fit whole ”Bounding Box” page
-		      %– FitBH: Fit whole width of ”Bounding Box” of page
-		      %– FitBV: Fit whole height of ”Bounding Box” of page
-		pdfpagemode=UseOutlines,
-    pdftitle={Design of a multidisciplinary 1U CubeSat Simulation Platform},    % title
+	pdfstartview={FitH},
+    %– FitH : Fit whole width of page
+    %– FitV : Fit whole height of page
+    %– FitB : Fit whole ”Bounding Box” page
+    %– FitBH: Fit whole width of ”Bounding Box” of page
+    %– FitBV: Fit whole height of ”Bounding Box” of page
+	pdfpagemode=UseOutlines,
+    pdftitle={Limitador de sonido para locales de música},    % title
     pdfauthor={Jose Carlos Martinez Durillo},     % author
     pdfsubject={Master's Thesis},   % subject of the document
     %pdfkeywords={ambiental,station,noise,iot}, % list of keywords
-   colorlinks=true,       % false: boxed links; true: colored links
+    colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=blue,       % color of internal links
     citecolor=green,        % color of links to bibliography
     filecolor=black,       % color of file links
     urlcolor=black         % color of external links.
-		}
-% Tildes tildes (\’a \341, \’e \351, \'{\i}, \’o \363, \’u \372, \~n, \”u, con minúsculas o mayúsculas)
-% Es importante tener en cuenta que las páginas tienen una numeración y que no debe repetirse, por eso el principio del documento empieza por a,b,... después el índice lleva numeración romana y después empieza la árabe. Si no se hace así, el paquete hyperrref da un Warning molesto:
-%		! pdfTeX warning (ext4): destination with the same
-%		identifier (name{page.1}) has been already used,
-%		duplicate ignored
+}
+
 %  http://en.wikibooks.org/wiki/LaTeX/Hyperlinks#Problems_with_Links_and_Pages
 \usepackage[UTF8]{inputenc}  %Formato de caracteres en fichero .
 \usepackage[english]{babel}
-%\usepackage{eurosym}
-
-
-%%% Control the fonts and formatting used in the table of contents.
-%\usepackage[titles]{tocloft}
-%%% Aesthetic spacing redefines that look nicer to me than the defaults.
-%\setlength{\cftbeforechapskip}{2ex}
-%\setlength{\cftbeforesecskip}{0.5ex}
-%%% Use Helvetica-Narrow Bold for Chapter entries
-%\renewcommand{\cftchapfont}{%
-  %\fontsize{9}{11}\usefont{OT1}{phv}{bc}{n}\selectfont
-%}
 
 %\singlespacing, \onehalfspacing, and \doublespacing:
 \usepackage[singlespacing]{setspace} % package para controlar el espacio entrelíneas
@@ -78,23 +61,11 @@
 \usepackage{fancyhdr}
 %\usepackage[Rejne]{fncychap}  %Para la numeración de capítulos el de siempre
 %\usepackage[Glenn]{fncychap}  %Para la numeración de capítulos chulo
-%\usepackage[Bjornstrup]{fncychap}  %Para la numeración de capítulos chulo 
+%\usepackage[Bjornstrup]{fncychap}  %Para la numeración de capítulos chulo
 %\usepackage[Sonny]{fncychap}  %Para la numeración de capítulos CHULO
 %\usepackage[Bjarne]{fncychap}  %Para la numeración de capítulos meh
 %\usepackage[Lenny]{fncychap}  %Para la numeración de capítulos CHULO
 %\usepackage[Conny]{fncychap}  %Para la numeración de capítulos horrible
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5mierda emu
-
-
-    %
-        % default: Palatino
-        %\PassOptionsToPackage{osf,sc}{mathpazo}%
-        %\RequirePackage{mathpazo} % Palatino with real small caps and old style figures
-        %\linespread{1.05} % a bit more for Palatino
-    
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% fin mierda emu
 
 %\usepackage{fncychap}  %Para la numeración de capítulos
 
@@ -135,7 +106,7 @@
      %\put(8mm,-9mm-27mm*\value{chapter}){\blob}  % Posición original
 		 %\put(11mm,-27mm*\value{chapter}-9mm+1mm){{\color{white} \textbf{\HUGE \arabic{chapter}}}}
 		{\fontfamily{lmr}\selectfont
-     \put(7mm,-9mm-27mm*\value{chapter}){\blob}	  % Posición corregida para impresión en papel	
+     \put(7mm,-9mm-27mm*\value{chapter}){\blob}	  % Posición corregida para impresión en papel
 		 \put(8mm,-27mm*\value{chapter}-9mm+1mm){{\color{white} \textbf{\HUGE \arabic{chapter}}}}
 		}
 		 %\put(x,y)
@@ -153,16 +124,16 @@
 \newcommand{\lblob}
 {%
    \begin{picture}(0,0)
-	
+
 			{\fontfamily{lmr}\selectfont
 
     \put(-25mm,-9mm-27mm*\value{chapter}){\blob}  % Posición original
     %\put(-17mm,-27mm*\value{chapter}-9mm+1mm){{\color{white} \textbf{\HUGE \arabic{chapter}}}}
-		
-		
-		\put(-14mm,-27mm*\value{chapter}-9mm+1mm){{\color{white} \textbf{\HUGE \arabic{chapter}}}}  % Posición corregida para impresión en papel	
+
+
+		\put(-14mm,-27mm*\value{chapter}-9mm+1mm){{\color{white} \textbf{\HUGE \arabic{chapter}}}}  % Posición corregida para impresión en papel
 		}
-		
+
      %\put(-3,-9mm-35mm*\value{chapter}){\blob}
      %\put(-2.6\unitlength,-18mm*\value{chapter}+6mm){{\color{white} \textbf{\Large CH}}} %1\unitlength
      %\put(-2.6\unitlength+4mm,-18mm*\value{chapter}-0.5mm){{\color{white} \textbf{\Large\arabic{chapter}}}}
@@ -292,17 +263,10 @@
 %\setcounter{tocdepth}{3}   %Para bajar el índice a 4 niveles.
 \setcounter{secnumdepth}{5}
 
-%\thepage 	number of the current page
-%\leftmark 	current chapter name printed like "CHAPTER 3. THIS IS THE CHAPTER TITLE"
-%\rightmark 	current section name printed like "1.6. THIS IS THE SECTION TITLE"
-%\chaptername 	the name chapter in the current language. If this is English, it will display "Chapter"
-%\thechapter 	current chapter number
-%\thesection 	current section number
-
 \fancypagestyle{plain}
 {
    \fancyhf{}
-   \fancyfoot[C]{Design of a multidisciplinary 1U CubeSat Simulation Platform}
+   \fancyfoot[C]{Limitador de sonido para locales de música}
    \fancyfoot[LE,RO]{\thepage}
 
    \renewcommand{\headrulewidth}{0pt}
@@ -313,7 +277,7 @@
 {\fancyhf{}
 
 \fancyhead[LE,RO]{\thepage}
-\fancyfoot[C]{Design of a multidisciplinary 1U CubeSat Simulation Platform}
+\fancyfoot[C]{Limitador de sonido para locales de música}
 \fancyfoot[LE,RO]{\thepage}
 
 \renewcommand{\headrulewidth}{0.5pt}
@@ -322,19 +286,12 @@
 \fancypagestyle{biblio}
 {
   \fancyhf{}
-  \fancyfoot[C]{Design of a multidisciplinary 1U CubeSat Simulation Platform}
+  \fancyfoot[C]{Limitador de sonido para locales de música}
   \fancyfoot[LE,RO]{\thepage}
   \fancyhead[LE,RO]{\small{References}}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0.5pt}
 }
-
-
-
-
-
-
-
 
 %_______________________________________________________________________________________
 \usepackage{graphicx}
@@ -352,27 +309,17 @@
 \renewcommand\tablename{Table}
 \renewcommand\listtablename{\'Table Index}}
 
-
-
 %Para poder utilizar \subfloat
 % Ejemplo completo http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
 \usepackage{subfig}
-
 \usepackage{acronym}%
-
-
 \usepackage{makeidx} %Para hacer el indice alfabético
 \newcommand{\ii}[1]{{\it #1}} %Para poder usar: \index{gnat%}
-
 \usepackage{tocbibind}
-
 % TABLAS
 %Para las tablas con facilidad de centrado vertical
 \usepackage{tabulary}
-
 %Para poder hacer uso de \hline
-
-
 %Para poder centrar verticalmente se usa este paquete: [http://www.tug.org/pracjourn/2007-1/mori/mori.pdf] o http://www.inf.ethz.ch/personal/markusp/teaching/guides/guide-tables.pdf
 \usepackage{tabularx}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}  %defines columns aligned to the left,
@@ -380,197 +327,16 @@
 \newcolumntype{Z}{>{\centering\arraybackslash}X}    %defines centered columns.
 \newcolumntype{V}{>{\centering\arraybackslash}m{.4\linewidth}} %Para centrar verticalmetne imagenes
 \renewcommand {\tabularxcolumn}[1]{>{\arraybackslash}m{#1}}  %Para que las columnas de Tabularx estén centradas horizontalmente
-%\begin{tabularx}{18cm}{@{}ZZZZZ@{}} para evitar espacios laterales y ajsuta todoa ancho de página para tabla
-%\toprule[1pt]     %para definir grosores de líneas
-%\midrule[1pt]
-%\bottomrule[0.7pt]
-%\cmidrule[grosor](trim){a–b}  trim: r, r{wd}, l and l{wd},
-
-
 
 %Para definir los tipos de letra de salida:
 %\usepackage{times}          % Usar tipo Times-Roman
 \usepackage{lmodern}          % Usar tipo Latin Modern
 \usepackage[T1]{fontenc}    % Usar la codificación T1
-
-
-
-
 \usepackage{array}   % Para que funcione el m{2cm} dentro de una tabla y defina el ancho de una columna.
 \usepackage{booktabs}
 \usepackage{calc}
 %Para poder rotar las tablas grandes
 \usepackage{rotating}
-
-
-
-%Para la Generación de Circuitos
-%\usepackage[siunitx]{circuitikz}
-%\usepackage{showexpl}
-%\usepackage{framed}
-
-
-%Para rellenar las celdas de las tablas de color
-%\usepackage[tables]{xcolor}
-%pero se pone en la cabecera de DOCUMENT para que no de problemas de Clash o repetición
-%_____________________________________________________________________________
-% ---  Listado de colores disponibles
-%AliceBlue
-%AntiqueWhite
-%Aqua
-%Aquamarine
-%Azure
-%Beige
-%Bisque
-%Black
-%BlanchedAlmond
-%Blue
-%BlueViolet
-%Brown
-%BurlyWood
-%CadetBlue
-%Chartreuse
-%Chocolate
-%Coral
-%CornflowerBlue
-%Cornsilk
-%Crimson
-%Cyan
-%DarkBlue
-%DarkCyan
-%DarkGoldenrod
-%DarkGray
-%DarkGreen
-%DarkGrey
-%DarkKhaki
-%DarkMagenta
-%DarkOliveGreen
-%DarkOrange
-%DarkOrchid
-%DarkRed
-%DarkSalmon
-%DarkSeaGreen
-%DarkSlateBlue
-%DarkSlateGray
-%DarkSlateGrey
-%DarkTurquoise
-%DarkViolet
-%DeepPink
-%DeepSkyBlue
-%DimGray
-%DimGrey
-%DodgerBlue
-%FireBrick
-%FloralWhite
-%ForestGreen
-%Fuchsia
-%Gainsboro
-%GhostWhite
-%Gold
-%Goldenrod
-%Gray
-%Green
-%GreenYellow
-%Grey
-%Honeydew
-%HotPink
-%IndianRed
-%Indigo
-%Ivory
-%Khaki
-%Lavender
-%LavenderBlush
-%LawnGreen
-%LemonChiffon
-%LightBlue
-%LightCoral
-%LightCyan
-%LightGoldenrod
-%LightGoldenrodYellow
-%LightGray
-%LightGreen
-%LightGrey
-%LightPink
-%LightSalmon
-%LightSeaGreen
-%LightSkyBlue
-%LightSlateBlue
-%LightSlateGray
-%LightSlateGrey
-%LightSteelBlue
-%LightYellow
-%Lime
-%LimeGreen
-%Linen
-%Magenta
-%Maroon
-%MediumAquamarine
-%MediumBlue
-%MediumOrchid
-%MediumPurple
-%MediumSeaGreen
-%MediumSlateBlue
-%MediumSpringGreen
-%MediumTurquoise
-%MediumVioletRed
-%MidnightBlue
-%MintCream
-%MistyRose
-%Moccasin
-%NavajoWhite
-%Navy
-%NavyBlue
-%OldLace
-%Olive
-%OliveDrab
-%Orange
-%OrangeRed
-%Orchid
-%PaleGoldenrod
-%PaleGreen
-%PaleTurquoise
-%PaleVioletRed
-%PapayaWhip
-%PeachPuff
-%Peru
-%Pink
-%Plum
-%PowderBlue
-%Purple
-%Red
-%RosyBrown
-%RoyalBlue
-%SaddleBrown
-%Salmon
-%SandyBrown
-%SeaGreen
-%Seashell
-%Sienna
-%Silver
-%SkyBlue
-%SlateBlue
-%SlateGray
-%SlateGrey
-%Snow
-%SpringGreen
-%SteelBlue
-%Tan
-%Teal
-%Thistle
-%Tomato
-%Turquoise
-%Violet
-%VioletRed
-%Wheat
-%White
-%WhiteSmoke
-%Yellow
-%YellowGreen
-
-%__FIN   Colores  disponibles  ____________________________________________________
-%_____________________________________________________________________________
-
-
 
 % REferencias de Col
 %http://en.wikibooks.org/wiki/LaTeX/Colors
@@ -658,7 +424,7 @@
    }
 
 
-	%Para que la numeración de las ecuaciones vaya con el nº de subsección
+%Para que la numeración de las ecuaciones vaya con el nº de subsección
 \numberwithin{equation}{section}
 %\numberwithin{lstlisting}{section}
 
@@ -666,19 +432,18 @@
 \usepackage{upquote}
 %para que salga las comilla grave en línea con el texto
 
-
 %Con la opción SANTIZE puedo meter texto matemático en los símbolos
 %[xindy]para poder meter tildes en el name={}
 %If you are also using the hyperref package, you must load the glossaries package after the hyperref package.
-\usepackage[nonumberlist,sanitize={symbol=false},acronym,toc]{glossaries}
+%\usepackage[nonumberlist,sanitize={symbol=false},acronym,toc]{glossaries}
 %xindy
 
 %Definición de listado de Símbolos, para que se listen en este listado es necesario hacer:
 %\newglossaryentry{pi}{type=symbols,name={\ensuremath{\pi}},sort=pi,description={ratio of circumference of circle to its diameter}}
-\newglossary{symbols}{sym}{sbl}{Symbols List}
+%\newglossary{symbols}{sym}{sbl}{Symbols List}
 
-\makeglossaries % Para hacer un glosario
-\usepackage{glosario_acronimos}
+%\makeglossaries % Para hacer un glosario
+%\usepackage{glosario_acronimos}
 
 %Para poder hacer uso de los símbolos de LaseBeam....
 %http://www.ctan.org/tex-archive/info/symbols/comprehensive/symbols-a4. Página 74
@@ -700,7 +465,7 @@
 
 \fancypagestyle{plain}{
 \fancyhf{}
-\fancyfoot[C]{Design of a multidisciplinary 1U CubeSat Simulation Platform}
+\fancyfoot[C]{Limitador de sonido para locales de música}
 \fancyfoot[LE,RO]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.5pt}}
@@ -709,7 +474,7 @@
 
 \fancypagestyle{biblio}{
 \fancyhf{}
-\fancyfoot[C]{Design of a multidisciplinary 1U CubeSat Simulation Platform}
+\fancyfoot[C]{Limitador de sonido para locales de música}
 \fancyfoot[LE,RO]{\thepage}
 \fancyhead[LE,RO]{\small{References}}
 \renewcommand{\headrulewidth}{0pt}
@@ -723,9 +488,9 @@
 \fancyhead[RE]{\rightmark}
 % Numeros de pagina en las esquinas de los encabezados
 \fancyhead[RO,LE]{\thepage}
-\fancyfoot[RE]{José Carlos Martínez Durillo}
+\fancyfoot[RE]{Alejandro Ruiz Becerra}
 \renewcommand{\footrulewidth}{0.5pt}
-\fancyfoot[LO]{Design of a multidisciplinary 1U CubeSat Simulation Platform}
+\fancyfoot[LO]{Limitador de sonido para locales de música}
 
 
 %%Especificamos Cabecera y pie de página para el documento normal
@@ -741,18 +506,6 @@
 \setlength{\parindent}{15pt}
 \setlength{\parskip}{0.4cm}
 
-    %* \tiny
-    %* \scriptsize
-    %* \footnotesize
-    %* \small
-    %* \normalsize (default)
-    %* \large
-    %* \Large (capital "L")
-    %* \LARGE (all caps)
-    %* \huge
-    %* \Huge (capital "H")
-
-
 
 \makeatletter
    \newenvironment{indentation}[3]%
@@ -766,28 +519,8 @@
 %Necesarios para la conversion WORD LATEX
 
 \usepackage{ulem}
-%...
-%\uline{something}  --> normal underlined text
-%\uuline{something} --> double-underlined text
-%\uwave{something}  --> wavy underline
-%\sout{something}   --> delete text with line
-%\xout{something}   --> delete text with //////.
-
-%Comandos para indentar líneas
-%\indent
-%units: cm, em, ex, in, pc, pt, mm
-	%cm	Centimetres
-	%em	The width of the letter M in the current font
-	%ex	The height of the letter x in the current font
-	%in	Inches
-	%pc	Picas (1pc = 12pt)
-	%pt	Points (1in = 72.27pt)
-	%mm	Millimetres
-
 \newcommand{\qindent}{\hspace{2em}}
 \newcommand{\aindent}{\hspace{4em}}
-
-
 
 % new LaTeX commands
 \newcommand{\styleCircuitos}[1]{#1}
