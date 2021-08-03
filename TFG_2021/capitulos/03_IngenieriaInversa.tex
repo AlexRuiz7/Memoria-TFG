@@ -4,7 +4,8 @@ En este capítulo se procede a documentar el proceso de ingeniería inversa al q
 
 Tal y como se comentó en la sección \ref{sec:contexto}, el punto de partida del proyecto es el estudio y análisis de un limitador funcional y operativo que se encuentra en el laboratorio de \gls{granasat}. Es importante recordar que se dispone del código fuente de este limitador, así como su manual de usuario, el cual nos será de gran ayuda para poder instalarlo correctamente y conocer las capacidades y características generales del producto. De aquí en adelante, se hará referencia al este limitador como \acrshort{LM7}, ya que ese es el nombre técnico del producto.
 
-IMAGEN DE LIMITADOR
+!! IMAGEN DE LIMITADOR
+\label{img:lms7_cls}
 
 \section{Instalación del limitador}
 
@@ -49,12 +50,13 @@ En la figura \ref{fig:lm7_trasera} se pueden observar las principales conexiones
     \item Entradas balanceadas para audio con conectores \acrshort{xlr}.
     \item Salidas balanceadas para audio con conectores \acrshort{xlr}.
     \item Entradas y salidas no balanceadas con conectores \gls{RCA}.
-    \item Conector RJ-45 para conexión directa en área local (parte frontal del limitador, no visible en las figuras).
+    \item Conector \glsname{rj45} para conexión directa en área local (parte frontal del limitador, no visible en las figuras).
 \end{itemize}
 
-Conectamos el micrófono al limitador, así como la entrada y la salida de audio. La salido de audio se conecta a un amplificador de sonido disponible en el laboratorio, y como salida a este sistema de amplificación se conecta un dodecaedro. De forma que podamos tener interacción con el equipo, abrimos el limitador retirando la carcasa metálica exterior, para así poder conectar un teclado y una pantalla a la placa base del equipo. De esta forma descubrimos pro primera vez las entrañas del limitador, y nos encontramos con una tecnología bastante desfasada y un ensamble prácticamente casero. Tal y como podemos ver en la imagen \ref{img:lm7}, el \gls{HW} del limitador se compone de una placa base de tipo industrial, cuyas características de detallan en la tabla ------, un circuito integrado para las entradas y salidas de audio del limitador vistas en la figura \ref{fig:lm7_trasera} y una pequeña caja negra, la cual contiene un relé, y cuya funcionalidad se verá más adelante. Además de esto podemos observar la existencia de una tarjeta de sonido USB conectada a un puerto USB de la placa base y cuyas salidas van hacia la caja negra que podemos ver en la imagen. Como dispositivo de almacenamiento interno tenemos un CompactFlash, con 1GB de capacidad. En fases posteriores del actual proceso de ingeniería inversa extraeremos esta tarjeta de almacenamiento para acceder a sus archivos, ya que será necesario descubrir o modificar las credenciales de acceso tanto al equipo como al sistema de limitación, pues todas ellas son, por ahora, desconocidas.
+Conectamos el micrófono al limitador, así como la entrada y la salida de audio. La salido de audio se conecta a un amplificador de sonido disponible en el laboratorio, y como salida a este sistema de amplificación se conecta un dodecaedro. De forma que podamos tener interacción con el equipo, abrimos el limitador retirando la carcasa metálica exterior, para así poder conectar un teclado y una pantalla a la placa base del equipo. De esta forma descubrimos pro primera vez las entrañas del limitador, y nos encontramos con una tecnología bastante desfasada y un ensamble prácticamente casero. Tal y como podemos ver en la imagen \ref{img:lm7}, el \gls{HW} del limitador se compone de una placa base de tipo industrial, cuyas características de detallan en la tabla \ref{tab:lms7_specs}, un circuito integrado para las entradas y salidas de audio del limitador vistas en la figura \ref{fig:lm7_trasera} y una pequeña caja negra, la cual contiene un relé, y cuya funcionalidad se verá más adelante. Además de esto podemos observar la existencia de una tarjeta de sonido \acrshort{USB} conectada a un puerto \acrshort{USB} de la placa base y cuyas salidas van hacia la caja negra que podemos ver en la imagen. Como dispositivo de almacenamiento interno tenemos un \glsname{CF}, con 1GB de capacidad. En fases posteriores del actual proceso de ingeniería inversa extraeremos esta tarjeta de almacenamiento para acceder a sus archivos, ya que será necesario descubrir o modificar las credenciales de acceso tanto al equipo como al sistema de limitación, pues todas ellas son, por ahora, desconocidas.
 
-IMAGEN DEL LIMITADOR ABIERTO
+!! IMAGEN DEL LIMITADOR ABIERTO
+\label{img:lms7_open}
 
 Tras revisar todas las conexiones, conectamos el equipo a la corriente eléctrica, y podemos por primera vez ver el equipo en funcionamiento. Mientras arranca el sistema, vemos en la pantalla que el sistema operativo instalado es Debian, una distribución de \gls{GNU/Linux} que se caracteriza por ser minimal. Esta versión en concreto no contiene interfaz gráfica.
 
@@ -107,7 +109,7 @@ Para acabar con el proceso de instalación, se comprueba si es posible conectars
 
 Llegados a este punto, el limitador se encuentra instalado y funcionando, pero nuestro control sobre el mismo es completamente nulo ya que no disponemos de las credenciales necesarias para acceder al sistema ni al limitador. Por tanto, procederemos a extraer su dispositivo de almacenamiento, una \glsname{CF}, para investigar desde otro ordenador su contenido y poder encontrar dichas credenciales, dando lugar así al proceso que da nombre a este capítulo, comenzaremos con el proceso de Ingeniería Inversa.
 
-\subsection{Resumen}
+\subsection{Resumen} \label{cap1:sec1:resumen}
 
 Como resumen a esta sección, se han realizado las siguientes acciones:
 
@@ -189,12 +191,167 @@ Para obtener el control sobre el sistema operativo es necesario disponer de un u
 Del sistema operativo sabemos que es \gls{debian}, una distribución \gls{GNU/Linux}, por tanto, se investiga dónde almacena este sistema sus usuarios. Son datos estáticos así que deben encontrase almacenados en alguna parte dentro del sistema de archivos contenidos en el disco, el cual, recordamos, tenemos conectado a otro ordenador mediante un adaptador \acrshort{USB}.
 
 A través de la consulta de foros
- \href{https://www.cyberciti.biz/faq/where-are-the-passwords-of-the-users-located-in-linux/}{(cyberciti.biz)} y manuales \href{https://www.debian.org/doc/manuals/system-administrator/ch-sysadmin-users.html}{(Debian.org)} en línea, descubrimos que los ficheros que necesitamos son \textbf{/etc/passwd} y \textbf{/etc/shadow}. Aunque ambos contienen información crítica sobre los usuarios y sus permisos, existen pequeñas diferencias, las cuales no se van explicar ya que queda fuera del ámbito de este documento. En resumen, mientras que \textbf{/etc/passwd} almacena información mayormente relativa al usuario, \textbf{/etc/shadow} contiene las claves de usuario (encriptadas) e información relacionada a ellas, no al usuario.
+ \href{https://www.cyberciti.biz/faq/where-are-the-passwords-of-the-users-located-in-linux/}{(cyberciti.biz)} y manuales \href{https://www.debian.org/doc/manuals/system-administrator/ch-sysadmin-users.html}{(Debian.org)} en línea, descubrimos que los ficheros que necesitamos son \textbf{/etc/passwd} y \textbf{/etc/shadow}. Aunque ambos contienen información crítica sobre los usuarios y sus permisos, existen pequeñas diferencias. En resumen, mientras que \textbf{/etc/passwd} almacena información mayormente relativa al usuario, \textbf{/etc/shadow} contiene las claves de usuario (encriptadas) e información relacionada a ellas, no al usuario.
 
+%El fichero \textbf{/etc/shadow} contiene una entrada por línea para cada uno de los usuarios listados en el fichero \textbf{/etc/passwd}. Las claves están compuestas por una serie de campos, separados por dos puntos (:), y son de la siguiente manera:
 
- Las claves están compuestas por una serie de campos, separados por dos puntos (:). El fichero contiene una entrada por línea para cada uno de los usuarios listados en el fichero \textbf{/etc/passwd}.
+Las contraseñas encriptadas y otra información relacionada, como la información de caducidad de la contraseña, se almacenan en el fichero \textbf{/etc/shadow}. Este fichero contiene una entrada por línea por cada uno de los usuarios listados en el fichero \textbf{/etc/passwd}. Cada una de estas entradas están compuestas por una serie de campos separados por dos puntos (:), y generalmente, sigue este patrón.
 
-Las
+\begin{center}
+    \includegraphics[scale=0.5]{figuras/shadow.pdf}
+    \captionof{figure}{Estructura de las claves en el fichero \textbf{/etc/shadow}}
+    \label{fig:shadow}
+\end{center}
+
+\begin{enumerate}
+    \item Nombre de usuario.
+    \item Contraseña encriptada (\textbf{hash}). Sigue el formato \textbf{\textdollar id\textdollar salt\textdollar hash}. El campo \textbf{\textdollar id} representa el algoritmo usado:
+        \begin{enumerate}
+           \item \textbf{\textdollar 1\textdollar } es MD5.
+           \item \textbf{\textdollar 2a\textdollar} es Blowfish.
+           \item \textbf{\textdollar 2y\textdollar} es Blowfish.
+           \item \textbf{\textdollar 5\textdollar } es SHA-256.
+           \item \textbf{\textdollar 6\textdollar } es SHA-512.
+        \end{enumerate}
+    \item Días desde que se cambió la contraseña, contando desde el 1 de enero de 1970.
+    \item Días tras los cuales la contraseña debe ser cambiada.
+    \item Días de antelación a la expiración de la contraseña en los que se avisa al usuario.
+    \item Días tras los cuales se desactiva una cuenta cuya contraseña está caducada.
+\end{enumerate}
+
+\begin{shaded}
+    \noindent
+    Una contraseña \textbf{hash} no es más que una cadena de caracteres única, la cual es resultado de la ejecución de un algoritmo de encriptación, dada otra cadena de caracteres como entrada. Esta contraseña \textbf{hash} es la que se almacena en el sistema, y no la contraseña original. Durante el proceso de inicio de sesión, se comprueba el \textbf{hash} de la contraseña insertada por el usuario y la contraseña \textbf{hash} almacenada, verificando así la integridad de la misma.
+\end{shaded}
+
+Abrimos el fichero \textbf{/etc/shadow} y encontramos la información que necesitamos. La imagen \ref{img:shadow} muestra el contenido de este fichero.
+
+\begin{center}
+    \includegraphics[scale=0.25]{imagenes/shadow.png}
+    \captionof{figure}{Contenido del fichero \textbf{/etc/shadow} del \gls{LM7}}
+    \label{img:shadow}
+\end{center}
+
+Los usuarios que nos interesan son \textbf{root} y \textbf{lmuser}. Ambas contraseñas se han cifrado usando el algoritmo SHA-512, ya que su primer campo es \textdollar 6\textdollar. En un primer intento se modifica el fichero y se eliminan los campos que contienen la contraseña \textit{Hash}, con la intención de forzar el inicio de sesión sin la necesidad de contraseña (contraseña vacía). Sin embargo, este enfoque no produce el resultado esperado y se busca otra solución. \\ Como conocemos tanto el formato de las entradas de este fichero como el algoritmo de cifrado utilizado, el segundo enfoque será sustituir estas claves \textit{Hash} con otras nuevas, generadas por nosotros. Generamos una nueva contraseña usando la utilidad \gls{openssl}.\newline
+
+\begin{lstlisting}[language=bash, label={lst:openssl}, caption={Generación de Hash usando cifrado SHA-512}]
+    $~ openssl passwd -6 <cadena>
+\end{lstlisting}
+
+La ejecución del comando \ref{lst:openssl} nos genera una clave Hash única para la cadena que le proporcionemos como entrada. La opción -6 indica que debe usarse el algoritmo de cifrado SHA-512. Para más información sobre este comando y sus opciones puede consultarse la documentación oficial \cite{openssl}.
+
+Una vez cambiadas las contraseñas por las que hemos generado, re-instalamos el \glsname{CF} en la placa base del limitador y se procede a encenderlo para comprobar que podemos acceder al sistema con las nuevas credenciales. Tras finalizar el arranque se verifica que el inicio de sesión con ambos usuarios es satisfactorio, y que por tanto, se tiene control sobre el sistema operativo. La conexión al equipo mediante \acrshort{SSH} también funciona correctamente usando las nuevas contraseñas. Anteriormente, se ha comprobado que la configuración \acrshort{SSH} del sistema permite la conexión mediante el usuario \textit{root}. Para ello se comprueba que en el fichero de configuración en la ruta /etc/sshd\textunderscore conf contiene la directiva \textit{PermitRootLogin} y que su valor es YES. Tras comprobar el fichero, se verifica que la directiva existe y está configurada correctamente. Este no es el valor por defecto, por lo tanto ha tenido que ser activado con anterioridad. Además, se añade la siguiente directiva para garantizar el acceso a los usuario \textit{root} y \textit{lmuser}: \newline
+
+\begin{lstlisting}[nolol, language=XML, label={lst:confSSH}, caption={Directiva del fichero}]
+    AllowUsers root lmuser
+\end{lstlisting}
+
+\section{Especificaciones del sistema}
+
+El primer paso para comenzar a investigar el equipo es descubrir ante que tipo de hardware nos enfrentamos. En secciones anteriores (imagen \ref{img:lms7_open}) se mostró el hardware del limitador bajo estudio, y se comentó brevemente sus características. En esta sección, se va a realizar un análisis más profundo sobre las capacidades y características hardware del sistema:
+
+Nos encontramos antes un equipo en el que se ha montado una placa base de tipo industrial, en la que vienen integrados todos los recursos hardware necesarios para correr un sistema operativo. En la siguiente tabla pueden verse los componentes básicos con los que cuenta el sistema:
+
+%\begin{itemize}
+%    \item Placa base: ALIX-1E
+%    \item CPU: AMD Geode LX
+%        \begin{itemize}
+%            \item Núcleos: 1
+%            \item Velocidad: 433/500MHz
+%        \end{itemize}
+%    \item Memoria: 128/256MB SDRAM
+%    \item Almacenamiento: CompactFlash 1GB
+%    \item Audio: AMD CS5536 chip \cite{cs5536}
+%    \item Interfaces:
+%        \begin{itemize}
+%            \item x2\glsname{COM}
+%            \item x4\glsname{USB}
+%            \item x1\glsname{LPT}
+%            \item x1\glsname{VGA}
+%        \end{itemize}
+%    \item Conectividad: Ethernet
+%    \item Dimensiones: 17x17cm
+%    \label{tab:lms7_specs}
+%\end{itemize}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|>{\columncolor[HTML]{ECF4FF}}l |l|}
+        \hline
+        Placa base     & ALIX-1E                    \\ \hline
+        Procesador     & AMD Geode LX               \\ \hline
+        Memoria        & 128/256MB SDRAM            \\ \hline
+        Almacenamiento & CompactFlash 1GB           \\ \hline
+        Interfaces     & 4x\glsname{USB}, 1x\glsname{VGA}, 1x\glsname{LPT}, 2x\glsname{COM} \\ \hline
+        Conectividad   & Ethernet                   \\ \hline
+        Dimensiones    & 17x17cm                    \\ \hline
+    \end{tabular}
+    \caption{Especificaciones hardware del \gls{LM7}}
+    \label{tab:lms7_specs}
+\end{table}
+
+Como componentes que no forman parte de la placa base, tenemos una tarjeta de sonido USB conectada a uno de los puertos y un circuito integrado para las entradas y salidas de audio, conectado a la placa base mediante su puerto serie.
+
+\begin{center}
+    \includegraphics[scale=0.5]{imagenes/alix1b.jpg}
+    \captionof{figure}{Imagen de una placa base ALIX-1B \cite{alix}}
+    \label{img:alix1b}
+\end{center}
+
+\section{Análisis del rendimiento}
+
+Tal y como se comentó en la primera sección de este capítulo, el ordenador auxiliar que se ha instalado en el laboratorio, y en red como el \gls{LM7}, tiene \gls{WINDOWS} 10 como sistema operativo. Para facilitar el acceso remoto mediante \acrshort{SSH} al equipo limitador, se hace uso de clientes \acrshort{SSH}. En la tabla \ref{tab:gestoresSSH} se lista el cliente usado tanto en Windows 10 como en Linux.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \rowcolor[HTML]{ECF4FF}
+        Sistema Operativo & Cliente SSH   \\ \hline
+        Linux             & Snowflake SSH \\ \hline
+        Windows           & MobaXterm     \\ \hline
+    \end{tabular}
+    \caption{Clientes \acrshort{SSH} utilizados en el proyecto.}
+    \label{tab:gestoresSSH}
+\end{table}
+
+Estos clientes aportan ciertas ventajas, como por ejemplo:
+
+\begin{itemize}
+    \item Permiten guardar los datos de acceso a equipos remotos. Una conexión \acrshort{SSH} a otro equipo se resume en hacer click sobre un botón.
+    \item Proporcionan una interfaz gráfica.
+    \item Disponen de un navegador de archivos.
+    \item Monitorizan el sistema remoto, lo que nos permite analizar el uso de recursos (disco, memoria, \acrshort{CPU} y red) en tiempo real.
+\end{itemize}
+
+Tras configurar el cliente \acrshort{SSH}, se lanza una conexión remota al \gls{LM7}. Los datos de monitoreo muestran una alta tasa de utilización del \acrshort{CPU}, en torno al 85-100\% (ver imágenes \ref{img:lms_ps1} y \ref{img:lms_ps2}). Indudablemente, el hecho de que el \acrshort{CPU} disponga de una único núcleo es significativo, sin embargo, se procede a identificar los procesos en funcionamiento que pertenecen al limitador. Para ello, se recurre al código fuente del limitador, en concreto al fichero \gls{makefile}, el cual se encarga de compilar los distintos ejecutables (a los que llamaremos \textbf{módulos}) y de moverlos al directorio raíz del sistema: \textbf{/bin}. Al colocar los programas en esta carpeta, se pueden lanzar de forma global, es decir, sin especificar su ruta.
+
+\begin{figure}[ht]
+    \begin{minipage}[b]{.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{imagenes/lm7_ps[1].png}
+        \caption{}
+        \label{img:lms_ps1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{imagenes/lm7_ps[2].png}
+        \caption{}
+        \label{img:lms_ps2}
+    \end{minipage}
+\end{figure}
+
+El fichero \gls{makefile} nos proporciona una lista de nombres de procesos a buscar. Listamos los procesos activos con la orden \textbf{ps}. El comando completo así como el resultado devuelto pueden observarse en las captura de pantalla \ref{img:lms_ps1} y \ref{img:lms_ps2}. Las opciones pasadas al invocar al comando \textbf{ps} permite mostrar no solo los procesos en activo, sino también las relaciones jerárquicas que existen entre ellos. La mayoría de los procesos del limitador son fácilmente detectables incluso en el supuesto de que se conocieran sus nombres con anterioridad. Los procesos relativos al limitador se encuentran remarcados en rojo, y se puede apreciar el detalle de que todos ellos tiene como proceso padre  a \textbf{init}, con \acrshort{PID} 1. Podemos ver esta información en la primera columna de la tabla, \acrshort{PPID}. Esto significa que los procesos del limitador son lanzados automáticamente al arrancar el sistema.
+
+\begin{shaded}
+    \noindent
+    El proceso \textbf{init} o \textbf{systemd} es un gestor de servicios para sistemas operativos Linux. Es el primer proceso en arrancar (con \acrshort{PID} 1) y el último en acabar durante el apagado. Su función es levantar los procesos a nivel de usuario.
+\end{shaded}
+
+!! EXPLICAR INIT.D
 
 \section{Versión LM7}   \label{sec:lms7}
 
