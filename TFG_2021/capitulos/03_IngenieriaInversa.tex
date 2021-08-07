@@ -353,11 +353,75 @@ El fichero \gls{makefile} nos proporciona una lista de nombres de procesos a bus
 
 !! EXPLICAR INIT.D
 
-\section{Versión LM7}   \label{sec:lms7}
+Los procesos que componen en limitador se verán con profundidad en la sección \ref{sec:lm7_procesos}, pero antes, se presentará y estudiará la interfaz web del limitador en su totalidad (ya se presentó la sección principal con la imagen \ref{img:lms_ui}), mediante la que podemos configurarlo y visualizar las lecturas de los sensores y la atenuación aplicada en cada momento.
 
-\section{Versión LM9}   \label{sec:lms9}
+\section{Interfaz web}
 
-\section{Comparativa de versiones}  \label{sec:lms7-9}
+La interfaz web del limitador se encuentra desplegada en un servidor \gls{apache}, y está programada usando PHP, \acrshort{CSS}, HTML y Javascript. En la tabla \ref{tab:lm7_lamp_specs} puede consultarse un análisis más detallado de las tecnologías usadas en la interfaz web.
 
-\section{Conclusiones y mejoras}    \label{sec:ii-conclusiones}
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \rowcolor[HTML]{ECF4FF}
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}\textbf{Tecnología}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}\textbf{Versión}} \\ \hline
+        Sistema Operativo                                                 & Debian 4.3.5                                                  \\ \hline
+        Servidor Web                                                      & Apache 2.2.16                                                 \\ \hline
+        PHP                                                               & 5.5.3                                                         \\ \hline
+    \end{tabular}
+    \caption{Especificaciones del servidor web del \gls{LM7}}
+    \label{tab:lm7_lamp_specs}
+\end{table}
+
+
+El estudio del la interfaz representa un aspecto clave en el proceso de ingeniería inversa en el que nos encontramos. La interfaz web arroja una gran cantidad de información mediante la cual somos capaces no sólo de comprender qué hace el sistema, qué datos almacena y como los representa y exporta, sino que también nos permite generar un conjunto de requisitos funcionales, no funcionales y de datos que nuestro proyecto deberá satisfacer, y como mínimo, debe hacerlo tan bien (o mal) como el sistema estudiado (requisitos de calidad). Por otra parte, será una guía y un recurso al cual recurriremos una y otra vez a lo largo de este proyecto. En definitiva, la interfaz web nos permite, de un vistazo, comprender el sistema y sus capacidades.
+
+\subsection{Imágenes}
+
+En esta subsección se va a presentar las interfaz web en imágenes de forma que el lector pueda ver la interfaz web por sí mismo, aunque de forma estática. Algunas de las imágenes han sido extraídas del manual de usuario original del limitador, mientras que otras han sido directamente tomadas de la interfaz web del limitador durante su funcionamiento.
+
+!!! meter y explicar imágenes de la interfaz
+
+\subsection{Análisis técnico}
+
+En esta subsección profundizamos un poco más en la interfaz web recurriendo a su código fuente. Bajamos por tanto un escalón importante a nivel de abstracción. Por razones obvias, no se va a incluir la totalidad del código de la interfaz web del limitador en esta subsección, sino que se va a realizar un análisis técnico del mismo, destacando las cualidades o deficiencias más importantes que se han detectado y presentando bloques de código que den soporte al análisis y ayuden a comprenderlo.
+
+%La interfaz web se compone de XX ficheros, los cuales comoponen un total de YY líneas de código y se dividen en un total de 11 directorios, aunque como se verá luego no todos ellos contienen código. Hay que tener en cuenta que en este recuento se incluyen imágenes, librerías estáticas (tanto de JS como de CSS) y código etiquetado como \enquote{antiguo}. De hecho, la carpeta \enquote{old} tiene no una, sino dos versiones preliminares de la interfaz web. Además, en la carpeta simple se
+
+Como se ha comentado en la introducción a esta sección, el código de la interfaz web se compone de código PHP, HTML, CSS y JS. Parte del código CSS y JS corresponde a librerías estáticas, descargas y usadas por el proyecto, como por ejemplo \href{https://jquery.com/}{jQuery}, y su plugin \href{https://nathansearles.github.io/slidesjs/}{SlideJS}, \href{https://dygraphs.com/}{dygraphs} o \href{https://github.com/arv/explorercanvas}{ExCanvas}. Estas librerías se usan de forma extensiva para construir toda la parte reactiva y asíncrona de la interfaz, como las acciones lanzadas mediante la pulsación de botones, el envío de datos al servidor y la actualización de datos en la interfaz, sin necesidad de recargar la página; para ello, se hace uso de AJAX. Las dos últimas librerías se usan concretamente para la generación de gráficos, en este caso, la gráfica principal que muestra las lecturas de los sensores y la atenuación aplicada por el limitador en cada momento.
+
+!!! revisión de codigo
+
+La página web se genera dinámicamente usando PHP, en función de:
+
+\begin{itemize}
+    \item Tipo de usuario (roles y permisos).
+    \item Si el usuario ha iniciado sesión o no.
+    \item Tipo de sistema (registrador o limitador).
+    \item Los datos (actualización asíncrona).
+\end{itemize}
+
+Para conseguir
+
+Además de las claras deficiencias del código en sí, la interfaz web está \textbf{fuertemente acoplada} al sistema operativo y al software del limitador, ya que mediante la
+
+\subsection{Comunicación IU-Limitador mediante procesos}
+
+\subsection{Comunicación IU-Limitador mediante ficheros}
+
+\section{Estructura del proyecto}
+
+
+\section{Esquema general}
+
+%\section{Versión LM7}   \label{sec:lms7}
+%
+%\section{Versión LM9}   \label{sec:lms9}
+%
+%\section{Comparativa de versiones}  \label{sec:lms7-9}
+%
+%\section{Conclusiones y mejoras}    \label{sec:ii-conclusiones}
 
