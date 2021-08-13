@@ -1,4 +1,4 @@
-\chapter{Ingeniería Inversa} \label{cap:capitulo3}
+º\chapter{Ingeniería Inversa} \label{cap:capitulo3}
 
 En este capítulo se procede a documentar el proceso de ingeniería inversa al que se ha sometido a limitador que puede verse en la imagen {imagen}.
 
@@ -353,7 +353,7 @@ El fichero \gls{makefile} nos proporciona una lista de nombres de procesos a bus
 
 !! EXPLICAR INIT.D
 
-Los procesos que componen en limitador se verán con profundidad en la sección \ref{sec:lm7_procesos}, pero antes, se presentará y estudiará la interfaz web del limitador en su totalidad (ya se presentó la sección principal con la imagen \ref{img:lms_ui}), mediante la que podemos configurarlo y visualizar las lecturas de los sensores y la atenuación aplicada en cada momento.
+Los procesos que componen en limitador se verán con profundidad en la sección \ref{sec:lm7-procesos}, pero antes, se presentará y estudiará la interfaz web del limitador en su totalidad (ya se presentó la sección principal con la imagen \ref{img:lms_ui}), mediante la que podemos configurarlo y visualizar las lecturas de los sensores y la atenuación aplicada en cada momento.
 
 \section{Interfaz web}
 
@@ -376,7 +376,6 @@ La interfaz web del limitador se encuentra desplegada en un servidor \gls{apache
     \label{tab:lm7_lamp_specs}
 \end{table}
 
-
 El estudio del la interfaz representa un aspecto clave en el proceso de ingeniería inversa en el que nos encontramos. La interfaz web arroja una gran cantidad de información mediante la cual somos capaces no sólo de comprender qué hace el sistema, qué datos almacena y como los representa y exporta, sino que también nos permite generar un conjunto de requisitos funcionales, no funcionales y de datos que nuestro proyecto deberá satisfacer, y como mínimo, debe hacerlo tan bien (o mal) como el sistema estudiado (requisitos de calidad). Por otra parte, será una guía y un recurso al cual recurriremos una y otra vez a lo largo de este proyecto. En definitiva, la interfaz web nos permite, de un vistazo, comprender el sistema y sus capacidades.
 
 \subsection{Imágenes}
@@ -393,10 +392,89 @@ En esta subsección profundizamos un poco más en la interfaz web recurriendo a 
 
 Como se ha comentado en la introducción a esta sección, el código de la interfaz web se compone de código PHP, HTML, CSS y JS. Parte del código CSS y JS corresponde a librerías estáticas, descargas y usadas por el proyecto, como por ejemplo \href{https://jquery.com/}{jQuery}, y su plugin \href{https://nathansearles.github.io/slidesjs/}{SlideJS}, \href{https://dygraphs.com/}{dygraphs} o \href{https://github.com/arv/explorercanvas}{ExCanvas}. Estas librerías se usan de forma extensiva para construir toda la parte reactiva y asíncrona de la interfaz, como las acciones lanzadas mediante la pulsación de botones, el envío de datos al servidor y la actualización de datos en la interfaz, sin necesidad de recargar la página; para ello, se hace uso de AJAX. Las dos últimas librerías se usan concretamente para la generación de gráficos, en este caso, la gráfica principal que muestra las lecturas de los sensores y la atenuación aplicada por el limitador en cada momento.
 
-!!! revisión de codigo
+En el esquema \ref{lst:lm7-www-treeview} podemos observar la estructura de la carpeta \verb|www| dentro del código fuente del limitador, la cual contiene el código de la interfaz web. Por simplicidad, se han omitido algunos los ficheros no esenciales, ya que el listado sería demasiado extenso y la intención es mostrar la estructura y organización del proyecto que materializa la aplicación web, así como describir brevemente el propósito y responsabilidad de cada fichero. Para generar esta representación del directorio y su contenido se ha utilizado la herramienta \acrshort{GIO}, disponible en distribuciones de Linux.\newline
 
-La página web se genera dinámicamente usando PHP, en función de:
+\begin{lstlisting}[label={lst:lm7-www-treeview}, caption={Estructura de directorios y ficheros de la interfaz web}]
+    # gio tree .../lms.7/lms/www
 
+    file:///lms.7/lms/www
+    |-- access.php                              # Gestión de usuarios, sesiones y permisos
+    |-- authPart-ExtendedNormative.php
+    |-- calibrationControl.lib.php
+    |-- config.xml
+    |-- configFail.inc
+    |-- configuration.php                       # Definición de variables globales
+    |-- css/
+    |-- fonts/
+    |-- functions/                              # Scripts AJAX
+    |   |-- calibrate.php                       # Actualizador de calibración
+    |   |-- network.php                         # Controlador de configuración de red
+    |   |-- pink.php                            # Control de la emisión de ruido rosa
+    |   |-- restart.php
+    |   |-- soundControl.php
+    |   |-- status.php                          # Consulta el estado del limitador
+    |   |-- updateCnfg.php                      # Actualizador de configuración
+    |   |-- updateDataCu.php                    # Actualizador de datos del local
+    |   |-- updateExtendedNormative.php         # Actualizador de la normativa
+    |   |-- updatePwd.php                       # Actualizador de contraseña
+    |   |-- updateTime.php                      # Actualizador de fecha y hora
+    |   `-- validateUserCode.php
+    |-- help.png
+    |-- images/
+    |-- index.php                               # Controlador principal
+    |-- jquery.css
+    |-- js/                                     # Librerías JS (jQuery, dygraph, slide, excanvas..)
+    |-- leftEqualizer.php                       # Template de ecualizador izquierdo (HTML, CSS, JS, PHP)
+    |-- login.php                               # Script de login (PHP)
+    |-- logoPagina.png
+    |-- logs.php                                # Logger
+    |-- manual.php
+    |-- manual3.pdf                             # Manual de usaurio de los limitadores serie 3
+    |-- manual7.pdf                             # Manual de usaurio de los limitadores serie 7
+    |-- new/
+    |-- old/                                    # Versiones antiguas de la aplicación web
+    |   |-- www/
+    |-- reportOutputTest.html
+    |-- reports/                                # Generación y exportación de informes
+    |   |-- CreateReport.php
+    |   |-- PhpDataGetter.php
+    |   |-- data.php
+    |   |-- data.xml.php
+    |   |-- engine.php
+    |   |-- engine_render.php
+    |   |-- engine_render2.php
+    |   |-- engine_render3.php
+    |   |-- getReport.php
+    |   |-- images/
+    |   |-- index.php
+    |   |-- logoReports.png
+    |   |-- reportContent.php
+    |   |-- reportError.html
+    |   |-- reportError.php
+    |   |-- reportHasNoScreenableOutput.html
+    |   |-- reportHelp.html
+    |   |-- reportTemp -> /tmp/templateTempDirectory/
+    |   |-- saveCreatedReport.php
+    |   |-- testEngine.php
+    |   |-- testSaved.php
+    |   `-- tmp -> /tmp
+    |-- rightEqualizer.php                      # Template de ecualizador derecho (HTML, CSS, JS, PHP)
+    |-- scripts.js                              # Código JS global (la mayoría está embebido en los .php)
+    |-- simple/                                 # Versión simplificada de la web
+    |-- smallInfoPanel.php
+    |-- statusPart.php
+    |-- style-Blue.css
+    |-- style.css
+    |-- tabAuth.php                             # Template del panel superior si se está autenticado
+    |-- tabAuthRegister.php                     # Template del panel superior para el registro
+    |-- tabNormal.php                           # Template del panel superior si NO se está autenticado
+    |-- templateMng.php
+    |-- tests/
+    |-- tractis/                                # DNI-e (no usado)
+    `-- users.php                               # Gestión de usuarios (deprecated en favor de access.php)
+\end{lstlisting}
+
+La página web se genera de forma dinámica mediante PHP, en función de:
 \begin{itemize}
     \item Tipo de usuario (roles y permisos).
     \item Si el usuario ha iniciado sesión o no.
@@ -404,15 +482,377 @@ La página web se genera dinámicamente usando PHP, en función de:
     \item Los datos (actualización asíncrona).
 \end{itemize}
 
-Para conseguir
+La generación de código dinámico se basa en la renderización condicional de bloques de código fuente, así como la inclusión (a veces también condicional) de otros ficheros con extensión PHP. Es importante destacar que en este aspecto \textbf{no se hace uso de ninguna herramienta} que ayude a gestionar la generación dinámica del código, como puede ser un \textbf{gestor de plantillas} como Twig. Esto, junto con el\textbf{ uso de código en varios lenguajes} (PHP, JS, HTML y CSS) de manera simultánea en el mismo fichero e incluso \textbf{en el mismo bloque de código} hace que el código de la aplicación web sea \textbf{altamente complejo y difícil} de leer, entender y sobretodo, \textbf{de mantener}. Podemos observar un ejemplo claro de esto en el siguiente extracto de código, perteneciente al fichero \textit{tabAuth.php}:\newline
 
-Además de las claras deficiencias del código en sí, la interfaz web está \textbf{fuertemente acoplada} al sistema operativo y al software del limitador, ya que mediante la
+\begin{lstlisting}[
+    language=HTML,
+    label={lst:lm7-www-code-mixed},
+    caption={Código HTML, CSS, JS y PHP usado de forma conjunta}
+]
+    ...
+    <div id="chTime" title="Cambio de hora">
+    <p style="font-size:bigger; font-weight:bold;">Cambio de hora del sistema</p>
 
-\subsection{Comunicación IU-Limitador mediante procesos}
+    <p>Hora actual <span id="chTime_actualTime"></span></p>
+    <p>
+    <form id="chTime_form">
+    Nueva hora <input type=text id="chTime_new" name="chTime_new" style="width:120px" value="" <?php if (!$configurator){ echo( 'disabled="disabled"'); }?> ></input>
+    </form>
+    </p>
+    <br/>
+    <img src="images/alert.png"> Recuerde: El sistema actualizar&aacute; autom&aacute;ticamente la hora al estar conectado a internet.
+    <table width=100%>
+    <tr>
+    <td>
+    <input style="float:right" type="button" value="Cerrar" id="" class="bt_register" onclick="javascript:$('#chTime').dialog('close');" />
+    </td>
+    <td align=right>
+    <?php if ($configurator){ ?>
+        <input style="float:right" type="button" value="Ok" id="" class="bt_register" onclick="javascript:ChTime_UpdateClock();" />
+        <?php } ?>
+    </td>
+    </tr>
+    </table>
+    </div>
+    <script>
+    $('#chTime_new').datetimepicker({
+        dateFormat: 'yy/mm/dd'
+    });
+    </script>
 
-\subsection{Comunicación IU-Limitador mediante ficheros}
+    <script>
+    function ChTime_UpdateClock() {
+        $.ajax({
+            data: $("#chTime_form").serialize(),
+            type: "POST",
+            dataType: "json",
+            url: "functions/updateTime",
+            success: function(data) {
+                alert("Hora actualizada");
+            }
+        });
+    };
+    </script>
+    ...
+\end{lstlisting}
+
+El código \ref{lst:lm7-www-code-mixed} ha sido ligeramente indentado y reestructurado para mejorar su comprensión, sin embargo, al problema que supone desarrollar código como el que acabamos de ver, hay que sumar una indentación prácticamente inexistente, la ausencia casi total de comentarios y la prolongación de líneas de código por encima de los 100 caracteres de longitud.
+
+Tan solo los ficheros \textit{tabNormal.php, tabAuth.php} y \textit{tabAuthRegister.php} suman un total de 3000 líneas de código, por lo que la complejidad del código crece rápidamente en un proyecto de estas características cuando se siguen malas prácticas como las que se acaban de ver. Además de las claras deficiencias del código en sí, la interfaz web está \textbf{fuertemente acoplada} al sistema operativo y al software del limitador, ya que la comunicación IU-Limitador se realiza exclusivamente mediante ficheros o mediante la invocación directa de procesos / servicios del limitador que se ejecutan sobre el sistema operativo. Estos dos procedimientos de comunicación se verán en detalle en la siguiente sección.
+
+En definitiva, la complejidad del código debido a malas prácticas y las complejidades técnicas que supone el uso de PHP 5 a la fecha de la redacción de este documento provocan que no sea factible la reutilización de la aplicación web, y por tanto, queda exclusivamente como objeto de estudio y recurso de soporte a nuestro proyecto.
+
+\begin{shaded}
+    \noindent
+    A fecha de 10 de agosto de 2021, la última versión estable de PHP es la versión 8.0.8, con fecha de lanzamiento el 1 de julio de 2021. La versión 5.5.3 de PHP usada en la aplicación web del limitador \acrshort{LM7} fue lanzada el 22 de agosto de 2013, es decir, hace 8 años.
+\end{shaded}
+
+\subsection{Comunicación IU-Limitador mediante ficheros} \label{sec:iu-limitador-ficheros}
+
+Los ficheros son usados de forma muy extensa por el limitador en su conjunto, y en general, interpretan el papel tanto de almacenamiento persistente de datos como vía de comunicación entre procesos, y entre estos y la interfaz web. Estos últimos serán los estudiados en esta sección.
+
+Es tanta la importancia de los ficheros que \textbf{el limitador no hace} ningún \textbf{uso de bases de datos}, sino que almacena todo lo que requiere almacenar en ficheros de texto o directamente en formato binario. El control (escritura y lectura) de estos ficheros requiere el uso de procesos diseñados e implementados exclusivamente para este propósito, y que se verán en detalle en la sección: \nameref{sec:lm7-procesos}.
+
+Los ficheros que utiliza la interfaz web son los siguientes:
+\begin{itemize}
+    \item \verb|/var/slr/users.auth|
+    \begin{itemize}
+        \item Almacén de cuentas de usuario, contraseñas y permisos.
+        \item Accedido por \verb|access.php|.
+    \end{itemize}
+
+    \item \verb|/var/slr/logs.serial|
+    \begin{itemize}
+       \item Registros (logs) sobre las acciones que realizan los usuarios.
+       \item Accedido por \verb|logs.php|
+    \end{itemize}
+
+    \item \verb|/var/slr/sessions.serial|
+    \begin{itemize}
+       \item Registros (logs) sobre las sesiones de calibración.
+       \item Se indica el comienzo y el final de la cada \gls{sesion}\footnote{Una sesión corresponde al intervalo de tiempo durante el cual el limitador se encuentra funcionando de forma activa debido a que los valores de recepción están por encima de un determinado umbral}, así como el valor de calibración.
+       \item También registra la hora de arranque del sistema.
+       \item Almacenado en formato \textbf{base64}.
+       \item Accedido por \verb|logs.php|.
+    \end{itemize}
+
+    \item \verb|/var/slr/network.config|
+    \begin{itemize}
+        \item Almacena la configuración de red del equipo para su lectura.
+        \item Accedido en varias partes de la UI.
+    \end{itemize}
+
+    \item \verb|/var/slr/network.script|
+    \begin{itemize}
+        \item Almacena la configuración de red del equipo para su actualización.
+        \item Corresponde a un script Bash que hace uso del comando \verb|ifconfig| y \verb|route|.
+        \item Accedido en varias partes de la UI.
+    \end{itemize}
+
+    \item \verb|/tmp/inSession|
+    \begin{itemize}
+        \item Fichero vacío para indicar si el equipo se encuentra en una \gls{sesion}, a modo de variable de estado.
+        \item Los procesos que necesitan conocer esta información detecta el archivo y actúan en consecuencia [\verb|fopen()|].
+        \item Se elimina al finalizar la sesión.
+        \item Accedido por \verb|calibrationControl.php|.
+    \end{itemize}
+
+    \item \verb|/tmp/conf.tmp|
+    \begin{itemize}
+        \item Fichero temporal para almacenar la configuración recientemente cambiada por el usuario desde la UI.
+        \item Inmediatamente después de la actualización de este archivo por parte de la UI, se invoca a un proceso del limitador para que recoja esta nueva información y aplique la nueva configuración.
+        \item Accedido por varias partes de la UI.
+    \end{itemize}
+
+    \item \verb|/tmp/pink|
+    \begin{itemize}
+        \item Fichero vacío que indica si se debe emitir ruido rosa, a modo de variable de estado.
+        \item Los procesos que necesitan conocer esta información detectan el archivo y actúan en consecuencia (emitir ruido rosa) [\verb|fopen()|].
+        \item Accedido por \verb|calibrationControl.php|.
+    \end{itemize}
+
+    \item \verb|/tmp/externalAttenuation|
+    \begin{itemize}
+        \item Utilizado para indicar si se debe aplicar un nuevo valor de atenuación.
+        \item Almacena el valor de atenuación indicado por el usuario en la UI.
+        \item El proceso principal del limitador detecta este fichero, lee el nuevo valor de atenuación contenido en él, y lo aplica.
+        \item Accedido por \verb|calibrationControl.php|.
+    \end{itemize}
+\end{itemize}
+
+Todos los ficheros son de relativa importancia ya que desempeñan un papel en el limitador, pero de entre todos ellos destaca notablemente por su importancia el fichero \verb|/tmp/conf.tmp|. Este fichero es la principal vía de comunicación entre la interfaz web y el limitador, y a través de él fluyen todas las configuraciones definidas por el instalador o el usuario. En primer lugar, se configura el sistema desde la interfaz web y mediante botones, se aplica la nueva configuración. El proceso de configuración es transparente para el usuario de la interfaz y tiene efecto inmediato, pero lo que en realidad ocurre es que esta nueva configuración ha sido volcada al fichero \verb|/tmp/conf.tmp| para que sea procesada por el proceso del limitador encargado de ello. Por supuesto, los contenido del fichero debe estar en un formato que ambas partes conozcan de forma que la comunicación pueda llevarse a cabo: la \textbf{interfaz}.
+
+!!! EXPLICAR FORMATO DEL FICHERO tmp/conf
+
+\subsection{Comunicación IU-Limitador mediante procesos} \label{sec:iu-limitador-procesos}
+
+En esta sección se va describir una lista de procesos pertenecientes al software del limitador los cuales son contactados de forma directa por la interfaz web. De nuevo, los procesos del limitador se listarán y explicarán en su totalidad en la sección \nameref{sec:lm7-procesos}.
+
+Los ficheros que utiliza la interfaz web son los siguientes:
+\begin{itemize}
+    \item \verb|getConfig|
+    \begin{itemize}
+        \item Devuelve los datos del local y la configuración del limitador en formato \acrshort{XML} o \acrshort{JSON}.
+    \end{itemize}
+
+    \item \verb|getStatus|
+    \begin{itemize}
+        \item Devuelve los datos del local e información sobre el estado del limitador:
+        \begin{itemize}
+            \item Tipo de sistema (registrador o limitador).
+            \item Lecturas.
+            \item Atenuación actual.
+        \end{itemize}
+    \end{itemize}
+
+    \item \verb|limInfo|
+    \begin{itemize}
+        \item Registros (logs) sobre las sesiones de calibración.
+        \item Se indica el comienzo y el final de la cada \gls{sesion}\footnote{Una sesión corresponde al intervalo de tiempo durante el cual el limitador se encuentra funcionando de forma activa debido a que los valores de recepción están por encima de un determinado umbral}, así como el valor de calibración.
+        \item También registra la hora de arranque del sistema.
+        \item Almacenado en formato \textbf{base64}.
+        \item Accedido por \verb|logs.php|.
+    \end{itemize}
+
+    \item \verb|utilslr|
+    \begin{itemize}
+        \item Almacena la configuración de red del equipo para su lectura.
+        \item Accedido en varias partes de la UI.
+    \end{itemize}
+
+    \item \verb|localservice|
+    \begin{itemize}
+        \item Almacena la configuración de red del equipo para su actualización.
+        \item Corresponde a un script Bash que hace uso del comando \verb|ifconfig| y \verb|route|.
+        \item Accedido en varias partes de la UI.
+    \end{itemize}
+\end{itemize}
 
 \section{Estructura del proyecto}
+
+De la misma forma que se hizo en con la interfaz web, en este apartado se va a presentar la estructura de directorios del proyecto y sus ficheros más importantes. De nuevo, algunos de ellos se han eliminado del listado por ser ficheros no útiles para el proyecto, normalmente restos de versiones anteriores. Asimismo, los ficheros que contiene el código de la interfaz web se ha omitido ya que ha sido estudiado en el listado \ref{lst:lm7-www-treeview}. \\
+
+\begin{lstlisting}[label={lst:lm7-www-treeview}, caption={Estructura de directorios y ficheros de la interfaz web}]
+    # gio tree .../lms.7/lms/
+
+    file:///lms.7/lms
+    |-- Makefile
+    |-- comun
+    |   |-- Calibracion.cpp
+    |   |-- Calibracion.h
+    |   |-- Config.h
+    |   |-- Configuracion.cpp
+    |   |-- Configuracion.h
+    |   |-- Configurador.cpp
+    |   |-- Configurador.h
+    |   |-- EstadoDeModificadores.cpp
+    |   |-- EstadoDeModificadores.h
+    |   |-- EstadoDelLimitador.cpp
+    |   |-- EstadoDelLimitador.h
+    |   |-- Funciones.cpp
+    |   |-- Funciones.h
+    |   |-- Makefile
+    |   |-- Serial.cpp
+    |   |-- TestConfig.cpp
+    |   |-- aes.cpp
+    |   |-- aes.h
+    |   |-- compacc
+    |   |-- compact.cc
+    |   |-- gSerial
+    |   |-- getSerial.cpp
+    |   `-- serial.h
+    |-- comv2
+    |   |-- Funciones.h
+    |   |-- Main.cpp
+    |   |-- Makefile
+    |   |-- Test.cpp
+    |   |-- TestRegistrador.cpp
+    |   |-- WhiteRabbit.cpp
+    |   |-- WhiteRabbit.h
+    |   |-- base64.c
+    |   |-- cliente.c
+    |   |-- encrypter.cpp
+    |   |-- funciones_Conexion.cpp
+    |   |-- funciones_envioDeDatos.cpp
+    |   |-- funciones_formato.cpp
+    |   |-- funciones_hora.cpp
+    |   |-- globales.h
+    |   `-- slrComm
+    |-- configuracion
+    |-- connectNetwork
+    |-- construye
+    |-- defines.txt
+    |-- instalador
+    |   |-- MAKEDEV
+    |   |-- fdiskCommands
+    |   |-- lm701f.localCommands
+    |   |-- sdbInstall
+    |   `-- sdcInstall
+    |-- limitador
+    |   |-- Atenuador.cpp
+    |   |-- AtenuadorMk163.cpp
+    |   |-- AtenuadorPga.cpp
+    |   |-- AtenuadorPga.h
+    |   |-- Calibracion.cpp
+    |   |-- Calibracion.h
+    |   |-- CalibrationTest.cpp
+    |   |-- Estado.cpp
+    |   |-- Estado.h
+    |   |-- Lector.cpp
+    |   |-- LectorAlternativo.cpp
+    |   |-- Lectura2C.cpp
+    |   |-- Limitador.cpp
+    |   |-- Makefile
+    |   |-- PruebaAtenuador
+    |   |-- PuertoParalelo.cpp
+    |   |-- Registrador.cc
+    |   |-- Registro.cpp
+    |   |-- Registro.h
+    |   |-- ServidorDeEstado.cpp
+    |   |-- ServidorDeEstado.h
+    |   |-- Sonometro.cpp
+    |   |-- Sonometros.cpp
+    |   |-- SwitchPink.cpp
+    |   |-- TP.cpp
+    |   |-- TestAtenuador.cpp
+    |   |-- TestPga.cpp
+    |   |-- audioOrder
+    |   |-- filterTest.cpp
+    |   |-- filtroA
+    |   |   `-- filtroA.cpp
+    |   |-- iir.cpp
+    |   |-- limitador
+    |   |-- mixers
+    |   |-- octaveBandFilter.c
+    |   |-- qiir
+    |   |   |-- compila.sh
+    |   |   |-- datosSOS_fbank_scaled.h
+    |   |   |-- in_int.dat
+    |   |   |-- out_int.dat
+    |   |   |-- pruebaiirq
+    |   |   |-- pruebaiirq.c
+    |   |   |-- qiir.c
+    |   |   |-- qiir.h
+    |   |   |-- tQiir.c
+    |   |   `-- tqiir
+    |   |-- sonometro
+    |   |-- sonometros
+    |   |-- testAt
+    |   |-- testDeCalibracion.cpp
+    |   `-- testPga
+    |-- preparatoria
+    |-- reports
+    |   |-- Makefile
+    |   |-- cabeceraInformes.svg
+    |   |-- dataGet.cpp
+    |   |-- dygraph-combined.js
+    |   |-- excanvas.min.js
+    |   |-- gRegList.php
+    |   |-- gReport.php
+    |   |-- getConfig.cpp
+    |   |-- getData.cpp
+    |   |-- getEvents
+    |   |-- getInputs.cpp
+    |   |-- getStatus.cpp
+    |   `-- testPerformance.php
+    |-- scripts
+    |   |-- connectNetwork
+    |   |-- continuousPink
+    |   |-- controlDeCalibracion
+    |   |-- keepComm
+    |   |-- keepLeds
+    |   |-- keepLm
+    |   |-- keepScreen
+    |   |-- keepTime
+    |   |-- killComm
+    |   |-- ledControl
+    |   |-- playPink
+    |   |-- refreshProcess
+    |   `-- remoteShellService
+    |-- setAsNew
+    |-- tests
+    |   |-- estadisticos.cpp
+    |   |-- estadisticos.php
+    |   |-- normativaExtendida.cpp
+    |   |-- tActivo
+    |   |-- tActivo.cpp
+    |   |-- tReg.cpp
+    |   |-- tcal
+    |   `-- testDeCal.cpp
+    |-- utiles
+    |   |-- AutoEqualizador.cpp
+    |   |-- BoanergesConfigurator.cpp
+    |   |-- Inicializador.cpp
+    |   |-- LimInfo.cpp
+    |   |-- Linet.cpp
+    |   |-- Makefile
+    |   |-- ServidorSerie.cpp
+    |   |-- autoEq
+    |   |-- controlDeCalibracion
+    |   |-- gSerial
+    |   |-- gen
+    |   |-- gen.cpp
+    |   |-- getSerial.cpp
+    |   |-- helper.cpp
+    |   |-- playPink
+    |   |-- serial.h
+    |   |-- utilslr.cpp
+    |   `-- x.cpp
+    `-- www
+\end{lstlisting}
+
+El proyecto se encuentra segmentado en carpetas, en lo que se asume que es u intento de organizar el código por categorías en base a funcionalidades comunes. Cada uno de los directorios, además del conjunto de ficheros que compone el código fuente, suele contener un fichero Makefile mediante el cual compilar el código fuente y generar ejecutables de forma automatizada, por lo que cada carpeta, por lo general, proporciona uno o varios ejecutables. Aunque en esta versión el concepto no termina de tomar significado, de aquí en adelante nombraremos a cada uno de estos directorios \textbf{módulo}, ya que a priori, parece que la idea de los programadores originales era el generar distintos módulos que trabajasen de forma conjunta, y de ahí la separación en distintas carpetas.
+
+Esta segregación sin embargo, lejos de mejorar la situación, la empeora considerablemente, añadiendo una complejidad innecesaria debido a las siguientes razones:
+
+\begin{enumerate}
+    \item Aunque a primera vista parece que los ejecutables y su código queda perfectamente englobado en su directorio, la realidad es que prácticamente todos ellos necesitan de código pertenecientes a otros módulos, por lo que los módulos acaban siendo muy interdependientes y las constantes inclusiones a código que se encuentra en otras carpetas acaba complicando y ensuciando el código.
+
+    \item Se ha decidido crear un Makefile para cad módulo en lugar de un solo Makefile global que se encargue de gestionar la compilación y el enlazado del código, por lo que en lugar de gestionar un solo Makefile hay que gestionar tantos Makefiles como módulos haya más el Makefile general, el cual se encarga de invocar a cada uno de los Makefiles de los módulos.
+\end{enumerate}
+
+\section{Procesos del limitador LM7} \ref{sec:lm7-procesos}
+
 
 
 \section{Esquema general}

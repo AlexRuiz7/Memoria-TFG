@@ -40,6 +40,8 @@
 
 \newacronym{OpenSource}{Open-Source}{Programa de Código Abierto}
 
+\newacronym{GIO}{GIO}{Gnome Input/Output}
+
 \newacronym{GUI}{GUI}{Graphical User Inteface}
 
 \newacronym{UART}{UART}{Universal Asynchronous Receiver-Transmitter}
@@ -162,12 +164,18 @@
 % -------------------------- %
 %          GLOSARIO
 % -------------------------- %
+\newglossaryentry{sesion}
+{
+    name={sesión},
+    description={En el ámbito del presente proyecto, una sesión corresponde al intervalo de tiempo durante el cual los valores de recepción medidos por el limitador se encuentran por encima de un determinado umbral. Durante este intervalo de tiempo, el limitador funciona de forma activa y aplica una atenuación de sonido cada vez que sea necesario. Cuando los valores de recpeción caen por debajo de otro umbral, se asume que la sesión ha finalizado. Los umbrales de comienzo y fin de sesión se miden en decibelios y son configurables. Durante la sesión, se asume que se está emitiendo música en el local.}
+}
+
+
 \newglossaryentry{apache}
 {
     name={Apache},
     description={El servidor HTTP Apache, es un servidor web de código abierto y multiplataforma. Es el servidor web más utilizado de la historia, seguido de cerca por Nginx.}
 }
-
 
 \newglossaryentry{makefile}
 {
