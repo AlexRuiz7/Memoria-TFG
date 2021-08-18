@@ -629,7 +629,7 @@ Todos los ficheros son de relativa importancia ya que desempeñan un papel en el
 En esta sección se va describir una lista de procesos pertenecientes al software del limitador los cuales son contactados de forma directa por la interfaz web. De nuevo, los procesos del limitador se listarán y explicarán en su totalidad en la sección \nameref{sec:lm7-procesos}.
 
 Los ficheros que utiliza la interfaz web son los siguientes:
-\begin{itemize}
+\begin{itemize} \label{list: lm7-utils}
     \item \verb|getConfig|
     \begin{itemize}
         \item Devuelve los datos del local y la configuración del limitador en formato \acrshort{XML} o \acrshort{JSON}.
@@ -643,6 +643,12 @@ Los ficheros que utiliza la interfaz web son los siguientes:
             \item Lecturas.
             \item Atenuación actual.
         \end{itemize}
+    \end{itemize}
+
+    \item \verb|getData|
+    \begin{itemize}
+        \item Devuelve los registros del limitador.
+        \item Usado para generación de reportes desde la WUI.
     \end{itemize}
 
     \item \verb|limInfo|
@@ -848,11 +854,89 @@ Esta segregación sin embargo, lejos de mejorar la situación, la empeora consid
 \begin{enumerate}
     \item Aunque a primera vista parece que los ejecutables y su código queda perfectamente englobado en su directorio, la realidad es que prácticamente todos ellos necesitan de código pertenecientes a otros módulos, por lo que los módulos acaban siendo muy interdependientes y las constantes inclusiones a código que se encuentra en otras carpetas acaba complicando y ensuciando el código.
 
-    \item Se ha decidido crear un Makefile para cad módulo en lugar de un solo Makefile global que se encargue de gestionar la compilación y el enlazado del código, por lo que en lugar de gestionar un solo Makefile hay que gestionar tantos Makefiles como módulos haya más el Makefile general, el cual se encarga de invocar a cada uno de los Makefiles de los módulos.
+    \item Se ha decidido crear un Makefile para cada módulo en lugar de un solo Makefile global que se encargue de gestionar la compilación y el enlazado del código, por lo que en lugar de gestionar un solo Makefile hay que gestionar tantos Makefiles como módulos haya más el Makefile general, el cual se encarga de invocar a cada uno de los Makefiles de los módulos.
 \end{enumerate}
 
 \section{Procesos del limitador LM7} \ref{sec:lm7-procesos}
 
+El software del LM7 se encuentra generalmente implementado en C++, aunque también hace un uso importante de scripts de Bash y PHP (sin tener en cuenta la interfaz web). Por lo general, estos programas tienen la responsabilidad de dar soporte al limitador, y no influyen de manera directa en el proceso de control acústico. Tan sólo el proceso \verb|limitador| junto con algunos scripts en PHP son responsables de esta función.
+
+El software del limitador estudiado que se encuentra implementado en C++ consta de los siguientes procesos:
+
+\begin{itemize}
+    \item \verb|limitador|
+    \begin{itemize}
+        \item Devuelve los datos del local y la configuración del limitador en formato \acrshort{XML} o \acrshort{JSON}.
+    \end{itemize}
+
+    \item \verb|getConfig|
+    \begin{itemize}
+        \item Devuelve los datos del local y la configuración del limitador en formato \acrshort{XML} o \acrshort{JSON}.
+    \end{itemize}
+
+    \item \verb|getStatus|
+    \begin{itemize}
+        \item Devuelve los datos del local e información sobre el estado del limitador:
+        \begin{itemize}
+            \item Tipo de sistema (registrador o limitador).
+            \item Lecturas.
+            \item Atenuación actual.
+        \end{itemize}
+    \end{itemize}
+
+    \item \verb|getData|
+    \begin{itemize}
+        \item Devuelve los registros del limitador.
+        \item Usado para generación de reportes desde la WUI.
+    \end{itemize}
+
+    \item \verb|limInfo|
+    \begin{itemize}
+        \item Registros (logs) sobre las sesiones de calibración.
+        \item Se indica el comienzo y el final de la cada \gls{sesion}\footnote{Una sesión corresponde al intervalo de tiempo durante el cual el limitador se encuentra funcionando de forma activa debido a que los valores de recepción están por encima de un determinado umbral}, así como el valor de calibración.
+        \item También registra la hora de arranque del sistema.
+        \item Almacenado en formato \textbf{base64}.
+        \item Accedido por \verb|logs.php|.
+    \end{itemize}
+
+    \item \verb|utilslr|
+    \begin{itemize}
+        \item Almacena la configuración de red del equipo para su lectura.
+        \item Accedido en varias partes de la UI.
+    \end{itemize}
+
+    \item \verb|localservice|
+    \begin{itemize}
+        \item Almacena la configuración de red del equipo para su actualización.
+        \item Corresponde a un script Bash que hace uso del comando \verb|ifconfig| y \verb|route|.
+        \item Accedido en varias partes de la UI.
+    \end{itemize}
+
+    \item \verb|slrComm|
+    \begin{itemize}
+        \item
+    \end{itemize}
+
+    \item \verb|inicializador|
+    \begin{itemize}
+        \item
+    \end{itemize}
+
+    \item \verb|boanerges.config|
+    \begin{itemize}
+        \item
+    \end{itemize}
+
+    \item \verb|autoEq|
+    \begin{itemize}
+        \item
+    \end{itemize}
+
+\end{itemize}
+
+Para convertir estos programas en servicios (procesos tipo Daemon), se utilizan scripts Bash que implementan un bucle infinito en el cual invocan a estos programas o a otros scripts. De esta forma, la ejecución del script queda bloqueda a la espera de que el programa al que invoca finalice. Este enfoque se utilice también en el caso del programa. De esta forma, si el proceso encargado del control acústico falla por algún motivo, el script se encarga de reiniciarlo.
+
+Los scripts pueden consultarse en el listado \ref{lst:lm7-www-treeview}.
 
 
 \section{Esquema general}
