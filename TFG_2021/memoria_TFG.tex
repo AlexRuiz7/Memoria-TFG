@@ -110,6 +110,115 @@
 \usepackage{framed}
 \definecolor{shadecolor}{named}{LightBlue}
 
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{numb}{RGB}{106, 109, 32}
+\definecolor{string}{rgb}{0.64,0.08,0.08}
+
+%\lstdefinelanguage{json}{
+%    numbers=left,
+%    numberstyle=\small,
+%    frame=single,
+%    rulecolor=\color{black},
+%    showspaces=false,
+%    tabsize=2,
+%    showtabs=false,
+%    breaklines=true,
+%    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+%    breakatwhitespace=true,
+%    basicstyle=\ttfamily\scriptsize,
+%    upquote=true,
+%    morestring=[b]",
+%    stringstyle=\color{string},
+%    literate=
+%    *{0}{{{\color{numb}0}}}{1}
+%    {1}{{{\color{numb}1}}}{1}
+%    {2}{{{\color{numb}2}}}{1}
+%    {3}{{{\color{numb}3}}}{1}
+%    {4}{{{\color{numb}4}}}{1}
+%    {5}{{{\color{numb}5}}}{1}
+%    {6}{{{\color{numb}6}}}{1}
+%    {7}{{{\color{numb}7}}}{1}
+%    {8}{{{\color{numb}8}}}{1}
+%    {9}{{{\color{numb}9}}}{1}
+%    {\{}{{{\color{delim}{\{}}}}{1}
+%    {\}}{{{\color{delim}{\}}}}}{1}
+%    {[}{{{\color{delim}{[}}}}{1}
+%    {]}{{{\color{delim}{]}}}}{1},
+%}
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\lstdefinestyle{alex}{
+%    backgroundcolor=\color{backcolour},
+%    commentstyle=\color{codegreen},
+%    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+%    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\scriptsize,
+%    basicstyle=\ttfamily\footnotesize,
+%	breakatwhitespace=false,
+%    breaklines=true,
+%    captionpos=b,
+%    keepspaces=true,
+%    numbers=left,
+%    numbersep=5pt,
+%    showspaces=false,
+%    showstringspaces=false,
+%    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=alex}
+\usepackage{multicol}
+
+\newcommand{\footlabel}[2]{%
+    \addtocounter{footnote}{1}%
+    \footnotetext[\thefootnote]{%
+        \addtocounter{footnote}{-1}%
+        \refstepcounter{footnote}\label{#1}%
+        #2%
+    }%
+    $^{\ref{#1}}$%
+}
+\renewcommand{\footref}[1]{%
+    $^{\ref{#1}}$%
+}
+%This is a sentence with a footnote\footlabel{rom}{this is the adapted footnote} in it.
+%This second sentence points to the same footnote,\footref{rom} so you don't have
+%to write it all over again. As you can see, the macro's work in conjuncture with
+%the normal\footnote{this is a normal footnote} footnote.
+%Though there is a small discrepancy in how the links are displayed.
+
 \begin{document}
 
 \newcommand\blankpage{%
@@ -143,7 +252,11 @@
 \include{prefacios/ListaTablas}
 
 % Glosario
-\printglossaries
+\clearpage
+\printglossary[style=long3col, type=\acronymtype, title=Acrónimos, toctitle=Acrónimos]
+\clearpage
+\printglossary[type=main, title=Glosario, toctitle=Glosario]
+\clearpage
 
 % Indice árabe
 \pagenumbering{arabic}
@@ -152,39 +265,53 @@
 \include{capitulos/01_Introduccion}
 % Capítulo 2: Análisis de Requisitos
 \include{capitulos/02_EspecificacionRequisitos}
-% Capítulo 3: Ingenieria Inversa
-\include{capitulos/03_IngenieriaInversa}
-% Capítulo 4: Análisis del sistema
-\include{capitulos/04_Analisis}
-% Capítulo 5: Diseño del sistema
-\include{capitulos/05_Diseno}
-% Capítulo 6: Imple
-\include{capitulos/06_Implementacion}
-% Capitulo 6: Validación y test
-\include{capitulos/07_Pruebas}
-% Capítulo 7: Conclusiones y trabajo futuro
-\include{capitulos/08_Conclusiones}
-
-% Apéndices
-%\include{prefacios/Apendices}
-% Bibliografia.
-\include{prefacios/Bibliografia}
+% Capítulos 3, 4 y 5: Ingenieria Inversa
+\include{capitulos/03_IngenieriaInversa_I}
+\include{capitulos/04_IngenieriaInversa_II}
+\include{capitulos/05_IngenieriaInversa_III}
+% Capítulo 6: Análisis del sistema
+\include{capitulos/06_Analisis}
+% Capítulo 7: Diseño del sistema
+\include{capitulos/07_Diseno}
+% Capítulo 8: Implementación
+\include{capitulos/08_Implementacion}
+% Capitulo 9: Validación y test
+\include{capitulos/09_Pruebas}
+% Capítulo 10: Conclusiones y trabajo futuro
+\include{capitulos/10_Conclusiones}
 
 % Apéndices
 \begin{appendices}
+
+%-- ANEXOS OBLIGATORIOS --%
 % Presupuesto
-\include{prefacios/Presupuesto}
-
-% Anexo Normativa
-\include{prefacios/Normativa}
-
+\include{anexos/Presupuesto}
 % Indice alfabético
-\include{prefacios/IndiceAlfabetico}
+\include{anexos/IndiceAlfabetico}
+% Bibliografia.
+\include{prefacios/Bibliografia}
+
+\include{anexos/terminologia}
+
+%-- ANEXOS DE PROGRAMAS --%
+\include{anexos/programas}
+
+%-- ANEXOS DE FICHEROS --%
+\include{anexos/ficheros}
+
+%-- OTROS ANEXOS --%
+
+% Formato de un script de init.d
+\include{anexos/init.d}
+
+% Normativa acústica de Granada
+%\include{anexos/Normativa}
+
+% Hoja de cálculo del LM7
+\include{anexos/LM7-fileSystem}
+% Hoja de cálculo del LM7: defines
+\include{anexos/LM7-defines}
+
 \end{appendices}
-
-
-% Glosario
-%\include{prefacios/Glosario}
-
 
 \end{document}

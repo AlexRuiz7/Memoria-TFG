@@ -1,0 +1,15 @@
+\chapter{Ficheros del limitador} \label{append:ficheros}
+
+Todos los datos generados o requeridos, ya sean persistentes o temporales, son almacenados en ficheros. Cada uno de estos ficheros tiene un formato propio, que va desde ficheros en texto plano hasta ficheros binarios. En este anexo se describen los ficheros más importantes del limitador.
+
+Los limitadores LM7 y LM9 almacenan los ficheros en los directorios del sistema Linux \verb|/var| y \verb|/tmp|, sin embargo, en nuestra versión (LM11) se ha creado un directorio con la finalidad de alojar todo lo relativo a nuestro software en un mismo lugar, pero manteniendo la misma estructura interna (\verb|bin/, var/, tmp/|). Por tanto, cuando se haga referencia al path de un fichero, debe comprenderse que en la versión LM11 ese path hace referencia a los directorios internos de esta carpeta y no a los directorios raíz del sistema operativo.
+
+\section{El registro}
+\label{append:F_registro}
+\input{anexos/F_registro}
+\clearpage
+
+\section{Ficheros de configuración}
+\label{append:F_configuracion}
+\input{anexos/F_configuracion}
+\clearpage

@@ -1,0 +1,427 @@
+%\chapter{Recuperación de información: getConfig} \label{append:getConfig}
+
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{figuras/lms11-getConfig.pdf}
+    \captionof{figure}{Diagrama de clases del programa getConfig}
+    \label{fig:getConfig}
+\end{center}
+
+El programa \verb|getConfig| devuelve la configuración del limitador en formato JSON. Para ello, accede a la información alojada en varios ficheros del sistema. Los ficheros a los que accede, así como el conjunto de datos que devuelve el programa pueden consultarse en los listados que se muestran a continuación en este anexo.
+
+Ficheros:
+\begin{multicols}{2}
+	\begin{itemize}
+	    \item \verb|/var/slr/configuracion|
+	    \item \verb|/var/slr/registro.slr|
+	    \item \verb|/var/slr/calibration[i]|
+	    \begin{itemize}
+	        \item 0: micrófono.
+	        \item 1: línea izquierda.
+	        \item 1: línea derecha.
+	    \end{itemize}
+	\end{itemize}
+\end{multicols}
+
+Datos:
+\begin{multicols}{2}
+	\begin{itemize}
+	    \item Calibraciones.
+	    \item Normativa.
+	    \item Datos del local.
+	    \item Tipo de equipo.
+	    \item Propiedades del compresor.
+	    \item Umbral de sesiones.
+	    \item Aislamiento.
+	    \item Versión del software.
+	    \item Número de serie del equipo.
+	    \item Fecha y hora del sistema.
+	    \item Fecha y hora base del registro.
+	\end{itemize}
+\end{multicols}
+
+%\begin{figure}[h]
+%    \begin{minipage}[t]{.45\textwidth}
+%        \begin{itemize}
+%            \item Calibraciones.
+%            \item Normativa.
+%            \item Datos del local.
+%            \item Tipo de equipo.
+%            \item Propiedades del compresor.
+%            \item Umbral de sesiones.
+%        \end{itemize}
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}[t]{.45\textwidth}
+%        \begin{itemize}
+%            \item Aislamiento.
+%            \item Versión del software.
+%            \item Número de serie del equipo.
+%            \item Fecha y hora del sistema.
+%            \item Fecha y hora base del registro.
+%        \end{itemize}
+%    \end{minipage}
+%\end{figure}
+
+% Fuerza la impresión de los floats pendientes hasta este punto.
+\clearpage
+
+\begin{lstlisting}[
+    language=json,
+    label={lst:lm7-getStatus},
+    caption={Esquema JSON devuelto por getConfig en la versión LM7.}
+]
+{
+  "definitions": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "serialNumber": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "number"
+        },
+        "time": {
+          "type": "string"
+        },
+        "configTime": {
+          "type": "string"
+        },
+        "place": {
+          "type": "string"
+        },
+        "establishment": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "council": {
+          "type": "string"
+        },
+        "responsible": {
+          "type": "string"
+        },
+        "phonenumber": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "dayStartHour": {
+          "type": "integer"
+        },
+        "dayEndHour": {
+          "type": "integer"
+        },
+        "dayMaximumEmission": {
+          "type": "number"
+        },
+        "nightMaximumEmission": {
+          "type": "number"
+        },
+        "dayMaximumReception": {
+          "type": "number"
+        },
+        "nightMaximumReception": {
+          "type": "number"
+        },
+        "plainIsolation": {
+          "type": "number"
+        },
+        "minumum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "maximumattenuation": {
+          "type": "integer"
+        },
+        "compressorRange": {
+          "type": "number"
+        },
+        "compressorEfectivity": {
+          "type": "integer"
+        },
+        "laeqtime": {
+          "type": "integer"
+        },
+        "recoverTime": {
+          "type": "integer"
+        },
+        "registryStartTime": {
+          "type": "string"
+        },
+        "deviceType": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+\end{lstlisting}
+
+\vspace{1em}
+
+\begin{lstlisting}[
+    language=json,
+    label={lst:lm7-getStatus},
+    caption={Esquema JSON devuelto por getConfig en las versiones LM9 y LM11.}
+]
+{
+  "definitions": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "serialNumber": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "configtime": {
+          "type": "string"
+        },
+        "activeSince": {
+          "type": "string"
+        },
+        "registryBaseTime": {
+          "type": "string"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "recoverTime": {
+          "type": "integer"
+        },
+        "maximumAttenuation": {
+          "type": "integer"
+        },
+        "maximumBandAttenuation": {
+          "type": "number"
+        },
+        "minimalAttenuation": {
+          "type": "number"
+        },
+        "thressholdCoefficient": {
+          "type": "number"
+        },
+        "attenuationSteps": {
+          "type": "integer"
+        },
+        "laeqTime": {
+          "type": "integer"
+        },
+        "dayStartHour": {
+          "type": "integer"
+        },
+        "dayEndHour": {
+          "type": "integer"
+        },
+        "dayMaximumEmission": {
+          "type": "number"
+        },
+        "nightMaximumEmission": {
+          "type": "number"
+        },
+        "dayMaximumReception": {
+          "type": "number"
+        },
+        "nightMaximumReception": {
+          "type": "number"
+        },
+        "compressorRange": {
+          "type": "number"
+        },
+        "compressorEfectivity": {
+          "type": "integer"
+        },
+        "isolation": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "margins": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "controlType": {
+          "type": "string"
+        },
+        "usePredictiveModel": {
+          "type": "boolean"
+        },
+        "useReceptionControl": {
+          "type": "boolean"
+        },
+        "audioBlocking": {
+          "type": "boolean"
+        },
+        "useFrecuentialControl": {
+          "type": "boolean"
+        },
+        "controlEachFrequency": {
+          "type": "boolean"
+        },
+        "establishment": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "council": {
+          "type": "string"
+        },
+        "responsible": {
+          "type": "string"
+        },
+        "phonenumber": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "equipment": {
+          "type": "string"
+        },
+        "activeDaysAfterConfiguration": {
+          "type": "integer"
+        },
+        "daysOff": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DaysOff"
+          }
+        },
+        "weekDayEmisionMaximum": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "weekNightEmisionMaximum": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "weekDayReceptionMaximum": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "weekNightReceptionMaximum": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "useExtendedNormative": {
+          "type": "boolean"
+        },
+        "deviceType": {
+          "type": "string"
+        },
+        "pinkNoiseLevel": {
+          "type": "number"
+        },
+        "sessionStartThreshold": {
+          "type": "number"
+        },
+        "sessionEndThreshold": {
+          "type": "number"
+        },
+        "calibrations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Calibration"
+          }
+        }
+      }
+    },
+    "Calibration": {
+      "type": "object",
+      "properties": {
+        "deviceNumber": {
+          "type": "integer"
+        },
+        "dbRef": {
+          "type": "number"
+        },
+        "referentia": {
+          "type": "number"
+        },
+        "noiselevel": {
+          "type": "number"
+        },
+        "hardwareLevel": {
+          "type": "number"
+        },
+        "referenciaGlobal": {
+          "type": "number"
+        },
+        "equalization": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "internalEqualization": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "DaysOff": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "day": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer"
+        },
+        "weekDayNumber": {
+          "type": "integer"
+        },
+        "startHour": {
+          "type": "integer"
+        },
+        "startMinutes": {
+          "type": "integer"
+        },
+        "durationHours": {
+          "type": "integer"
+        },
+        "durationMinutes": {
+          "type": "integer"
+        },
+        "emissionMaximum": {
+          "type": "number"
+        },
+        "receptionMaximum": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
+\end{lstlisting}
+
+%Esquemas generados a partir de muestras JSON del programa, mediante el uso de las herramientas \url{www.json-schema.org} y \url{www.jsonschemavalidator.net}.
