@@ -3,13 +3,12 @@
 
 El fichero \verb|conf.tmp| es un fichero temporal en el que se escriben las nuevas configuraciones a la espera de ser aplicadas por el configurador. El ciclo de vida de este fichero se describe en el diagrama de secuencia de la figura \ref{fig:lms11-conf.tmp}. En resumen, el instalador configura el equipo mediante una aplicación, la cual se encarga de escribir el fichero en disco con un formato predeterminado para luego notificar al \textit{configurador}, quien lee y aplica la nueva configuración. La aplicación puede ser web, como en el caso del LM7, o de escritorio, como en el caso de nuestro sistema (LM11). En este último caso, la aplicación no escribe los datos directamente en disco ya que es un sistema externo al limitador, en su lugar, se pasa por la API del limitador, enviándole los datos de la nueva configuración. La API comprueba y escribe los datos en disco, para finalmente dar paso al \textit{configurador}.
 
-!!! TODO
-%\begin{figure}[h]
-%	\centering
-%    \includegraphics[width=0.55\textwidth]{figuras/lms11-conf.tmp}
-%    \caption{Diagrama de secuencia para actualizar la configuración en el LM11.}
-%    \label{fig:lms11-conf.tmp}
-%\end{figure}
+\begin{figure}[h]
+	\centering
+    \includegraphics[width=0.9\textwidth]{figuras/lms11-conf.tmp.pdf}
+    \caption{Diagrama de secuencia para actualizar la configuración en el LM11.}
+    \label{fig:lms11-conf.tmp}
+\end{figure}
 
 En el listado inferior se muestra cada una de las propiedades configurables del limitador y su formato en el fichero  \verb|conf.tmp|. Cada una de las propiedades debe ocupar una y solo una línea en el fichero, y no es obligatorio configurarlas todas, ya que el configurador solo actualiza las propiedades que encuentra en el fichero.
 

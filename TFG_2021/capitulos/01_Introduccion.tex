@@ -64,9 +64,9 @@ Por tanto, resulta evidente observar que existe una necesidad por parte de los e
 
 El objetivo primario de este proyecto es el siguiente:
 
-\begin{itemize}
+\begin{enumerate}
     \item Presentar un software capaz de registrar los niveles acústicos de emisión y recepción, y que actúe sobre dichos niveles en base a la normativa aplicada.
-\end{itemize}
+\end{enumerate}
 
 Este objetivo general define de forma concreta qué es lo que se pretende hacer en el proyecto. Asimismo, existen otros objetivos más específicos:
 
@@ -91,44 +91,37 @@ Este objetivo general define de forma concreta qué es lo que se pretende hacer 
 
 \section{Contexto} \label{sec:contexto}
 
-Hasta ahora, se han establecido cuales son las necesidades y las motivaciones del proyecto, así como la idea general y los objetivos del mismo, pero nada se sabe aún de su punto de partida ni de su contexto, ¿se va a partir de cero? ¿existe una arquitectura hardware específica para este propósito o es parte del proyecto definirla y construirla? ¿hay más personas involucradas en el proyecto? En las siguientes páginas resolveremos estás cuestiones y más, y se proporcionará un enfoque más detallado y completo del la envergadura del trabajo que en este documento se presenta.
+%Hasta ahora, se han establecido cuales son las necesidades y las motivaciones del proyecto, así como la idea general y los objetivos del mismo, pero nada se sabe aún de su punto de partida ni de su contexto, ¿se va a partir de cero? ¿existe una arquitectura hardware específica para este propósito o es parte del proyecto definirla y construirla? ¿hay más personas involucradas en el proyecto? En las siguientes páginas resolveremos estás cuestiones y más, y se proporcionará un enfoque más detallado y completo del la envergadura del trabajo que en este documento se presenta.
 
 %Una vez establecidas las ideas generales del proyecto, es necesario enmarcarlo en su contexto. Las siguientes páginas tendrán como propósito presentar el punto de partida y el contexto del proyecto, de forma que se pueden entender mejor cuál es el ámbito
 
-Para comenzar, en el laboratorio de \glsname{granasat} se dispone de un limitador de sonido operativo, pero bastante antiguo, el cual es necesario estudiar para poder entender se funcionamiento y, por ende, conocer cuales son las tareas concretas que debe realizar un limitador de sonido para efectuar sus funciones. Este limitador será objeto que un minucioso proceso de ingeniería inversa, del cual extraeremos una gran cantidad de conocimiento, en forma de requisitos, diagramas y estrategias de acción para resolver las problemáticas a las que nos enfrentamos en el proyecto. Se dispone así mismo del todo el código fuente de este limitador, lo cual facilitará bastante nuestro trabajo.
+%Para comenzar, en
+En el laboratorio de \glsname{granasat} se dispone de un limitador de sonido operativo, pero bastante antiguo, el cual es necesario estudiar para poder entender se funcionamiento y, por ende, conocer cuales son las tareas concretas que debe realizar un limitador de sonido para efectuar sus funciones. Este limitador será objeto que un minucioso proceso de ingeniería inversa, del cual extraeremos una gran cantidad de conocimiento, en forma de requisitos, diagramas y estrategias de acción para resolver las problemáticas a las que nos enfrentamos en el proyecto. Se dispone también de todo el código fuente de este limitador, lo cual facilitará bastante nuestro trabajo.
 
-Se dedicará un capítulo completo a este limitador, dónde se detallará el proceso de ingeniería inversa al que se le ha sometido, se explicará cómo funciona este limitador y se expondrán todos los conocimientos que se han podido extraer del él. Este limitador, por tanto, supondrá el punto de partida y la principal guía del presente proyecto, siendo así su piedra angular, ya que se volverá é constantemente para comparar y validar el trabajo realizado.
-
-
-¡¡ INSERTAR IMAGEN DEL LIMITADOR !!
-
+Se dedicará un capítulo completo a este limitador, dónde se detallará el proceso de ingeniería inversa al que se le ha sometido, se explicará cómo funciona este limitador y se expondrán todos los conocimientos que se han podido extraer del él. Este limitador, por tanto, supondrá el punto de partida y la principal guía del presente proyecto, siendo así su piedra angular, ya que se volverá él constantemente para comparar y validar el trabajo realizado.
 
 También en laboratorio de \glsname{granasat} se dispone de un limitador en fase de prototipo, sobre el cual correrá el sistema de limitación y control de sonido que se va a desarrollar. Esta arquitectura supone la inclusión de ciertas restricciones y consideraciones a la hora de diseñar e implementar el sistema, ya que se dispone de un hardware especializado y cuyo centro de cómputo es una Raspberry Pi.
 
-
-¡¡INSERTAR IMAGEN DEL LIMITADOR NUEVO !!
-
-
-\myMateLuis, es un estudiante del Máster en Ingeniería de Telecomunicaciones y el responsable de esta arquitectura. El trabajo realizado en este prototipo supone su Trabajo de Fin de Máster.
-
-¡¡INSERTAR IMAGEN DE LUIS !!
-
 Por otro lado, es necesario poder configurar el sistema cuando se realice la instalación del mismo en el establecimiento. Los datos configurables en el equipo supondrán unos requisitos de datos y especificarán en el capítulo \ref{cap:capitulo2}, pero a modo de resumen, es necesario configurar una serie de variables que modificarán el funcionamiento del sistema, como el aislamiento aplicado al local y la normativa del ayuntamiento o comunidad autónoma en el que se encuentra el local.
-
-¡¡INSERTAR IMAGEN DEL APP CONF !!
-
-\myMateDani, estudiante del \myDegree, como proyecto para su Trabajo de Fin de Grado va a diseñar e implementar una aplicación para configurar nuestro sistema.
-
-¡¡INSERTAR IMAGEN DE DANI !!
 
 Nuestro sistema, por tanto, deberá comunicarse tanto con el hardware especializado como con la aplicación de configuración. Para ello deberán identificarse y definirse unas interfaces de comunicación para que los sistemas cooperen, lo cual se traduce en nuevo requisitos en nuestro proyecto. Se profundizará en estas interfaces en el capítulo de diseño, \ref{cap:capitulo5}.
 
+\subsection{Personas involucradas en el proyecto} \label{sec:team}
 
-¡¡ EN GENERAL, EXTENDER !!
+\begin{itemize}
+	\item \myMateLuis, es un estudiante del Máster en Ingeniería de Telecomunicaciones y el responsable del nuevo prototipo hardware. El trabajo realizado en este prototipo supone su Trabajo de Fin de Máster.
+
+	\item \myMateDani, estudiante del \myDegree, como proyecto para su Trabajo de Fin de Grado va a diseñar e implementar una aplicación para configurar nuestro sistema una vez esté implementado y ejecutándose en el prototipo.
+
+	\item \myName, estudiante del \myDegree y autor del presente documento, estudiará el limitador existente para desarrollar un software similar capaz de ejecutarse en el nuevo prototipo.
+
+	\item \myProf, además de tutor del Trabajo Fin de Grado y Máster de los tres alumnos mencionados, será el supervisor del proyecto.
+\end{itemize}
+
 
 \section{Estructura del proyecto}\label{sec:estructura}
 
-El proyecto se divide en 8 capítulos y varios anexos que describen cada una de las partes del proceso de desarrollo del producto propuesto.
+El proyecto se divide en 10 capítulos y varios anexos que describen cada una de las partes del proceso de desarrollo del producto propuesto.
 
 Los capítulos que componen el presente documento son:
 
@@ -138,15 +131,17 @@ Los capítulos que componen el presente documento son:
     \item El capítulo \ref{cap:capitulo2} es un breve resumen de la idea global del producto, extraída de conversaciones con el cliente. A partir de esta información se generan una definición de necesidades principales y secundarias para el producto, en forma de requisitos del cliente.
 
     \item El capítulo \ref{cap:capitulo3_I} se procede a documentar el proceso de ingeniería inversa al que se ha sometido a dos versiones de un mismo limitador disponible en el laboratorio de GranaSAT. La idea principal de este proceso de ingeniería inversa es realizar un reconocimiento de las tareas técnica necesarias para completar los objetivos del proyecto. El capítulo se compone de 3 partes.
-    \subitem \nameref{cap:capitulo3_I}.
-	\subitem \nameref{cap:capitulo3_II}.
-	\subitem \nameref{cap:capitulo3_III}.
+    \begin{itemize}
+		\item \nameref{cap:capitulo3_I}.
+		\item \nameref{cap:capitulo3_II}.
+		\item \nameref{cap:capitulo3_III}.
+    \end{itemize}
 
     \item A continuación, en el capítulo \ref{cap:capitulo4}, se utilizará el conocimiento obtenido mediante proceso del ingeniería inversa realizado en el capítulo anterior para presentar un primer análisis en profundidad del trabajo necesario a realizar para cumplir los objetivos del proyecto, así como un desglose de dicho trabajo en forma de requisitos del sistema. En este capítulo también se detallarán los requerimientos técnicos del producto. Una vez concretados estos requerimientos se analizarán los pros y los contras de diferentes tecnologías o enfoques que solucionan la problemática de cada uno de los subsistemas que componen el proyecto. De este análisis en profundidad se extrae una estrategia de trabajo, compuesta por un conjunto de soluciones técnicas viables para el producto y una planificación temporal para el desarrollo del proyecto que se puede observar en el diagrama de la figura figura X.Y.
 
     \item Tras realizar el análisis y siguiendo la metodología propuesta en la figura X.Y, se presenta en el capítulo \ref{cap:capitulo5} el diseño del producto, es decir, qué se va a hacer exactamente y cómo. Para ello se han tenido en cuenta las cuestiones relativas al análisis del capítulo anterior y se han seleccionado las soluciones y tecnologías optimas para diseñar el sistema.
 
-    \item En el capítulo \ref{cap:capitulo6} se presentan los detalles sobre la implementacion del sistema y la metodología seguida durante este proceso. Los procesos de ingeniería inversa, análisis y diseño tendrán un gran valor en este punto, y serian cruciales durante el proceso de implementación.
+    \item En el capítulo \ref{cap:capitulo6} se presentan los detalles sobre la implementación del sistema y la metodología seguida durante este proceso. Los procesos de ingeniería inversa, análisis y diseño tendrán un gran valor en este punto, y serian cruciales durante el proceso de implementación.
 
     \item En el capítulo \ref{cap:capitulo7} se describen una serie de pruebas de validación y test de forma que se verifique que el producto generado a partir del diseño propuesto en el capítulo \ref{cap:capitulo5} cumple con las especificación de requisitos descrita en el \ref{cap:capitulo2}, y que a demás, lo realiza de forma correcta.
 
@@ -154,3 +149,11 @@ Los capítulos que componen el presente documento son:
 
     \item En el anexo \ref{cap:presupuesto} se detalla el presupuesto y los costes asociados a este proyecto.
 \end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/gantt.pdf}
+    \caption{Planificación del proyecto. Diagrama de Gantt.}
+    \label{fig:gantt}
+\end{figure}
+

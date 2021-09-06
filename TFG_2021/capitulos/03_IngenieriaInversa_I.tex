@@ -1,29 +1,20 @@
 \chapter{Ingeniería Inversa: introducción} \label{cap:capitulo3_I}
 
-En este capítulo se procede a documentar el proceso de ingeniería inversa al que se ha sometido a limitador que puede verse en la imagen {imagen}.
+En este capítulo se procede a documentar el proceso de ingeniería inversa al que se ha sometido a limitador que puede verse en la imagen \ref{img:lms7_cls}.
 
-Tal y como se comentó en la sección \ref{sec:contexto}, el punto de partida del proyecto es el estudio y análisis de un limitador funcional y operativo que se encuentra en el laboratorio de \gls{granasat}. Es importante recordar que se dispone del código fuente de este limitador, así como su manual de usuario, el cual nos será de gran ayuda para poder instalarlo correctamente y conocer las capacidades y características generales del producto. De aquí en adelante, se hará referencia al este limitador como \acrshort{LM7}, ya que ese es el nombre técnico del producto.
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{imagenes/lm7-fotos/lms7.jpg}
     \caption{Limitador LM7.}
 	\label{img:lms7_cls}
 \end{figure}
 
+Tal y como se comentó en la sección \ref{sec:contexto}, el punto de partida del proyecto es el estudio y análisis de un limitador funcional y operativo que se encuentra en el laboratorio de \gls{granasat}. Es importante recordar que se dispone del código fuente de este limitador, así como su manual de usuario, el cual nos será de gran ayuda para poder instalarlo correctamente y conocer las capacidades y características generales del producto. De aquí en adelante, se hará referencia al este limitador como \acrshort{LM7}, ya que ese es el nombre técnico del producto.
+
 \section{Instalación del limitador}
 
 El primer paso a realizar para comenzar el proceso de ingeniería inversa es instalar el equipo. Para ello, se recurre al manual de usuario del equipo, y se siguen las instrucciones de instalación. En la figura \ref{fig:lm7_montaje} se puede observar el esquema de montaje del limitador en un entorno objetivo, es decir, en un establecimiento. En nuestro caso, nuestra entrada no se corresponde a una mesa de mezclas, sino a un ordenador, mediante el cual podremos enviar audio al limitador y comprobar su respuesta.
 
-% Lo manda a otra página
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[scale=0.25]{figuras/manual7_montaje_trim.pdf}
-%    \caption{Esquema conceptual del montaje del \acrshort{LM7}.}
-%    \label{fig:lm7_montaje}
-%\end{figure}
-
-% Lo encaja en el punto actual del documento
 \begin{center}
     \includegraphics[scale=0.6]{figuras/manual7_montaje_trim.pdf}
     \captionof{figure}{Esquema conceptual del montaje del \acrshort{LM7}}
@@ -32,12 +23,6 @@ El primer paso a realizar para comenzar el proceso de ingeniería inversa es ins
 
 En la figura superior, podemos observar de izquierda a derecha y de arriba a bajo los siguientes elementos: mesa de mezclas (entrada), micrófono del limitador, limitador de sonido \acrshort{LM7}, altavoces, amplificador (salida).
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[scale=0.6]{figuras/manual7_trasera_trim2.pdf}
-%    \caption{Parte trasera. Conexiones del \acrshort{LM7}.}
-%    \label{fig:lm7_trasera}
-%\end{figure}
 \begin{center}
     \includegraphics[scale=0.55]{figuras/manual7_trasera_trim.pdf}
     \captionof{figure}{Parte trasera. Conexiones del \acrshort{LM7}}
@@ -57,26 +42,15 @@ En la figura \ref{fig:lm7_trasera} se pueden observar las principales conexiones
     \item Conector \glsname{rj45} para conexión directa en área local (parte frontal del limitador, no visible en las figuras).
 \end{itemize}
 
-Conectamos el micrófono al limitador, así como la entrada y la salida de audio. La salida de audio se conecta a un amplificador de sonido disponible en el laboratorio, y como salida a este sistema de amplificación se conecta un dodecaedro. De forma que podamos tener interacción con el equipo, abrimos el limitador retirando la carcasa metálica exterior, para así poder conectar un teclado y una pantalla a la placa base del equipo. De esta forma descubrimos pro primera vez las entrañas del limitador, y nos encontramos con una tecnología bastante desfasada y un ensamble prácticamente casero. Tal y como podemos ver en la imagen \ref{img:lm7}, el \gls{HW} del limitador se compone de una placa base de tipo industrial, cuyas características de detallan en la tabla \ref{tab:lms7_specs}, un circuito integrado para las entradas y salidas de audio del limitador vistas en la figura \ref{fig:lm7_trasera} y una pequeña caja negra, la cual contiene un relé, y cuya funcionalidad se verá más adelante. Además de esto podemos observar la existencia de una tarjeta de sonido \acrshort{USB} conectada a un puerto \acrshort{USB} de la placa base y cuyas salidas van hacia la caja negra que podemos ver en la imagen. Como dispositivo de almacenamiento interno tenemos un \glsname{CF}, con 1GB de capacidad. En fases posteriores del actual proceso de ingeniería inversa extraeremos esta tarjeta de almacenamiento para acceder a sus archivos, ya que será necesario descubrir o modificar las credenciales de acceso tanto al equipo como al sistema de limitación, pues todas ellas son, por ahora, desconocidas.
+Conectamos el micrófono al limitador, así como la entrada y la salida de audio. La salida de audio se conecta a un amplificador de sonido disponible en el laboratorio, y como salida a este sistema de amplificación se conecta un dodecaedro. De forma que podamos tener interacción con el equipo, abrimos el limitador retirando la carcasa metálica exterior, para así poder conectar un teclado y una pantalla a la placa base del equipo. De esta forma descubrimos por primera vez las entrañas del limitador, y nos encontramos con una tecnología bastante desfasada y un ensamble prácticamente casero. Tal y como podemos ver en la imagen \ref{img:lms7}, el \gls{HW} del limitador se compone de una placa base de tipo industrial, cuyas características de detallan en la tabla \ref{tab:lms7_specs}, un circuito integrado para las entradas y salidas de audio del limitador vistas en la figura \ref{fig:lm7_trasera} y una pequeña caja negra, la cual contiene un relé, y cuya funcionalidad se verá más adelante. Además de esto podemos observar la existencia de una tarjeta de sonido \acrshort{USB} conectada a un puerto \acrshort{USB} de la placa base y cuyas salidas van hacia la caja negra que podemos ver en la imagen. Como dispositivo de almacenamiento interno tenemos un \glsname{CF}, con 1 GB de capacidad. En fases posteriores del actual proceso de ingeniería inversa extraeremos esta tarjeta de almacenamiento para acceder a sus archivos, ya que será necesario descubrir o modificar las credenciales de acceso tanto al equipo como al sistema de limitación, pues todas ellas son, por ahora, desconocidas.
 
 \label{img:lms7_open}
 
 Tras revisar todas las conexiones, conectamos el equipo a la corriente eléctrica, y podemos por primera vez ver el equipo en funcionamiento. Mientras arranca el sistema, vemos en la pantalla que el sistema operativo instalado es Debian, una distribución de \gls{GNU/Linux} que se caracteriza por ser minimal. Esta versión en concreto no contiene interfaz gráfica.
 
-Una vez completado el arranque, la pantalla se llena de caracteres que desaparecen rápidamente dando lugar a otros nuevos. De entre lo que es posible leer, se deduce que estos caracteres son datos relativos al limitador (su estado en cada momento, conteniendo lecturas de micrófono y líneas, atenuación aplicada, etc) y que los procesos del limitador vuelcan sus salidas por pantalla a la salida estándar, saturando la terminal principal y dejándola inutilizable. Por tanto, se accede a otra terminal (TTY) mediante la cual podamos trabajar. Esta nueva terminal nos pide usuario y contraseña, las cuales desconocemos.
+Una vez completado el arranque, la pantalla se llena de caracteres que desaparecen rápidamente dando lugar a otros nuevos. De entre lo que es posible leer, se deduce que estos caracteres son datos relativos al limitador (su estado en cada momento, conteniendo lecturas de micrófono y líneas, atenuación aplicada, etc) y que los procesos del limitador vuelcan sus salidas por pantalla a la salida estándar, saturando la terminal principal y dejándola inutilizable. Por tanto, se accede a otra terminal (\glsname{TTY}) mediante la cual podamos trabajar. Esta nueva terminal nos pide usuario y contraseña, las cuales desconocemos.
 
 Continuando con el manual de usuario se descubre que el equipo tiene un servidor web en el cual hay desplegada una interfaz web del limitador, mediante la cual podemos ver su estado, modificar sus configuraciones y obtener informes. Por ello, el próximo y último paso para completar la instalación del limitador es conectarlo a una red interna vía Ethernet, así como conectar y configurar un ordenador adicional mediante el cual podamos acceder, no solo a dicha interfaz web, sino al equipo en sí mediante \acrshort{SSH}.
-
-%\begin{center}
-%    \hspace{0cm}
-%    \includegraphics[scale=0.7]{imagenes/lms_ip.jpg}
-%%    \captionof{figure}{Configuracion \acrshort{IP} del PC adicional}
-%%    \captionof{figure}{C}
-%    \hspace{2cm}
-%    \includegraphics[scale=0.55]{imagenes/lms_ui.jpg}
-%%    \captionof{figure}{Interfaz Web de \acrshort{LM7}}
-%%    \caption{figure}{C}
-%\end{center}
 
 \begin{figure}[ht]
     \begin{minipage}[t]{.45\textwidth}
@@ -94,8 +68,7 @@ Continuando con el manual de usuario se descubre que el equipo tiene un servidor
     \end{minipage}
 \end{figure}
 
-Una vez aplicada la configuración \acrshort{IP} que se muestra en la imagen \ref{img:lms_ip} en el equipo auxiliar, probamos a acceder a la interfaz web de limitador que se encuentra desplegada en la dirección \acrshort{IP}
-\href{http://192.168.1.223}{http://192.168.1.223} y vemos por primera vez la aplicación web vista en la imagen \ref{img:lms_ui}. Al entrar en la interfaz web del limitador puede verse la ventana de estado, que informa sobre el estado actual del limitador. Esta interfaz arroja información básica, como:
+Una vez aplicada la configuración \acrshort{IP} que se muestra en la imagen \ref{img:lms_ip} en el equipo auxiliar, probamos a acceder a la interfaz web de limitador que se encuentra desplegada en la dirección \acrshort{IP} \url{http://192.168.1.223} y vemos por primera vez la aplicación web vista en la imagen \ref{img:lms_ui}. Al entrar en la interfaz web del limitador puede verse la ventana de estado, que informa sobre el estado actual del limitador. Esta interfaz arroja información básica, como:
 
 \begin{itemize}
     \item La presión actual en \glsname{dba} tanto de las líneas como del sensor.
@@ -110,23 +83,25 @@ En la zona superior derecha, se puede acceder al panel de control y a la secció
 
 Para acabar con el proceso de instalación, se comprueba si es posible conectarse mediante \acrshort{SSH} al limitador. Tal y como se esperaba hay conectividad entre los equipos pero necesitamos proporcionar un usuario y una contraseña para acceder al sistema operativo.
 
-Llegados a este punto, el limitador se encuentra instalado y funcionando, pero nuestro control sobre el mismo es completamente nulo ya que no disponemos de las credenciales necesarias para acceder al sistema ni al limitador. Por tanto, procederemos a extraer su dispositivo de almacenamiento, una \glsname{CF}, para investigar desde otro ordenador su contenido y poder encontrar dichas credenciales, dando lugar así al proceso que da nombre a este capítulo, comenzaremos con el proceso de Ingeniería Inversa.
+Llegados a este punto, el limitador se encuentra instalado y funcionando, pero nuestro control sobre el mismo es completamente nulo ya que no disponemos de las credenciales necesarias para acceder al sistema ni al limitador. Por tanto, procederemos a extraer su dispositivo de almacenamiento para investigar desde otro ordenador su contenido y poder encontrar dichas credenciales, dando lugar así al proceso que da nombre a este capítulo, comenzaremos con el proceso de Ingeniería Inversa.
 
 \subsection{Resumen} \label{cap1:sec1:resumen}
 
 Como resumen a esta sección, se han realizado las siguientes acciones:
 
 \begin{enumerate}
-    \item Se ha conectado el limitador \acrshort{LM7} a corriente y se han conectado a él un monitor (interfaz VGA) y un teclado (interfaz PS/2).
-    \item Se ha instalado un \acrshort{PC} auxiliar con el sistema operativo \gls{WINDOWS} 10.
-    \item Se han conectado los dos equipos mediante Ethernet, usando un Switch de la marca OvisLink, con la configuración de red vista en la imagen \ref{img:lms_ip}.
+\item Se ha conectado el limitador LM7 a corriente y se han conectado a él un monitor (interfaz \glsname{VGA}) y un teclado (interfaz PS/2).
+
+\item Se ha instalado un \acrshort{PC} auxiliar con el sistema operativo Windows 10.
+
+\item Se han conectado los dos equipos mediante Ethernet, usando un Switch de la marca OvisLink, con la configuración de red vista en la imagen \ref{img:lms_ip}.
 \end{enumerate}
 
-Como consecuencia de dichas acciones, tenemos los dos equipos conectados en red, por lo que se puede acceder al limitador desde el equipo auxiliar mediante \acrshort{SSH}, aunque desconoce el usuario y contraseña del sistema.
+Tras esto, ambos equipos quedan conectados en red local, por lo que se puede acceder al limitador desde el equipo auxiliar mediante \acrshort{SSH}, aunque desconoce el usuario y contraseña del sistema.
 
 \section{Extracción de credenciales} \label{lm7-credenciales}
 
-Para conseguir el acceso al sistema limitador, extraemos el dispositivo de almacenamiento y lo exploramos en otro ordenador mediante un adaptador. Explorando el sistema de archivos se descubre la existencia de un directorio peculiar dentro del directorio \textit{/var} en el nivel principal de la estructura de directorios de Linux.
+Para conseguir el acceso al sistema limitador, extraemos el dispositivo de almacenamiento y lo exploramos en otro ordenador mediante un adaptador. Explorando el sistema de archivos se descubre la existencia de un directorio peculiar dentro del directorio \texttt{/var} en el nivel principal de la estructura de directorios de Linux.
 
 \begin{center}
     \includegraphics[scale=0.5]{figuras/unix_filesystem_hierarchy.pdf}
@@ -134,19 +109,18 @@ Para conseguir el acceso al sistema limitador, extraemos el dispositivo de almac
     {
         Estructura de directorios de un sistema \gls{GNU/Linux} \\
         Fuente : \cite{wikipedia}
-%        Fuente: \href{https://upload.wikimedia.org/wikipedia/commons/f/f3/Standard-unix-filesystem-hierarchy.svg}{Wikipedia}
     }
     \label{fig:dirs_linux}
 \end{center}
 
 \subsection{Credenciales del limitador}
 
-Dentro de esta carpeta denominada \textit{slr/} encontramos rápidamente un fichero llamado \textbf{\textit{users.auth}}, con usuarios, claves y permisos. Estas credenciales no son las del sistema operativo que corre sobre la máquina, sino las de los usuarios que tienen acceso a la configuración del limitador, es decir, son los usuarios y contraseñas necesarios para acceder a la aplicación web del limitador (imagen \ref{img:lms_ui}), así como los permisos de estos usuarios sobre la configuración del limitador.
+Dentro de esta carpeta denominada \texttt{slr/} encontramos rápidamente un fichero llamado \textbf{\texttt{users.auth}}, con usuarios, claves y permisos. Estas credenciales no son las del sistema operativo que corre sobre la máquina, sino las de los usuarios que tienen acceso a la configuración del limitador, es decir, son los usuarios y contraseñas necesarios para acceder a la aplicación web del limitador (imagen \ref{img:lms_ui}), así como los permisos de estos usuarios sobre la configuración del limitador.
 
 \begin{shaded}
 %    \textbf{\textit{slr/}}
     \noindent
-    El directorio \textbf{slr/} será de gran importancia en el ámbito del proyecto, ya que en este directorio se almacenarán la gran mayoría de ficheros relacionados con el limitador: datos de configuración, información de usuarios, ficheros de sonido, e incluso ficheros que funcionarán a modo de variables globales del limitador. Conforme se vaya avanzado en el documento se irá describiendo y explicando cada uno de estos ficheros.
+    El directorio \textbf{\texttt{slr/}} será de gran importancia en el ámbito del proyecto, ya que en este directorio se almacenarán la gran mayoría de ficheros relacionados con el limitador: datos de configuración, información de usuarios, ficheros de sonido, e incluso ficheros que funcionarán a modo de variables globales del limitador. Conforme se vaya avanzado en el documento se irá describiendo y explicando cada uno de estos ficheros.
     \par
     \noindent
     El nombre del directorio se deduce que es un acrónimo de \textit{\textbf{S}ound\textbf{L}imiter\textbf{R}ecords}.
@@ -193,16 +167,13 @@ Para obtener el control sobre el sistema operativo es necesario disponer de un u
 
 Del sistema operativo sabemos que es \gls{debian}, una distribución \gls{GNU/Linux}, por tanto, se investiga dónde almacena este sistema sus usuarios. Son datos estáticos así que deben encontrase almacenados en alguna parte dentro del sistema de archivos contenidos en el disco, el cual, recordamos, tenemos conectado a otro ordenador mediante un adaptador \acrshort{USB}.
 
-A través de la consulta de foros
- \href{https://www.cyberciti.biz/faq/where-are-the-passwords-of-the-users-located-in-linux/}{(cyberciti.biz)} y manuales \href{https://www.debian.org/doc/manuals/system-administrator/ch-sysadmin-users.html}{(Debian.org)} en línea, descubrimos que los ficheros que necesitamos son \textbf{/etc/passwd} y \textbf{/etc/shadow}. Aunque ambos contienen información crítica sobre los usuarios y sus permisos, existen pequeñas diferencias. En resumen, mientras que \textbf{/etc/passwd} almacena información mayormente relativa al usuario, \textbf{/etc/shadow} contiene las claves de usuario (encriptadas) e información relacionada a ellas, no al usuario.
+A través de la consulta de foros \cite{debian-passwords} y manuales \cite{debian-manuals} en línea, descubrimos que los ficheros que necesitamos son \textbf{\texttt{/etc/passwd}} y \textbf{\texttt{/etc/shadow}}. Aunque ambos contienen información crítica sobre los usuarios y sus permisos, existen pequeñas diferencias. En resumen, mientras que \textbf{\texttt{/etc/passwd}} almacena información mayormente relativa al usuario, \textbf{/\texttt{etc/shadow}} contiene las claves de usuario (encriptadas) e información relacionada a ellas, no al usuario.
 
-%El fichero \textbf{/etc/shadow} contiene una entrada por línea para cada uno de los usuarios listados en el fichero \textbf{/etc/passwd}. Las claves están compuestas por una serie de campos, separados por dos puntos (:), y son de la siguiente manera:
-
-Las contraseñas encriptadas y otra información relacionada, como la información de caducidad de la contraseña, se almacenan en el fichero \textbf{/etc/shadow}. Este fichero contiene una entrada por línea por cada uno de los usuarios listados en el fichero \textbf{/etc/passwd}. Cada una de estas entradas están compuestas por una serie de campos separados por dos puntos (:), y generalmente, sigue este patrón.
+Las contraseñas encriptadas y otra información relacionada, como la información de caducidad de la contraseña, se almacenan en el fichero \textbf{\texttt{/etc/shadow}}. Este fichero contiene una entrada por línea por cada uno de los usuarios listados en el fichero \textbf{\texttt{/etc/passwd}}. Cada una de estas entradas están compuestas por una serie de campos separados por dos puntos (:), y generalmente, sigue este patrón.
 
 \begin{center}
     \includegraphics[scale=0.5]{figuras/shadow.pdf}
-    \captionof{figure}{Estructura de las claves en el fichero \textbf{/etc/shadow}}
+    \captionof{figure}{Estructura de las claves en el fichero \textbf{\texttt{/etc/shadow}}}
     \label{fig:shadow}
 \end{center}
 
@@ -236,7 +207,8 @@ Abrimos el fichero \textbf{/etc/shadow} y encontramos la información que necesi
     \label{img:shadow}
 \end{center}
 
-Los usuarios que nos interesan son \textbf{root} y \textbf{lmuser}. Ambas contraseñas se han cifrado usando el algoritmo SHA-512, ya que su primer campo es \textdollar 6\textdollar. En un primer intento se modifica el fichero y se eliminan los campos que contienen la contraseña \textit{Hash}, con la intención de forzar el inicio de sesión sin la necesidad de contraseña (contraseña vacía). Sin embargo, este enfoque no produce el resultado esperado y se busca otra solución. \\ Como conocemos tanto el formato de las entradas de este fichero como el algoritmo de cifrado utilizado, el segundo enfoque será sustituir estas claves \textit{Hash} con otras nuevas, generadas por nosotros. Generamos una nueva contraseña usando la utilidad \gls{openssl}.\newline
+Los usuarios que nos interesan son \textbf{root} y \textbf{lmuser}. Ambas contraseñas se han cifrado usando el algoritmo SHA-512, ya que su primer campo es \textdollar 6\textdollar. En un primer intento se modifica el fichero y se eliminan los campos que contienen la contraseña \textit{Hash}, con la intención de forzar el inicio de sesión sin la necesidad de contraseña (contraseña vacía). Sin embargo, este enfoque no produce el resultado esperado y se busca otra solución. \\ Como conocemos tanto el formato de las entradas de este fichero como el algoritmo de cifrado utilizado, el segundo enfoque será sustituir estas claves \textit{Hash} con otras nuevas, generadas por nosotros. Generamos una nueva contraseña usando la utilidad \gls{openssl}.
+\newpage
 
 \begin{lstlisting}[language=bash, label={lst:openssl}, caption={Generación de Hash usando cifrado SHA-512}]
     $~ openssl passwd -6 <cadena>
@@ -244,7 +216,7 @@ Los usuarios que nos interesan son \textbf{root} y \textbf{lmuser}. Ambas contra
 
 La ejecución del comando \ref{lst:openssl} nos genera una clave Hash única para la cadena que le proporcionemos como entrada. La opción -6 indica que debe usarse el algoritmo de cifrado SHA-512. Para más información sobre este comando y sus opciones puede consultarse la documentación oficial \cite{openssl}.
 
-Una vez cambiadas las contraseñas por las que hemos generado, re-instalamos el \glsname{CF} en la placa base del limitador y se procede a encenderlo para comprobar que podemos acceder al sistema con las nuevas credenciales. Tras finalizar el arranque se verifica que el inicio de sesión con ambos usuarios es satisfactorio, y que por tanto, se tiene control sobre el sistema operativo. La conexión al equipo mediante \acrshort{SSH} también funciona correctamente usando las nuevas contraseñas. Anteriormente, se ha comprobado que la configuración \acrshort{SSH} del sistema permite la conexión mediante el usuario \textit{root}. Para ello se comprueba que en el fichero de configuración en la ruta /etc/sshd\textunderscore conf contiene la directiva \textit{PermitRootLogin} y que su valor es YES. Tras comprobar el fichero, se verifica que la directiva existe y está configurada correctamente. Este no es el valor por defecto, por lo tanto ha tenido que ser activado con anterioridad. Además, se añade la siguiente directiva para garantizar el acceso a los usuario \textit{root} y \textit{lmuser}: \newline
+Una vez cambiadas las contraseñas por las que hemos generado, re-instalamos el \glsname{CF} en la placa base del limitador y se procede a encenderlo para comprobar que podemos acceder al sistema con las nuevas credenciales. Tras finalizar el arranque se verifica que el inicio de sesión con ambos usuarios es satisfactorio, y que por tanto, se tiene control sobre el sistema operativo. La conexión al equipo mediante \acrshort{SSH} también funciona correctamente usando las nuevas contraseñas. Anteriormente, se ha comprobado que la configuración \acrshort{SSH} del sistema permite la conexión mediante el usuario \textit{root}. Para ello se comprueba que en el fichero de configuración en la ruta \texttt{/etc/sshd\_conf} contiene la directiva \textit{PermitRootLogin} y que su valor es YES. Tras comprobar el fichero, se verifica que la directiva existe y está configurada correctamente. Este no es el valor por defecto, por lo tanto ha tenido que ser activado con anterioridad. Además, se añade la siguiente directiva para garantizar el acceso a los usuario \textit{root} y \textit{lmuser}: \newline
 
 \begin{lstlisting}[nolol, language=XML, label={lst:confSSH}, caption={Directiva del fichero}]
     AllowUsers root lmuser
@@ -272,27 +244,26 @@ Nos encontramos antes un equipo en el que se ha montado una placa base de tipo i
     \label{tab:lms7_specs}
 \end{table}
 
-Como componentes que no forman parte de la placa base, tenemos una tarjeta de sonido USB conectada a uno de los puertos y un circuito integrado para las entradas y salidas de audio, conectado a la placa base mediante su puerto serie.
+Como componentes que no forman parte de la placa base, tenemos una tarjeta de sonido \glsname{USB} conectada a uno de los puertos y un circuito integrado para las entradas y salidas de audio, conectado a la placa base mediante su puerto serie.
 
-\begin{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth, angle=-90]{imagenes/alix1b.jpg}
+    \caption{Imagen de una placa base ALIX-1B \cite{alix}}
+    \label{img:alix1b}
+\end{figure}
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{imagenes/lm7-fotos/lms7-comps.jpg}
     \caption{Limitador LM7 y sus componentes montado en una placa base ALIX-1B.}
-%	\label{img:alix1b}
+	\label{img:lms7}
 \end{figure}
-
-\begin{center}
-    \includegraphics[scale=0.75]{imagenes/alix1b.jpg}
-    \captionof{figure}{Imagen de una placa base ALIX-1B \cite{alix}}
-    \label{img:alix1b}
-\end{center}
 
 \section{Análisis del rendimiento} \label{sec:lms7-performance}
 
-Tal y como se comentó en la primera sección de este capítulo, el ordenador auxiliar que se ha instalado en el laboratorio, y en red como el \gls{LM7}, tiene \gls{WINDOWS} 10 como sistema operativo. Para facilitar el acceso remoto mediante \acrshort{SSH} al equipo limitador, se hace uso de clientes \acrshort{SSH}. En la tabla \ref{tab:gestoresSSH} se lista el cliente usado tanto en Windows 10 como en Linux.
+Tal y como se comentó en la primera sección de este capítulo, el ordenador auxiliar que se ha instalado en el laboratorio, y en red como el \gls{LM7}, tiene \gls{WINDOWS} 10 como sistema operativo. Para facilitar el acceso remoto mediante \acrshort{SSH} al equipo limitador, se hace uso de clientes \acrshort{SSH}. En la tabla \ref{tab:gestoresSSH} se lista el cliente usado tanto en \gls{WINDOWS} 10 como en \glsname{GNU/Linux}.
 
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|l|}
@@ -315,7 +286,7 @@ Estos clientes aportan ciertas ventajas, como por ejemplo:
     \item Monitorizan el sistema remoto, lo que nos permite analizar el uso de recursos (disco, memoria, \acrshort{CPU} y red) en tiempo real.
 \end{itemize}
 
-Tras configurar el cliente \acrshort{SSH}, se lanza una conexión remota al \gls{LM7}. Los datos de monitoreo muestran una alta tasa de utilización del \acrshort{CPU}, en torno al 85-100\% (ver imágenes \ref{img:lms_ps1} y \ref{img:lms_ps2}). Indudablemente, el hecho de que el \acrshort{CPU} disponga de una único núcleo es significativo, sin embargo, se procede a identificar los procesos en funcionamiento que pertenecen al limitador. Para ello, se recurre al código fuente del limitador, en concreto al fichero \gls{makefile}, el cual se encarga de compilar los distintos ejecutables (a los que llamaremos \textbf{módulos}) y de moverlos al directorio raíz del sistema: \textbf{/bin}. Al colocar los programas en esta carpeta, se pueden lanzar de forma global, es decir, sin especificar su ruta.
+Tras configurar el cliente \acrshort{SSH}, se lanza una conexión remota al \gls{LM7}. Los datos de monitoreo muestran una alta tasa de utilización del \acrshort{CPU}, en torno al 85-100\% (ver imágenes \ref{img:lms_ps1} y \ref{img:lms_ps2}). Indudablemente, el hecho de que el \acrshort{CPU} disponga de una único núcleo es significativo, sin embargo, se procede a identificar los procesos en funcionamiento que pertenecen al limitador. Para ello, se recurre al código fuente del limitador, en concreto al fichero \gls{makefile}, el cual se encarga de compilar los distintos ejecutables (a los que llamaremos \textbf{módulos}) y de moverlos al directorio raíz del sistema: \textbf{\texttt{/bin}}. Al colocar los programas en esta carpeta, se pueden lanzar de forma global, es decir, sin especificar su ruta.
 
 \begin{figure}[ht]
     \begin{minipage}[b]{.45\textwidth}
@@ -333,25 +304,22 @@ Tras configurar el cliente \acrshort{SSH}, se lanza una conexión remota al \gls
     \end{minipage}
 \end{figure}
 
-El fichero \gls{makefile} nos proporciona una lista de nombres de procesos a buscar. Listamos los procesos activos con la orden \textbf{ps}. El comando completo así como el resultado devuelto pueden observarse en las captura de pantalla \ref{img:lms_ps1} y \ref{img:lms_ps2}. Las opciones pasadas al invocar al comando \textbf{ps} permite mostrar no solo los procesos en activo, sino también las relaciones jerárquicas que existen entre ellos. La mayoría de los procesos del limitador son fácilmente detectables incluso en el supuesto de que se conocieran sus nombres con anterioridad. Los procesos relativos al limitador se encuentran remarcados en rojo, y se puede apreciar el detalle de que todos ellos tiene como proceso padre  a \textbf{init}, con \acrshort{PID} 1. Podemos ver esta información en la primera columna de la tabla, \acrshort{PPID}. Esto significa que los procesos del limitador son lanzados automáticamente al arrancar el sistema. Se profundizará sobre esto en la sección \ref{sec:lms7-init}, donde se explicará proceso de arranque del LM7.
+El fichero \gls{makefile} nos proporciona una lista de nombres de procesos a buscar. Listamos los procesos activos con la orden \textbf{\texttt{ps}}. El comando completo así como el resultado devuelto pueden observarse en las captura de pantalla \ref{img:lms_ps1} y \ref{img:lms_ps2}. Las opciones pasadas al invocar al comando \textbf{\texttt{ps}} permite mostrar no solo los procesos en activo, sino también las relaciones jerárquicas que existen entre ellos. La mayoría de los procesos del limitador son fácilmente detectables incluso en el supuesto de que se conocieran sus nombres con anterioridad. Los procesos relativos al limitador se encuentran remarcados en rojo, y se puede apreciar el detalle de que todos ellos tiene como proceso padre  a \textbf{\texttt{init}}, con \acrshort{PID} 1. Podemos ver esta información en la primera columna de la tabla, \acrshort{PPID}. Esto significa que los procesos del limitador son lanzados automáticamente al arrancar el sistema. Se profundizará sobre esto en la sección \ref{sec:lms7-init}, donde se explicará proceso de arranque del \acrshort{LM7}.
 
 Los procesos que componen en limitador se verán con profundidad en la sección \ref{sec:lm7-procesos}, pero antes, se presentará y estudiará la interfaz web del limitador en su totalidad (ya se presentó la sección principal con la imagen \ref{img:lms_ui}), mediante la que podemos configurarlo y visualizar las lecturas de los sensores y la atenuación aplicada en cada momento.
 
 \section{Interfaz web}
 
-La interfaz web del limitador se encuentra desplegada en un servidor \gls{apache}, y está programada usando PHP, \acrshort{CSS}, HTML y Javascript. En la tabla \ref{tab:lm7_lamp_specs} puede consultarse un análisis más detallado de las tecnologías usadas en la interfaz web.
+La interfaz web del limitador se encuentra desplegada en un servidor \gls{apache}, y está programada usando PHP, \acrshort{CSS}, \acrshort{HTML} y Javascript. En la tabla \ref{tab:lm7_lamp_specs} puede consultarse un análisis más detallado de las tecnologías usadas en la interfaz web.
 
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|l|}
         \hline
         \rowcolor[HTML]{ECF4FF}
         \multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}\textbf{Tecnología}} & \multicolumn{1}{c|}{\cellcolor[HTML]{ECF4FF}\textbf{Versión}} \\ \hline
-        Sistema Operativo                                                 & Debian 4.3.5                                                  \\ \hline
-        Servidor Web                                                      & Apache 2.2.16                                                 \\ \hline
+        Sistema Operativo                                                 & \glsname{debian} 4.3.5                                                  \\ \hline
+        Servidor Web                                                      & \glsname{apache} 2.2.16                                                 \\ \hline
         PHP                                                               & 5.5.3                                                         \\ \hline
     \end{tabular}
     \caption{Especificaciones del servidor web del \gls{LM7}}
@@ -440,9 +408,7 @@ En esta subsección se va a presentar las interfaz web en imágenes de forma que
 
 En esta subsección profundizamos un poco más en la interfaz web recurriendo a su código fuente. Bajamos por tanto un escalón importante a nivel de abstracción. Por razones obvias, no se va a incluir la totalidad del código de la interfaz web del limitador en esta subsección, sino que se va a realizar un análisis técnico del mismo, destacando las cualidades o deficiencias más importantes que se han detectado y presentando bloques de código que den soporte al análisis y ayuden a comprenderlo.
 
-%La interfaz web se compone de XX ficheros, los cuales comoponen un total de YY líneas de código y se dividen en un total de 11 directorios, aunque como se verá luego no todos ellos contienen código. Hay que tener en cuenta que en este recuento se incluyen imágenes, librerías estáticas (tanto de JS como de CSS) y código etiquetado como \enquote{antiguo}. De hecho, la carpeta \enquote{old} tiene no una, sino dos versiones preliminares de la interfaz web. Además, en la carpeta simple se
-
-Como se ha comentado en la introducción a esta sección, el código de la interfaz web se compone de código PHP, HTML, CSS y JS. Parte del código CSS y JS corresponde a librerías estáticas, descargas y usadas por el proyecto, como por ejemplo \href{https://jquery.com/}{jQuery}, y su plugin \href{https://nathansearles.github.io/slidesjs/}{SlideJS}, \href{https://dygraphs.com/}{dygraphs} o \href{https://github.com/arv/explorercanvas}{ExCanvas}. Estas librerías se usan de forma extensiva para construir toda la parte reactiva y asíncrona de la interfaz, como las acciones lanzadas mediante la pulsación de botones, el envío de datos al servidor y la actualización de datos en la interfaz, sin necesidad de recargar la página; para ello, se hace uso de AJAX. Las dos últimas librerías se usan concretamente para la generación de gráficos, en este caso, la gráfica principal que muestra las lecturas de los sensores y la atenuación aplicada por el limitador en cada momento.
+Como se ha comentado en la introducción a esta sección, el código de la interfaz web se compone de código PHP, \acrshort{HTML}, \acrshort{CSS} y JS. Parte del código \acrshort{CSS} y JS corresponde a librerías estáticas, descargas y usadas por el proyecto, como por ejemplo \href{https://jquery.com/}{jQuery}, y su plugin \href{https://nathansearles.github.io/slidesjs/}{SlideJS}, \href{https://dygraphs.com/}{dygraphs} o \href{https://github.com/arv/explorercanvas}{ExCanvas}. Estas librerías se usan de forma extensiva para construir toda la parte reactiva y asíncrona de la interfaz, como las acciones lanzadas mediante la pulsación de botones, el envío de datos al servidor y la actualización de datos en la interfaz, sin necesidad de recargar la página; para ello, se hace uso de AJAX. Las dos últimas librerías se usan concretamente para la generación de gráficos, en este caso, la gráfica principal que muestra las lecturas de los sensores y la atenuación aplicada por el limitador en cada momento.
 
 En el esquema \ref{lst:lm7-www-treeview} podemos observar la estructura de la carpeta \verb|www| dentro del código fuente del limitador, la cual contiene el código de la interfaz web. Por simplicidad, se han omitido algunos los ficheros no esenciales, ya que el listado sería demasiado extenso y la intención es mostrar la estructura y organización del proyecto que materializa la aplicación web, así como describir brevemente el propósito y responsabilidad de cada fichero. Para generar esta representación del directorio y su contenido se ha utilizado la herramienta \acrshort{GIO}, disponible en distribuciones de Linux.\newline
 
@@ -590,7 +556,7 @@ La generación de código dinámico se basa en la renderización condicional de 
 
 El código \ref{lst:lm7-www-code-mixed} ha sido ligeramente indentado y reestructurado para mejorar su comprensión, sin embargo, al problema que supone desarrollar código como el que acabamos de ver, hay que sumar una indentación prácticamente inexistente, la ausencia casi total de comentarios y la prolongación de líneas de código por encima de los 100 caracteres de longitud.
 
-Tan solo los ficheros \textit{tabNormal.php, tabAuth.php} y \textit{tabAuthRegister.php} suman un total de 3000 líneas de código, por lo que la complejidad del código crece rápidamente en un proyecto de estas características cuando se siguen malas prácticas como las que se acaban de ver. Además de las claras deficiencias del código en sí, la interfaz web está \textbf{fuertemente acoplada} al sistema operativo y al software del limitador, ya que la comunicación IU-Limitador se realiza exclusivamente mediante ficheros o mediante la invocación directa de procesos / servicios del limitador que se ejecutan sobre el sistema operativo. Estos dos procedimientos de comunicación se verán en detalle en la siguiente sección.
+Tan solo los ficheros \texttt{tabNormal.php, tabAuth.php} y \texttt{tabAuthRegister.php} suman un total de 3000 líneas de código, por lo que la complejidad del código crece rápidamente en un proyecto de estas características cuando se siguen malas prácticas como las que se acaban de ver. Además de las claras deficiencias del código en sí, la interfaz web está \textbf{fuertemente acoplada} al sistema operativo y al software del limitador, ya que la comunicación IU-Limitador se realiza exclusivamente mediante ficheros o mediante la invocación directa de procesos / servicios del limitador que se ejecutan sobre el sistema operativo. Estos dos procedimientos de comunicación se verán en detalle en la siguiente sección.
 
 En definitiva, la complejidad del código debido a malas prácticas y las complejidades técnicas que supone el uso de PHP 5 a la fecha de la redacción de este documento provocan que no sea factible la reutilización de la aplicación web, y por tanto, queda exclusivamente como objeto de estudio y recurso de soporte a nuestro proyecto.
 
@@ -697,14 +663,6 @@ En esta sección se presenta una lista de los módulos software del limitador so
         \end{itemize}
     \end{minipage}
 \end{figure}
-%\begin{itemize}
-%    \item \verb|getConfig|
-%    \item \verb|getStatus|
-%    \item \verb|getData|
-%    \item \verb|limInfo|
-%    \item \verb|utilslr|
-%    \item \verb|localservice|
-%\end{itemize}
 
 Estos programas son invocados desde la interfaz web mediante la función \verb|popen()| de PHP.
 
@@ -883,6 +841,7 @@ El anexo \nameref{append:lm7-filesystem} supone una ampliación de información 
     `-- www
 \end{lstlisting}
 
+\label{sec:lms7-estructura}
 El proyecto se encuentra segmentado en carpetas, en lo que se asume que es u intento de organizar el código por categorías en base a funcionalidades comunes. Cada uno de los directorios, además del conjunto de ficheros que compone el código fuente, suele contener un fichero Makefile mediante el cual compilar el código fuente y generar ejecutables de forma automatizada, por lo que cada carpeta, por lo general, proporciona uno o varios ejecutables. Aunque en esta versión el concepto no termina de tomar significado, de aquí en adelante nombraremos a cada uno de estos directorios \textbf{módulo}, ya que a priori, parece que la idea de los programadores originales era el generar distintos módulos que trabajasen de forma conjunta, y de ahí la separación en distintas carpetas.
 
 Esta segregación sin embargo, lejos de mejorar la situación, la empeora considerablemente, añadiendo una complejidad innecesaria debido a las siguientes razones:
@@ -927,7 +886,7 @@ El software del limitador estudiado que se encuentra implementado en C++ consta 
             \item Fecha de fin: desde la fecha de inicio hasta la fecha actual.
             \item Intervalo de muestreo: intervalo de tiempo entre cada registro, en minutos.
         \end{itemize}
-        \subitem La fechas van en el formato \verb|YYYY/MM/DD-hh:mm|, siguiendo el estándar \textbf{ISO 8601}.
+        \subitem La fechas van en el formato \verb|YYYY/MM/DD-hh:mm|, siguiendo el estándar \textbf{\acrshort{ISO} 8601}.
     \end{itemize}
 
     \item \verb|limInfo|
@@ -942,7 +901,7 @@ El software del limitador estudiado que se encuentra implementado en C++ consta 
         \item Proporciona utilidades para la verificación de cuentas y la generación de informes en varios formatos.
         \begin{itemize}
             \item Gráficos y listados.
-            \item Volcados SQL, SQLite, YML, XML y JSON.
+            \item Volcados \acrshort{SQL}, SQLite, YML, \acrshort{XML} y \acrshort{JSON}.
         \end{itemize}
     \end{itemize}
 
@@ -961,7 +920,7 @@ El software del limitador estudiado que se encuentra implementado en C++ consta 
     \begin{itemize}
         \item Es el programa principal, la piedra angular del limitador.
         \item Puede funcionar como limitador y/o como registrador.
-        \item Controla el atenuador PGA.
+        \item Controla el atenuador \acrshort{PGA}.
         \item Controla el gestor de registro (registrador).
         \item Controla los sonómetros.
         \item Implementado como un bucle infinito que toma lecturas desde los sonómetros (los cuales leen los datos que pasan por las tarjetas de sonido) y decide la atenuación que debe aplicarse en cada momento según la normativa configurada.
@@ -997,6 +956,6 @@ El software del limitador estudiado que se encuentra implementado en C++ consta 
 
 \end{itemize}
 
-Para convertir estos programas en servicios (procesos tipo Daemon), se utilizan scripts Bash que implementan un bucle infinito en el cual invocan a estos programas o a otros scripts. De esta forma, la ejecución del script queda bloqueada a la espera de que el programa al que invoca finalice. Este enfoque se utilice también en el caso del programa. De esta forma, si el proceso encargado del control acústico falla por algún motivo, el script se encarga de reiniciarlo.
+Para convertir estos programas en servicios (procesos tipo \glsname{daemon}), se utilizan scripts Bash que implementan un bucle infinito en el cual invocan a estos programas o a otros scripts. De esta forma, la ejecución del script queda bloqueada a la espera de que el programa al que invoca finalice. Este enfoque se utilice también en el caso del programa. De esta forma, si el proceso encargado del control acústico falla por algún motivo, el script se encarga de reiniciarlo.
 
 Los scripts pueden consultarse en el listado \ref{lst:lm7-www-treeview}.

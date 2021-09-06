@@ -2,7 +2,7 @@
 
 Hasta el momento solo se ha presentado el limitador bajo estudio, y se ha descrito brevemente la estructura y las funcionalidades de su software. En esta sección entraremos en detalles sobre el funcionamiento del software mediante la presentación de diagramas que ilustren el diseño del sistema y nos permita comprender su funcionamiento con un mayor nivel de detalle.
 
-En las figuras \ref{fig:lm7_overview}, \ref{fig:lm7_overview_extended} y \ref{fig:lm7-class-diagram} tenemos un diagrama de contexto, un diagrama de contexto extendido y el diagrama de clases del programa de atenuación del LM7. En los anexos \ref{append:programas} pueden consultarse los diagramas de clases del resto de programas que componen el limitador.
+En las figuras \ref{fig:lm7_overview}, \ref{fig:lm7_overview_extended} y \ref{fig:lm7-class-diagram} tenemos un diagrama de contexto, un diagrama de contexto extendido y el diagrama de clases del programa de atenuación del \acrshort{LM7}. En los anexos \ref{append:programas} pueden consultarse los diagramas de clases del resto de programas que componen el limitador.
 
 \begin{figure}[h]
     \centering
@@ -22,25 +22,25 @@ En las figuras \ref{fig:lm7_overview}, \ref{fig:lm7_overview_extended} y \ref{fi
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75, angle=90]{figuras/lms7-class-diagram.pdf}
-    \caption{Diagrama de clases del LM7.}
+    \caption{Diagrama de clases del \acrshort{LM7}.}
     \label{fig:lm7-class-diagram}
 \end{figure}
 
 \clearpage
 \section{Arranque} \label{sec:lms7-init}
 
-En la sección de \nameref{sec:lms7-performance} se identificaron los programas del limitador analizando los procesos que se estaban ejecutando en la máquina. Además de identificar los procesos, se comentó que todos ellos tienen como ``padre'' al proceso con \acrshort{PID} 1, el proceso \textbf{init}.
+En la sección de \nameref{sec:lms7-performance} se identificaron los programas del limitador analizando los procesos que se estaban ejecutando en la máquina. Además de identificar los procesos, se comentó que todos ellos tienen como ``padre'' al proceso con \acrshort{PID} 1, el proceso \textbf{\texttt{init}}.
 
 \begin{shaded}
     \noindent
-    El proceso \textbf{init} o \textbf{systemd} es un gestor de servicios para sistemas operativos Linux. Es el primer proceso en arrancar (con \acrshort{PID} 1) y el último en acabar durante el apagado. Su función es levantar los procesos a nivel de usuario.
+    El proceso \textbf{\texttt{init}} o \textbf{\texttt{systemd}} es un gestor de servicios para sistemas operativos Linux. Es el primer proceso en arrancar (con \acrshort{PID} 1) y el último en acabar durante el apagado. Su función es levantar los procesos a nivel de usuario.
 \end{shaded}
 
-Para el arranque del sistema, el LM7 dispone de un script de arranque en el directorio \verb|/etc/init.d|. Este directorio contiene una serie de scripts Bash que sirven para definir servicios, así como para proveer de la funcionalidad necesaria para poder iniciar, apagar, reiniciar comprobar el estado de los servicios.
+Para el arranque del sistema, el \acrshort{LM7} dispone de un script de arranque en el directorio \verb|/etc/init.d|. Este directorio contiene una serie de scripts Bash que sirven para definir servicios, así como para proveer de la funcionalidad necesaria para poder iniciar, apagar, reiniciar comprobar el estado de los servicios.
 
-El script de arranque del LM7 tiene el nombre de \textit{Inicializador}. En \ref{lst:lms7-init} tenemos su código, y se puede observar que carece de la estructura y las funcionalidades requeridas por \verb|init|. En el anexo \ref{append:init.d} se puede consultar la estructura a la que se hace referencia. \\
+El script de arranque del \acrshort{LM7} tiene el nombre de \textit{Inicializador}. En \ref{lst:lms7-init} tenemos su código, y se puede observar que carece de la estructura y las funcionalidades requeridas por \verb|init|. En el anexo \ref{append:init.d} se puede consultar la estructura a la que se hace referencia. \\
 
-\begin{lstlisting}[language=bash, caption={Script de arranque primario del LM7.}, label={lst:lms7-init}]
+\begin{lstlisting}[language=bash, caption={Script de arranque primario del \acrshort{LM7}.}, label={lst:lms7-init}]
 # root@Limitador:~# cat /etc/init.d/Inicializador
 
 ifconfig eth1 192.168.1.223 netmask 255.255.255.0
@@ -144,7 +144,7 @@ playPink >/dev/null 2>/dev/null &
 
 \vspace{1em}
 
-\begin{lstlisting}[language=bash, caption={Scripts de arranque secundarios del LM7.}, label={lst:lms7-scripts}]
+\begin{lstlisting}[language=bash, caption={Scripts de arranque secundarios del \acrshort{LM7}.}, label={lst:lms7-scripts}]
 ./preparatoria                    # Ejecuta los makefile y mueve los binarios y los scripts a la carpeta /bin.
 /bin/keepLm &                     # Mantiene activo el programa limitador.
 /bin/keepTime &                   # Matiene el sistema en hora.
@@ -157,10 +157,19 @@ playPink >/dev/null 2>/dev/null & # Emisión continua de ruido rosa.
 /bin/remoteShellService &         # Mantiene activo el programa localservice.
 \end{lstlisting}
 
-\clearpage
+
 \section{Detección de micrófono}
 
-El limitador no puede funcionar correctamente si el sensor (micrófono) de limitador no se encuentra conectado al equipo. Para detectar si está o no conectado, el programa principal (\verb|limitador|) consulta su estado leyendo desde el pin de estado número 3 del puerto paralelo. \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/lms7-mic-detection.pdf}
+%    \includegraphics[scale=0.75, angle=90]{figuras/lms7-mic-detection.pdf}
+    \caption{Diagrama de secuencia: detección de micrófono en \acrshort{LM7}}
+    \label{fig:lm7-mic-detection}
+\end{figure}
+
+
+El limitador no puede funcionar correctamente si el sensor (micrófono) de limitador no se encuentra conectado al equipo. Para detectar si está o no conectado, el programa principal (\verb|limitador|) \textbf{consulta su estado leyendo desde el pin de estado número 3 del puerto paralelo}. \\
 
 \begin{lstlisting}[language=c++, caption=Detección de micrófono en C++.]
 #define RegistroDeEstado 1
@@ -172,24 +181,22 @@ bool AtenuadorPga::microfonoConectado()
 }
 \end{lstlisting}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figuras/lms7-mic-detection.pdf}
-%    \includegraphics[scale=0.75, angle=90]{figuras/lms7-mic-detection.pdf}
-    \caption{Diagrama de secuencia: detección de micrófono en LM7}
-    \label{fig:lm7-mic-detection}
-\end{figure}
 
-\clearpage
 \section{Procesamiento de audio}
 
-Para que el limitador pueda funcionar es necesario generar un modelo con el trabajar. El audio entra al limitador mediante las entradas balanceadas XLR. Esta señal no deja de ser una señal eléctrica, hasta ese punto analógica. La tarjeta de sonido la transforma a una señal digital, y esta señal digital necesitamos ajustarla a un modelo de presión acústica, es decir, necesitamos poder medir esa señal en decibelios. Es aquí donde la calibración es vital. Los ficheros de calibración suponen un modelo de referencia en el que cierta cantidad de energía supone
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/lms7-analyzer.pdf}
+
+    \caption{Diagrama de clases simplificado del analizador de audio del \acrshort{LM7}.}
+    \label{fig:lm7-analyzer}
+\end{figure}
+
+Para que el limitador pueda funcionar es necesario generar un modelo con el trabajar. El audio entra al limitador mediante las entradas balanceadas \acrshort{xlr}. Esta señal no deja de ser una señal eléctrica, hasta este punto analógica. La tarjeta de sonido la transforma a una señal digital, de la que es necesario extraer un modelo de presión acústica, es decir, medir esa señal en decibelios.
 
 \subsection{Conexión a tarjetas de sonido}
 
-La conexión a las tarjetas de sonido se realiza mediante la API de \textbf{Open Sound System} (OSS), natural de los sistemas Unix y Unix-like. La API está diseñada para utilizar el framework tradicional de Unix para manejo de ficheros, es decir mediante las operaciones \verb|read()|, \verb|write()|, \verb|open()| e \verb|ioctl()|. En este caso los ficheros son realmente dispositivos, pero se puede acceder a ellos mediante los ficheros especiales de dispositivos. Por ejemplo, el dispositivo por defecto para la entrada y salida de audio es \verb|/dev/dsp|. \\
-
-!! CONTINUAR
+La conexión a las tarjetas de sonido se realiza mediante la \glsname{API} de \textbf{Open Sound System} (\acrshort{OSS}), natural de los sistemas Unix y Unix-like. La \glsname{API} está diseñada para utilizar el framework tradicional de Unix para manejo de ficheros, es decir mediante las operaciones \verb|read()|, \verb|write()|, \verb|open()| e \verb|ioctl()|. En este caso los ficheros son realmente dispositivos, pero se puede acceder a ellos mediante los ficheros especiales de dispositivos. Por ejemplo, el dispositivo por defecto para la entrada y salida de audio es \verb|/dev/dsp|. \\
 
 \begin{lstlisting}[language=c++, label={lst:lms7-lector-constructor}, caption={Constructor de la clase Lector.}]
 Lector::Lector(char *fichero, int nCanales)
@@ -204,7 +211,9 @@ Lector::Lector(char *fichero, int nCanales)
 
 \end{lstlisting}
 
-\begin{lstlisting}[language=c++, label={lst:lms7-lector-constructor}, caption={Apertura de un dispositivo de audio en el LM7.}]
+\vspace{1em}
+
+\begin{lstlisting}[language=c++, label={lst:lms7-lector-constructor}, caption={Apertura de un dispositivo de audio en el \acrshort{LM7}.}]
 void Lector::reOpen(char *fichero, int nCanales)
 {
   if (sd > 0)
@@ -223,10 +232,26 @@ void Lector::reOpen(char *fichero, int nCanales)
   if (frec != S_Frec)
     puts("Frecuencia cambiada");
 }
-
 \end{lstlisting}
 
 \subsection{Interpretación de datos}
+
+Una vez conectados al dispositivo de audio podemos capturar los datos de audio que por él transcurren. Para poder interpretar los datos hay que configurar los parámetros de la señal, como la frecuencia, el formato del audio, el número de canales... Esta configuración debe darse antes de leer cualquier muestra desde el flujo de datos. Como los datos \commillas{fluyen} por la tarjeta de sonido, a partir de ahora nos referiremos al conjunto de datos que transcurren por el dispositivo como \textbf{flujo}.
+
+Los datos se leen desde el flujo de datos por bloques de tamaño configurable (normalmente múltiplos de 2). Para flujos de más de un canal, los datos se dan en modo intercalado (\textit{INTERLEAVED}). Por ejemplo para un flujo estéreo (2 canales), primero se dan los datos del canal izquierdo y luego los del derecho, de manera intercalada. Mientras que el micrófono utiliza tan sólo un canal (mono), la entrada de audio es estéreo, por lo que hay que separar los datos y almacenarlos en buffers de datos distintos para poder procesarlos.
+
+\begin{center}
+(bytes) \textit{LL-RR-LL-RR-LL-RR...}
+\end{center}
+
+Una vez se tiene los datos en el buffer correspondiente, se procesan mediante un \textbf{\textit{Filter Bank}} \cite{FilterBank} \footnote{Un banco de filtros consiste en un array formado por más de un filtro paso banda que separa la señal de entrada en varias componentes, cada una de las cuales transporta la subbanda de una sola frecuencia de la señal original}. Tras este proceso, obtenemos la descomposición de la señal en bandas de frecuencia, de las cuales obtenemos la energía. A partir de la energía podemos calcular los decibelios en dicha banda mediante la aplicación de la fórmula \ref{form:dbs}, teniendo en éste cálculo especial importancia la calibración, ya que se utilizará como valor de referencia. Tras calcular los decibelios de todo el espectro, se puede calcular la presión acústica global como una ponderación en promedio (media).
+
+Para la generación de los filtros se ha utilizado la herramienta mkFilter \cite{mkfilter}. La orden utilizada para su generación se encuentra comentada en uno de los ficheros del analizador de audio, y se incluye en el listado \ref{lst:lms7-mkfilter} \\
+
+\begin{lstlisting}[language=bash, caption={Generación de filtros con \texttt{mkfilter}.}, label={lst:lms7-mkfilter}]
+	/* Digital filter designed by mkfilter/mkshape/gencode   A.J. Fisher
+	./mkfilter -Bu -Hp -o 6 -a 6.4399092971e-02 0.0000000000e+00 -l | ./gencode
+\end{lstlisting}
 
 \subsection{Almacenamiento de audio}
 
@@ -253,7 +278,7 @@ float dBAD[NBandasOctava];
 bool isMono;
 \end{lstlisting}
 
-\clearpage
+
 \section{Gestión de calibración}
 
 \subsection{Proceso de calibración} \label{sec:lms7-calibrar}
@@ -283,7 +308,7 @@ El proceso de calibración consiste en la toma de una serie de muestras, para lu
 
 \subsection{Ecualizaciones}
 
-Las calibraciones constan de un vector de tipo \verb|float| para representar la ecualización. Este vector es de tamaño igual al número de bandas de frecuencia del limitador; en el caso del LM7: 8 bandas. La configuración de la ecualización se realiza mediante la interfaz web, ajustando los sliders que se pueden ver en la imagen \ref{img:lms7-calibrate}. Cuando se hace click en el botón ``Cambiar'' los datos se envían al programa \verb|localservice| como argumentos en su llamada, quién actualiza la ecualización en el fichero de calibración correspondiente. El envío se hace de forma asíncrona con AJAX. Para conocer más sobre el programa \verb|localservice| consulte el anexo \ref{append:localservice}.
+Las calibraciones constan de un vector de tipo \verb|float| para representar la ecualización. Este vector es de tamaño igual al número de bandas de frecuencia del limitador; en el caso del \acrshort{LM7}: 8 bandas. La configuración de la ecualización se realiza mediante la interfaz web, ajustando los sliders que se pueden ver en la imagen \ref{img:lms7-calibrate}. Cuando se hace click en el botón ``Cambiar'' los datos se envían al programa \verb|localservice| como argumentos en su llamada, quién actualiza la ecualización en el fichero de calibración correspondiente. El envío se hace de forma asíncrona con AJAX. Para conocer más sobre el programa \verb|localservice| consulte el anexo \ref{append:localservice}.
 
 %\begin{lstlisting}[language=bash, caption={Actualización de ecualizaciones mediante localservice}]
 %	# $valores corresponde a datos de tipo float separados por comas.
@@ -291,7 +316,7 @@ Las calibraciones constan de un vector de tipo \verb|float| para representar la 
 %\end{lstlisting}
 
 La aplicación de la ecualización de cada una de las frecuencias se basa en la suma del valor de la ecualización al valor del sonómetro, como pude comprobarse en el código \ref{lst:lsm7-calibration}. \\
-
+\newpage
 \begin{lstlisting}[language=c++, label={lst:lsm7-calibration}, caption={Calculo de decibelios y aplicación de la ecualización.}]
   void aplicaCalibracion(Calibracion ki, Calibracion kd)
   {
@@ -310,10 +335,10 @@ La aplicación de la ecualización de cada una de las frecuencias se basa en la 
 
 \subsection{Emisión de ruido rosa} \label{sec:lms7-pink}
 
-La emisión de ruido rosa viene dada por el programa limitador. En cada ciclo de su bucle comprueba si el fichero \verb|pink| existe, en cuyo caso reproduce el ruido rosa. El ruido rosa se reproduce de forma continua en una de las tarjetas de sonido, pero el sonido no llega a la salida debido a la circuitería controlada por el relé instalado en el equipo (imagen \ref{img:lm7-rele}), el cual está soldado al puerto paralelo de la placa base. Este relé hace de conmutador entre las dos tarjetas de sonido y la salida de audio, dando camino a la salida a sola una de las tarjetas a la vez. \\
+La emisión de ruido rosa viene dada por el programa limitador. En cada ciclo de su bucle comprueba si el fichero \verb|pink| existe, en cuyo caso reproduce el ruido rosa. \textbf{El ruido rosa se reproduce de forma continua en una de las tarjetas de sonido}, pero el sonido no llega a la salida debido a la circuitería controlada por el relé instalado en el equipo (imagen \ref{img:lm7-rele}), el cual está soldado al puerto paralelo de la placa base. Este relé hace de conmutador entre las dos tarjetas de sonido y la salida de audio, dando camino a la salida a sola una de las tarjetas a la vez. \\
 El ruido rosa se toma de un fichero \verb|.wav| almacenado en el sistema, cuya ruta absoluta dentro del mismo puede observase en el código \ref{lst:pink}
 
-La clase \verb|AtenuadorPGA| controla el puerto paralelo apoyándose en la clase \verb|PuertoParalelo| y está conectado físicamente al relé y al PGA, cada uno en un pin distinto. \textbf{Para activar este conmutador se usa el pin número 4} del puerto paralelo.
+La clase \verb|AtenuadorPGA| controla el puerto paralelo apoyándose en la clase \verb|PuertoParalelo| y está conectado físicamente al relé y al \acrshort{PGA}, cada uno en un pin distinto. \textbf{Para activar este conmutador se usa el pin número 4} del puerto paralelo.
 
 Por otro lado, la creación y destrucción del fichero \verb|pink| viene dada por la aplicación web, bien mediante los botones de la interfaz de usuarios vistos en la imagen \ref{img:lms7-calibrate} o bien mediante el proceso en segundo plano que detecta el inicio y el fin de las sesiones. En la sección \ref{sec:lms7-sesiones} se detalla este proceso. \\
 
@@ -325,20 +350,22 @@ while (true){
 };
 \end{lstlisting}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{imagenes/lm7-fotos/lms7-rele.jpg}
-    \caption{Relé y otros componentes del LM7.}
-    \label{img:lm7-rele}
-\end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{figuras/lms7-pink-noise-generation.pdf}
 %    \includegraphics[scale=0.75, angle=90]{figuras/lms7-pink-noise-generation.pdf}
-    \caption{Diagrama de secuencia: emisión de ruido rosa en LM7}
+    \caption{Diagrama de secuencia: emisión de ruido rosa en \acrshort{LM7}}
     \label{fig:lm7-pink-noise}
 \end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{imagenes/lm7-fotos/lms7-rele.jpg}
+    \caption{Relé y otros componentes del \acrshort{LM7}.}
+    \label{img:lm7-rele}
+\end{figure}
+
 
 \clearpage
 \subsection{Verificación: sesiones} \label{sec:lms7-sesiones}
@@ -415,12 +442,12 @@ int Calibracion::leeCalibracion(int numero)
 }
 \end{lstlisting}
 
-\clearpage
+
 \section{Gestión de configuración} \label{sec:lms7-config}
 
 \subsection{Proceso de configuración}
 
-La configuración del equipo se muestra y se modifica mediante la aplicación web del limitador. Para poder modificarla, el usuario debe tener unas credenciales que le autoricen para ello. Tras guardar la configuración, la interfaz exporta la configuración que necesita actualizarse al fichero \verb|conf.tmp| y luego notifica al configurador para que recoja y aplique la nueva configuración. En las versión LM7, el configurador forma parte del programa \verb|utilslr|.
+La configuración del equipo se muestra y se modifica mediante la aplicación web del limitador. Para poder modificarla, el usuario debe tener unas credenciales que le autoricen para ello. Tras guardar la configuración, la interfaz exporta la configuración que necesita actualizarse al fichero \verb|conf.tmp| y luego notifica al configurador para que recoja y aplique la nueva configuración. En las versión \acrshort{LM7}, el configurador forma parte del programa \verb|utilslr|.
 
 Pueden consultarse los anexos \ref{append:F_conf.tmp} y \ref{append:utilslr} para ampliar la información sobre el fichero \verb|conf.tmp| y el programa \verb|utilslr|, respectivamente.
 
@@ -428,14 +455,14 @@ Pueden consultarse los anexos \ref{append:F_conf.tmp} y \ref{append:utilslr} par
 
 La configuración en vigor es almacenada en formato binario en el fichero \verb|/var/slr/configuracion|. Antes de su almacenamiento, los datos de la configuración se cifran, y se descifran tras su lectura. La clase \verb|Configuración| es la única capaz de procesar este fichero, además de contener el modelo almacenado. La escritura y la lectura binaria de los datos consiste simplemente en un \textbf{volcado de memoria a disco} por parte de la instancia existente en memoria de la clase \verb|Configuración|.
 
-\clearpage
+
 \section{Gestión de registros}
 
 \subsection{Proceso de registro}
 
 El proceso de generación y almacenamiento de registro está integrado en el bucle del programa \verb|limitador|. En cada iteración de este bucle se obtienen los valores de emisión y recepción presión acústica, se calcula un valor de atenuación si es necesario. Estos valores se van sumando a acumuladores que mantiene el programa, y cada minuto se genera y almacena un nuevo registro con las medias de los valores acumulados, junto a otros valores como la hora del sistema o si el micrófono se encuentra conectado o no. \\
 
-\begin{lstlisting}[language=c++, label={lst:lms7-registrador}, caption={Generación de registros en el LM7.}]
+\begin{lstlisting}[language=c++, label={lst:lms7-registrador}, caption={Generación de registros en el \acrshort{LM7}.}]
     if (time(NULL) - horaUltimoRegistro >= 60)
     {
       horaUltimoRegistro = time(NULL);
@@ -486,7 +513,7 @@ Según la documentación oficial de \textit{Linux} \cite{linux-devices}, los arc
 \end{lstlisting}
 
 
-Para comprobar que efectivamente el fichero de registro es un enlace duro a una partición de disco, en primer lugar comparamos sus detalles con las del la partición de disco \verb|/dev/sda4|. Hemos identificado esta partición como resultado del número mayor y menor vistos en el código \ref{lst:lms7-mknod}. Tras comparar sus detalles con la utilidad \verb|ls -li|, comprobamos que ambos ficheros tienen el mismo números principal y secundario, 8 y 4. Para no dejar lugar a dudas, se utiliza la herramienta \verb|blockdev|, para generar un reporte más detallado. Podemos ver el resultado en la imagen \ref{lst:registro.slr}.
+Para comprobar que efectivamente el fichero de registro es un enlace duro a una partición de disco, en primer lugar comparamos sus detalles con las del la partición de disco \verb|/dev/sda4|. Hemos identificado esta partición como resultado del número mayor y menor vistos en el código \ref{lst:lms7-mknod}. Tras comparar sus detalles con la utilidad \verb|ls -li|, comprobamos que ambos ficheros tienen el mismo números principal y secundario, 8 y 4. Para no dejar lugar a dudas, se utiliza la herramienta \verb|blockdev|, para generar un reporte más detallado. Podemos ver el resultado en la imagen \ref{img:registro.slr}.
 
 \begin{figure}[h]
     \centering
@@ -495,15 +522,13 @@ Para comprobar que efectivamente el fichero de registro es un enlace duro a una 
     \label{img:registro.slr}
 \end{figure}
 
-En la versión LM7, cada uno de los registros ocupa un tamaño de 17 Bytes. El fichero de registro (o la partición \verb|/dev/sda4|, ya que son lo mismo) tiene un tamaño de 203 MB. Dado que se genera y almacena un registro cada minuto, el limitador LM7 tiene capacidad para almacenar 25 años de registros. En el manual de usuario se indica que puede almacenar registros por 30 años, aunque como se ha visto parece que esto no es así, pero se acerca bastante.
-
+En la versión \acrshort{LM7}, cada uno de los registros ocupa un tamaño de 17 Bytes. El fichero de registro (o la partición \verb|/dev/sda4|, ya que son lo mismo) tiene un tamaño de 203 MB. Dado que se genera y almacena un registro cada minuto, el limitador \acrshort{LM7} tiene capacidad para almacenar 25 años de registros. En el manual de usuario se indica que puede almacenar registros por 30 años, aunque como se ha visto parece que esto no es así, pero se acerca bastante.
 
 \subsection{Lectura de registros}
 
-La lectura de los registros corre a cargo del programa auxiliar \verb|getData|. El anexo \ref{append:getData} está dedicado exclusivamente al estudio de este programa. En el anexo se trata la versión utilizada en el nuevo limitador, denominado LM11, pero su funcionalidad e interfaz es idéntica a la del LM7.
+La lectura de los registros corre a cargo del programa auxiliar \verb|getData|. El anexo \ref{append:getData} está dedicado exclusivamente al estudio de este programa. En el anexo se trata la versión utilizada en el nuevo limitador, denominado \acrshort{LM11}, pero su funcionalidad e interfaz es idéntica a la del \acrshort{LM7}.
 
 
-\clearpage
 \section{Proceso de atenuación}
 
 El proceso de atenuación de sonido consiste esencialmente en la reducción de los niveles de emisión por parte del sistema de sonido de la sala en aquellos momentos en los que se requiera, esto es, cuando los niveles superen un cierto umbral previamente configurado. Este umbral forma parte de la normativa y viene regida por el ayuntamiento de la localidad en la que se encuentre el local. De forma general, la normativa depende de:
@@ -513,9 +538,9 @@ El proceso de atenuación de sonido consiste esencialmente en la reducción de l
 	\item Si es de noche o de día.
 \end{enumerate}
 
-La atenuación se realiza mediante un PGA (Programmable Gain Amplifier), un amplificador de ganancia que actúa sobre la señal digital de audio como si de un regulador de volumen se tratase. En equipo tiene instalado un \textbf{PGA2310UA}, del fabricante \textit{Texas Instruments}.
+La atenuación se realiza mediante un \acrshort{PGA} (Programmable Gain Amplifier), un amplificador de ganancia que actúa sobre la señal digital de audio como si de un regulador de volumen se tratase. En equipo tiene instalado un \textbf{PGA2310UA}, del fabricante \textit{Texas Instruments}.
 
-En la tabla \ref{tab:lms7-pga} se incluyen las especificaciones de este modelo, mientras que en la imagen \ref{img:lm7-rele} podemos verlo instalado como parte del equipo del LM7.
+En la tabla \ref{tab:lms7-pga} se incluyen las especificaciones de este modelo, mientras que en la imagen \ref{img:lm7-rele} podemos verlo instalado como parte del equipo del \acrshort{LM7}.
 
 \begin{table}[h]
 	\centering
@@ -536,15 +561,13 @@ En la tabla \ref{tab:lms7-pga} se incluyen las especificaciones de este modelo, 
 	\label{tab:lms7-pga}
 \end{table}
 
-El limitador dispone de \textbf{3 tipos de control de atenuació}n: micrófono, línea y mixto. Esto significa que para decidir si se sobrepasa máximo de emisión se toma como referencia el valor de recepción (lo medido por el micrófono), el valor de emisión (dBA de las líneas calculado mediante la fórmula \ref{form:dbs}) o la media de ambas, respectivamente. En el anexo de \nameref{append:terminologia} puede consultar las definiciones usadas.
+El limitador dispone de \textbf{3 tipos de control de atenuació}n: micrófono, línea y mixto. Esto significa que para decidir si es necesario actuar se toma como referencia el valor de recepción (lo medido por el micrófono), el valor de emisión (\acrshort{dba} de las líneas calculado mediante la fórmula \ref{form:dbs}) o la media de ambas, respectivamente. En el anexo de \nameref{append:terminologia} puede consultar las definiciones usadas.
 
-Independientemente del tipo de control, si el equipo detecta que se sobrepasa de
-
-!! CONTINUAR
+Independientemente del tipo de control, cuando el limitador detecta que se están superando los niveles permitidos por la normativa, calcula y aplica una atenuación mediante la actuación del \acrshort{PGA}. En cada ciclo de atenuación se aplica una ganancia de $\pm$1, dependiendo de si se quiere aumentar o reducir el nivel de atenuación. \textbf{La ganancia se aplica en pasos de 0.5dB}, tal y como se ve en la tabla \ref{tab:lms7-pga}.
 
 \subsection{Comunicación con el PGA}
 
-La comunicación con el PGA se hace mediante la escritura en ciertos pines del puerto paralelo, al que el PGA se encuentra físicamente conectado. A nivel de software, la comunicación se realiza mediante el uso de los métodos de la clase \verb|AtenuadorPGA| y \verb|PuertoParalalo|. Los pines sobre los que se actúan son: \\
+La comunicación con el \acrshort{PGA} se hace mediante la escritura en ciertos pines del puerto paralelo, al que el PGA se encuentra físicamente conectado. A nivel de software, la comunicación se realiza mediante el uso de los métodos de la clase \verb|AtenuadorPGA| y \verb|PuertoParalalo|. Los pines sobre los que se actúan son: \\
 
 \begin{lstlisting}[language=c++, label={lst:lsm7-pga}, caption={Pines del puerto paralelo conectados al PGA}]
 #define PGA_CS 7

@@ -1,1 +1,49 @@
 \chapter{Validación y test} \label{cap:capitulo7}
+
+
+La validación del software se ha realizado principalmente mediante tests manuales a medida que se iban desarrollando e incluyendo las funcionalidades en el proyecto. La naturaleza del proyecto hace especialmente complejo el uso de herramientas que permitan la realización de tests automáticos, debido a que la mayoría de los tests requieren una comprobación sensorial, como el caso de la escritura al display \acrshort{LCD}, o la atenuación de sonido por parte del \acrshort{PGA}.
+
+
+En algunos casos, se ha podido automatizar estos comportamientos para facilitar el proceso de pruebas y validación. En concreto, para las comprobar el correcto funcionamiento de los componentes hardware se han podido desarrollar scripts automatizando los procesos de prueba.
+
+
+\begin{itemize}
+
+	\item Pantalla \acrshort{LCD}
+	\begin{itemize}
+		\item Se ha implementado un script que automatiza las tareas de encendido, apagado y escritura de una matriz de caracteres de 4x20.
+	\end{itemize}
+
+	\item Detección de micrófono
+	\begin{itemize}
+		\item Se ha implementado un programa que consulta el estado de conexión del micrófono. Por defecto indica si el micrófono está conectado o no una sola vez, aunque mediante el paso de argumentos se le puede indicar que hago un sondeo continuo, en un intervalo de un segundo.
+	\end{itemize}
+
+	\item Buzzer de audio
+	\begin{itemize}
+		\item La librería utilizada provee un script de pruebas mediante el cual se reproduce una sinfonía.
+	\end{itemize}
+
+	\item \acrshort{LED}s RGB
+	\begin{itemize}
+		\item La librería utilizada provee un script de pruebas que enciende y apaga los \acrshort{LED}s aplicando distintos colores.
+	\end{itemize}
+
+	\item \acrshort{PGA}
+	\begin{itemize}
+		\item Se ha desarrollado un programa de pruebas que permite al usuario aplicar distintos valores de ganancia. Para comprobar su funcionamiento se requiere que se reproduzca sonido, de forma que se pueda notar la diferencia de volumen.
+	\end{itemize}
+
+	\item Emisión de audio y ruido rosa
+	\begin{itemize}
+		\item Se ha desarrollado un script que aplica redirige la entrada de audio a la salida. Aunque esto parezca trivial, es necesario configurar el driver de audio de la tarjeta de sonido para que esto funcione. El script se encarga de aplicar estas configuraciones y reproducir la emisión de un canal de radio en internet.
+
+		\item Se ha creado un script que cambia la configuración del driver y reproduce ruido rosa.
+	\end{itemize}
+
+	\item \glsname{API-REST}
+	\begin{itemize}
+		\item Además de las pruebas manuales, el generador de OpenAPI \cite{openapi} genera una serie de tests unitarios con el framework de Python UnitTest \cite{unittest}.
+	\end{itemize}
+
+\end{itemize}
