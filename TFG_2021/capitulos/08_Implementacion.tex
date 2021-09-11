@@ -187,7 +187,7 @@ Sin duda el cambio la introducción de una \glsname{API-REST} al sistema para co
 
 La \glsname{API-REST} ha sido implementada en \textbf{\textit{Python}}, concretamente mediante el uso del framework de \textbf{\textit{Connexion}}, construido sobre el framework de \textit{Flask} y diseñado para funcionar mano a mano con \textbf{\textit{Swagger/OpenAPI}} \cite{swagger}. Gracias a la maravillosa herramienta de OpenAPI \cite{openapi} se ha podido generar código de forma automática tan sólo instalando un contenedor de Docker. La herramienta permite generar código en una gran variedad de lenguajes y marcos de trabajo, gracias a los patrones que estos frameworks definen, y todo esto tomando como origen el fichero de definición de la \glsname{API-REST}, un fichero en formato YML o \acrshort{JSON} en el que se definen los servicios que expone la \glsname{API-REST}, así como los modelos y controladores que necesita.
 
-La definición de la \glsname{API-REST} del sistema se extiende casi a las 1 000 líneas de código YML. \\
+La definición de la \glsname{API-REST} del sistema se extiende casi a las 1 000 líneas de código YML. \newpage
 
 \begin{lstlisting}[language=python, caption={\glsname{API-REST} del LM11}, label={lst:lms11-api-conf}]
 def update_config(configurable_properties: ConfigurableProperties = None):
@@ -228,6 +228,6 @@ def update_config(configurable_properties: ConfigurableProperties = None):
             return GenericResponse(503, "Could not query limiter's configurator service")
 \end{lstlisting}
 
-\section{Resultados}
-
-AÑADIR IMÁGENES DE API EN LIMITADOR
+%\section{Resultados}
+%
+%AÑADIR IMÁGENES DE API EN LIMITADOR

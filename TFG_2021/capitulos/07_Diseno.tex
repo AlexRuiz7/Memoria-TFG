@@ -44,6 +44,9 @@ Los limitadores estudiados dependían de una aplicación web para su configuraci
     \label{fig:lms11-overview}
 \end{figure}
 
+\clearpage
+\includepdf[landscape=true]{figuras/lms11-class-diagram.pdf}
+
 \section{Arranque}
 
 \begin{flushright}
@@ -54,8 +57,7 @@ Al arrancar el sistema se debe lanzar el software y todos los programas que lo c
 
 La idea es es definir un servicio que lance el script de arranque contenido en el directorio del proyecto, y este a su vez levante todos los programas necesarios. Distinguimos entonces entre script de arranque principal (\texttt{systemd}) y script de arranque secundario (Bash), De esta forma, cuando se reinicie el servicio, todos los programas del limitador se reiniciarán en bloque. Cada uno de los programas a levantar podrían perfectamente tener su propio servicio, pero por el momento no se va invertir tiempo en eso y se propone como trabajo futuro.
 
-Uno de los procesos que deben levantarse al iniciar el sistema es la aplicación \textit{\textbf{Discovery}} o de descubrimiento, de forma que el limitador puede ser detectado por la aplicación de configuración dentro de la red local, por lo tanto existe una dependencia con el servicio de red, \texttt{networkd}.
-\newpage
+Uno de los procesos que deben levantarse al iniciar el sistema es la aplicación \textit{\textbf{Discovery}} o de descubrimiento, de forma que el limitador puede ser detectado por la aplicación de configuración dentro de la red local, por lo tanto existe una dependencia con el servicio de red, \texttt{networkd}.\\
 
 \begin{lstlisting}[language=sh, caption={Ejemplo de servicio de arranque para el \acrshort{LM11}}, label={lst:lms11-boot}]
 [Unit]
@@ -132,20 +134,6 @@ Con esta información podemos completar la configuración de \acrshort{ALSA} par
 
 Una vez configurado \acrshort{ALSA}, podemos usar los analizadores de audio conectándolos a los \acrshort{PCM} con nombre \commillas{airplay} y \commillas{mic}, en lugar de usar la tarjeta de sonido de forma global (\commillas{hw:0,0}).
 
-\begin{table}[hb]
-\centering
-\begin{tabular}{l|l}
-0 & Línea de entrada izquierda \\
-7 & Línea de entrada derecha   \\
-1 & Micrófono \#1              \\
-2 & Micrófono \#2              \\
-5 & Línea de salida izquierda  \\
-6 & Línea de salida derecha
-\end{tabular}
-\caption{Canales del limitador de GranaSAT.}
-\label{tab:lms11-canales}
-\end{table}
-
 \newpage
 
 \begin{lstlisting}[language={conf}, caption={Fichero asound.conf completamente configurado}, label={lst:lms11-asound}]
@@ -172,9 +160,8 @@ pcm.mixin {
 # Microphone channel
 pcm.mic {
   type plug
-  slave.pcm "mixin"
-  ttable.0.0 1  # Mic: map channel 0 on this device to channel 0
-                # on slave device with 100% volume.
+  slave.pcm "mixin"  # Mic: map channel 0 on this device to channel 0
+  ttable.0.0 1       # on slave device with 100% volume.
 }
 # Input channels
 pcm.input {
@@ -212,6 +199,20 @@ pcm.airplay {
   ttable.1.1 1
 }
 \end{lstlisting}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|l}
+0 & Línea de entrada izquierda \\
+7 & Línea de entrada derecha   \\
+1 & Micrófono \#1              \\
+2 & Micrófono \#2              \\
+5 & Línea de salida izquierda  \\
+6 & Línea de salida derecha
+\end{tabular}
+\caption{Canales del limitador de GranaSAT.}
+\label{tab:lms11-canales}
+\end{table}
 
 \subsection{Interpretación de datos}
 
